@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:22:42 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/10 19:59:16 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/10 20:53:04 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,22 @@ void	errors(char *error_msg)
 	exit(1);
 }
 
-void	check_middle_lines(char *line, int i, int j)
+/* rules:
+1. first and last letters must be '1'
+2. Can only contain "01NSWE"
+3. Once player has been found, cannot be found again */
+void	check_middle_lines(char *line, int i)
 {
-
+	if (line[0] != '1' || line[ft_strlen(line)] != '1')
+		errors("Map must be enclosed by walls ('1')");
+	while (line[i] != '\0' && line[i] != '\n')
+	{
+		if (!ft_strchr(ALLOWED_CHARS, line[i]))
+			errors("Map can only contain 0 1 N S W E characters");
+		if (ft_strchr(PLAYER_CHARS, line[i]) && ft_data()->map->has_player)
+			errors("Map can only contain one player spawn location");
+		i++;
+	}
 }
 
 void	check_line(char *line, int i, int j, bool last_line)
@@ -38,7 +51,7 @@ void	check_line(char *line, int i, int j, bool last_line)
 				errors("Last line must be all '1'");
 	}
 	else
-		check_middle_lines(line, i, j);
+		check_middle_lines(line, j);
 }
 
 //loop to look at each line
@@ -57,6 +70,7 @@ bool	map_check(char *map)
 	if (!map_file)
 		errors("Can't open map file");
 	i = 0;
+	ft_data()->map->has_player = false;
 	while (line)
 	{
 		line = get_next_line(map_file);
@@ -65,6 +79,7 @@ bool	map_check(char *map)
 		j++;
 		free(line);
 	}
+	close(map_file);
 	return (true);
 }
 
@@ -86,12 +101,6 @@ void	valid_map(int ac, char **av)
 		errors("Invalid number of arguments");
 	else if (!valid_extension(av[1]))
 		errors("File must be '.cub'");
-	/* else if (!map_check(av[1]))
-	{
-		errors("Invalid map format! Map can only contain");
-		errors("1 - Wall");
-		errors("0 - Open space");
-		errors("N, S, E, W - Player spawn and direction");
-		return (false);
-	} */
+	map_check(av[1]);
+	//save_map(av);
 }

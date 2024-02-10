@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/10 19:53:09 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/10 20:56:12 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,20 @@
 
 typedef struct s_map
 {
-	char		**map;
+	//char		**map_m;
 	bool		has_player;
 	int			rows;
 	int			cols;
 }				t_map;
 
+typedef struct s_data
+{
+	t_map		*map;
+}				t_data;
+
 //Prototypes
+
+t_data	*ft_data(void);
 
 //validate_input.c
 
