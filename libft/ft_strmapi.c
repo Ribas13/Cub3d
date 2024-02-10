@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/10 19:38:49 by diosanto         ###   ########.fr       */
+/*   Created: 2022/10/31 14:45:37 by diosanto          #+#    #+#             */
+/*   Updated: 2022/10/31 15:05:16 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "libft.h"
 
-/* To do:
-
-1. Finish map validation(gnl, etc)
-2. Open window and draw map */
-
-int	main(int ac, char **av)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	(void)ac;
-	(void)av;
-	//valid_map(ac, av);
-	if (ft_strchr("10NSWE", 'N') == NULL)
-		printf("NULL\n");
-	else
-		printf("found letter\n");
-	printf("Hreeee\n");
+	unsigned int	i;
+	char			*res;
+
+	i = 0;
+	if (!s || !f)
+		return (NULL);
+	res = ft_strdup(s);
+	if (!res)
+		return (NULL);
+	while (res[i] != '\0')
+	{
+		res[i] = f(i, s[i]);
+		i++;
+	}
+	return (res);
 }

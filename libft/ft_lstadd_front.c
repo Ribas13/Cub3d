@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/10 19:38:49 by diosanto         ###   ########.fr       */
+/*   Created: 2022/11/09 14:15:41 by diosanto          #+#    #+#             */
+/*   Updated: 2022/11/09 14:18:21 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "libft.h"
 
-/* To do:
-
-1. Finish map validation(gnl, etc)
-2. Open window and draw map */
-
-int	main(int ac, char **av)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	(void)ac;
-	(void)av;
-	//valid_map(ac, av);
-	if (ft_strchr("10NSWE", 'N') == NULL)
-		printf("NULL\n");
-	else
-		printf("found letter\n");
-	printf("Hreeee\n");
+	new->next = *lst;
+	*lst = new;
 }
+
+/*node_t	*insert_at_head(node_t **head, node_t *node_to_insert)
+{
+	node_to_insert->next = *head;
+	*head = node_to_insert;
+	return (node_to_insert);
+}*/

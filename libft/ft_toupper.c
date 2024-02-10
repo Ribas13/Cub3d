@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/10 19:38:49 by diosanto         ###   ########.fr       */
+/*   Created: 2022/10/25 11:37:06 by diosanto          #+#    #+#             */
+/*   Updated: 2022/10/26 11:34:25 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "libft.h"
 
-/* To do:
-
-1. Finish map validation(gnl, etc)
-2. Open window and draw map */
-
-int	main(int ac, char **av)
+int	ft_toupper(int c)
 {
-	(void)ac;
-	(void)av;
-	//valid_map(ac, av);
-	if (ft_strchr("10NSWE", 'N') == NULL)
-		printf("NULL\n");
-	else
-		printf("found letter\n");
-	printf("Hreeee\n");
+	if (c >= 'a' && c <= 'z')
+	{
+		c -= 32;
+	}
+	return (c);
 }

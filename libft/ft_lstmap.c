@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/10 19:38:49 by diosanto         ###   ########.fr       */
+/*   Created: 2022/11/09 16:28:17 by diosanto          #+#    #+#             */
+/*   Updated: 2022/11/09 16:41:38 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "libft.h"
 
-/* To do:
-
-1. Finish map validation(gnl, etc)
-2. Open window and draw map */
-
-int	main(int ac, char **av)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	(void)ac;
-	(void)av;
-	//valid_map(ac, av);
-	if (ft_strchr("10NSWE", 'N') == NULL)
-		printf("NULL\n");
-	else
-		printf("found letter\n");
-	printf("Hreeee\n");
+	t_list	*new_list;
+	t_list	*aaa;
+
+	if (!lst)
+		return (0);
+	new_list = 0;
+	while (lst)
+	{
+		aaa = ft_lstnew(f(lst->content));
+		if (!aaa)
+		{
+			ft_lstclear(&new_list, del);
+			return (0);
+		}
+		ft_lstadd_back(&new_list, aaa);
+		lst = lst->next;
+	}
+	return (new_list);
 }

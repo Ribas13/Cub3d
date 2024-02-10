@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/10 19:38:49 by diosanto         ###   ########.fr       */
+/*   Created: 2022/10/24 15:12:59 by diosanto          #+#    #+#             */
+/*   Updated: 2022/10/26 12:20:20 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include <unistd.h>
+#include <stdio.h>
 
-/* To do:
-
-1. Finish map validation(gnl, etc)
-2. Open window and draw map */
-
-int	main(int ac, char **av)
+int	ft_isalpha(int c)
 {
-	(void)ac;
-	(void)av;
-	//valid_map(ac, av);
-	if (ft_strchr("10NSWE", 'N') == NULL)
-		printf("NULL\n");
+	if (c >= 'A' && c <= 'Z')
+	{
+		return (1);
+	}
+	else if (c >= 'a' && c <= 'z')
+	{
+		return (2);
+	}
 	else
-		printf("found letter\n");
-	printf("Hreeee\n");
+	{
+		return (0);
+	}
 }
+/*
+int main(void)
+{
+    int a;
+
+    a = '0';
+    printf("is alpha?: %i", isalpha(a));
+}*/

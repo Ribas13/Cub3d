@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/10 14:38:29 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/10 19:53:09 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,25 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include "libft/libft.h"
+
+# define ALLOWED_CHARS "10NSWE"
+# define PLAYER_CHARS "NSWE"
+
+typedef struct s_map
+{
+	char		**map;
+	bool		has_player;
+	int			rows;
+	int			cols;
+}				t_map;
 
 //Prototypes
 
 //validate_input.c
 
-bool	valid_map(int ac, char **av);
+void	valid_map(int ac, char **av);
 
 #endif

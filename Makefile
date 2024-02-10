@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
+#    Updated: 2024/02/10 20:09:36 by diosanto         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME    = cub3d
 
 INC     = -I include
@@ -14,7 +26,7 @@ UNAME   := $(shell uname)# get the OS name, this will help define behaviors for 
 LFLAGS  	= -L$(LIBMLXDIR) -lmlx -L${LIBFTDIR} -lft $(LDFLAGS) -fsanitize=address# if you decided to install libmlx.a locally you don't need "-L$(LIBMLX) -lmlx" the school also has it locally as well...
 
 SRC     = 	src/main.c				\
-			src/validate_input.c	\
+			#src/validate_input.c	\
 
 OBJ     = $(SRC:%.c=%.o)# convert source files to binary list
 
@@ -38,17 +50,11 @@ runlibft:
 	make -C $(LIBFTDIR) --no-print-directory
 
 clean:
+	$(MAKE) clean -C inc/libft
 	rm -f $(OBJ)
+
 fclean: clean
+	$(MAKE) fclean -C inc/libft
 	rm -f $(NAME)
 
 re: fclean all
-
-show:
-	@printf "UNAME		: $(UNAME)\n"
-	@printf "NAME  		: $(NAME)\n"
-	@printf "CC		: $(CC)\n"
-	@printf "CFLAGS		: $(CFLAGS)\n"
-	@printf "LFLAGS		: $(LFLAGS)\n"
-	@printf "SRC		: $(SRC)\n"
-	@printf "OBJ		: $(OBJ)\n"
