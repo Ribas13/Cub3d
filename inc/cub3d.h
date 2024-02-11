@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/10 20:56:12 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/11 12:07:01 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 typedef struct s_map
 {
-	//char		**map_m;
+	char		**map;
 	bool		has_player;
 	int			rows;
 	int			cols;

@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/10 20:58:41 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/11 11:59:00 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,4 @@ int	main(int ac, char **av)
 	(void)av;
 	init_data(&data);
 	valid_map(ac, av);
-	if (ft_strchr("10NSWE", 'N') == NULL)
-		printf("NULL\n");
-	else
-		printf("found letter\n");
-	printf("Hreeee\n");
 }
