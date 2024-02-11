@@ -6,94 +6,78 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 18:27:53 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/10 18:33:50 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/11 12:45:41 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// len is strlen until \n is found
-int	ft_strlen2(char *str)
+static char	*extract(char *line)
 {
-	int	len;
+	size_t	count;
+	char	*backup;
 
-	len = 0;
-	if (!str)
-		return (0);
-	while (str[len] && str[len] != '\n')
-		len++;
-	if (str[len] == '\n')
-		len++;
-	return (len);
+	count = 0;
+	while (line[count] != '\0' && line[count] != '\n')
+		count++;
+	if (line[count] == '\0' || line[1] == '\0')
+		return (NULL);
+	backup = ft_substr(line, count + 1, ft_strlen(line) - count);
+	if (*backup == '\0')
+	{
+		free(backup);
+		backup = NULL;
+	}
+	line[count + 1] = '\0';
+	return (backup);
 }
 
-// allocates mem for the new string (line + buffer until newline is found)
-// returns everything that was read before + the last buffer until the new line
-// if there is a '\n'.
-char	*ft_strjoin2(char *str1, char *str2)
+static char	*get_line(int fd, char *buf, char *backup)
 {
 	int		i;
-	char	*final_str;
+	char	*temp;
 
-	i = 0;
-	final_str = malloc(ft_strlen(str1) + ft_strlen(str2) + 1);
-	if (!final_str)
-		return (NULL);
-	while (str1 && str1[i])
+	i = 1;
+	while (i != '\0')
 	{
-		final_str[i] = str1[i];
-		i++;
-	}
-	free(str1);
-	while (*str2)
-	{
-		final_str[i++] = *str2;
-		if (*str2++ == '\n')
+		i = read(fd, buf, BUFFER_SIZE);
+		if (i == -1)
+			return (NULL);
+		else if (i == 0)
+			break ;
+		buf[i] = '\0';
+		if (!backup)
+			backup = ft_strdup("");
+		temp = backup;
+		backup = ft_strjoin(temp, buf);
+		free(temp);
+		temp = NULL;
+		if (ft_strchr(buf, '\n'))
 			break ;
 	}
-	final_str[i] = '\0';
-	return (final_str);
-}
-
-char	ft_clean(char *buff)
-{
-	int	i;
-	int	is_new_line;
-	int	j;
-
-	i = 0;
-	j = 0;
-	is_new_line = 0;
-	while (buff[i])
-	{
-		if (is_new_line)
-			buff[j++] = buff[i];
-		if (buff[i] == '\n')
-			is_new_line = 1;
-		buff[i++] = '\0';
-	}
-	return (is_new_line);
+	return (backup);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	buff[BUFFER_SIZE + 1];
+	char		*buf;
 	char		*line;
-	int			i;
+	static char	*backup;
 
-	i = 0;
-	if (BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
+		return (NULL);
+	line = get_line(fd, buf, backup);
+	free (buf);
+	buf = NULL;
+	if (!line)
 	{
-		while (buff[i])
-			buff[i++] = 0;
+		free(backup);
+		backup = NULL;
 		return (NULL);
 	}
-	line = NULL;
-	while (buff[0] || read(fd, buff, BUFFER_SIZE) > 0)
-	{
-		line = ft_strjoin(line, buff);
-		if (ft_clean(buff))
-			break ;
-	}
+	backup = extract(line);
 	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:07:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/10 19:53:25 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/11 12:48:41 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,11 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*get_next_line(int fd);
+char	*ft_trim_free(char *s1, char const *set);
+char	*ft_strchr2(const char *str, int c);
+char	*ft_strjoin2(char const *s1, char const *s2);
+char	*ft_substr2(char const *s, unsigned int start, size_t len);
+char	*ft_strdup2(const char *src);
+size_t	ft_strlen2(const char *str);
 
 #endif
