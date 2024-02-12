@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/11 13:25:10 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:58:37 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 
-# define ALLOWED_CHARS "10NSWE"
+# define ALLOWED_CHARS "10NSWE "
 # define PLAYER_CHARS "NSWE"
 
 typedef struct s_map

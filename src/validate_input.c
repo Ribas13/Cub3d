@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:22:42 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/11 19:16:36 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:32:26 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,22 @@ bool	valid_extension(char *file)
 		return (true);
 	return (false);
 }
+
+//add flood_fill to check if empty spaces are isolated by walls
+
+/*   1111111111
+     1000000001
+     1000011111
+     100001    
+     10000111111111111
+1111110000000000000001
+1000000111111000111101
+10000001XXXX1000100001
+100000011XXX1000100001
+10E000001XXX1000000001
+1111111111111111111111 
+
+Replace ' ' with X*/
 
 /* Check for invalid number of args
 Check for invalid extension */

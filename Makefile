@@ -6,7 +6,7 @@
 #    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/02/11 13:23:26 by diosanto         ###   ########.fr        #
+#    Updated: 2024/02/12 16:58:03 by diosanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,32 +19,23 @@ LIBFT   	= $(LIBFTDIR)/libft.a# path to libft library
 LIBMLXDIR 	= inc/minilibx-linux
 LIBMLX  	= $(LIBMLXDIR)/libmlx_Linux.a# could be /usr/lib, depends on where you decided to put your mlx library
 LFLAGS		= -L /bin/valgrind
+CC			= cc
 
-CFLAGS  = -Wall -Werror -Wextra -O3 -g -L$(LIBMLXDIR) -lmlx -L${LIBFTDIR} -lft $(LDFLAGS) #-fsanitize=address
-UNAME   := $(shell uname)# get the OS name, this will help define behaviors for certain OS's
+CFLAGS  = -Wall -Werror -Wextra -O3 -g $(LDFLAGS) #-fsanitize=address
+UNAME   := $(shell uname)
 
-#LFLAGS  	= -L$(LIBMLXDIR) -lmlx -L${LIBFTDIR} -lft $(LDFLAGS) #-fsanitize=address# if you decided to install libmlx.a locally you don't need "-L$(LIBMLX) -lmlx" the school also has it locally as well...
+SRC     = 	src/main.c			 	\
+			src/validate_input.c
 
-SRC     = 	src/main.c				\
-			src/validate_input.c	\
-
-OBJ     = $(SRC:%.c=%.o)# convert source files to binary list
-
-# ifeq ($(UNAME), Darwin) # iMac / iOS
-# 	CC = cc
-# 	LFLAGS += -framework OpenGL -framework AppKit
-# else ifeq ($(UNAME), FreeBSD) # FreeBSD
-# 	CC = clang
-# else #Linux and others...
-# 	CC = cc
-# 	LFLAGS += -lbsd -lXext -lX11 -lm
-# endif
-
+OBJ     = $(SRC:%.c=%.o)
 
 all: $(NAME)
 
-$(NAME): runlibft $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(CFLAGS)
+$(NAME): $(OBJ)
+	$(CC) $(OBJ) -L$(LIBFTDIR) -lft -Linc/minilibx-linux -lmlx -o $(NAME)
+
+# $(OBJ): $(SRC)
+# 	$(CC) -c $(SRC) $(CFLAGS)
 
 runlibft:
 	make -C $(LIBFTDIR) 
