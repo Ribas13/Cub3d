@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/11 13:24:29 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/11 13:30:50 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ t_data	*ft_data(void)
 
 void	init_data(t_data *data)
 {
-	data->map = malloc(sizeof(t_map));
+	data->map = ft_calloc(1, sizeof(t_map));
 	if (!data->map)
 		errors("Error allocating data");
-	data->map->rows = 1;
 }
 
 /* typedef struct s_map
