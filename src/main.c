@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/13 16:39:23 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:46:48 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ void	init_data(t_data *data)
 {
 	data->map = ft_calloc(1, sizeof(t_map));
 	data->tiles = ft_calloc(1, sizeof(t_tiles));
-	/* data->tiles->floor = NULL;
-	data->tiles->wall = NULL; */
+	data->player = ft_calloc(1, sizeof(t_player));
+	data->tiles->floor = NULL;
+	data->tiles->wall = NULL;
 	if (!data->map)
+		errors("Error allocating data");
+	if (!data->tiles)
 		errors("Error allocating data");
 }
 
@@ -46,6 +49,7 @@ void	clean_all(t_data *data)
 	}
 	free(data->map->map);
 	free(data->map);
+	
 }
 
 void	launch_game(void)
@@ -57,11 +61,11 @@ void	launch_game(void)
 	if (!ft_data()->win_ptr)
 		errors("Error starting mlx window");
 	render_tiles();
-	//mlx_loop(ft_data()->mlx_ptr);
-	while (1)
+	mlx_loop(ft_data()->mlx_ptr);
+	/* while (1)
 	{
 		continue;
-	}
+	} */
 	//start_ray_casting();
 }
 
@@ -70,5 +74,6 @@ int	main(int ac, char **av)
 	init_data(ft_data());
 	valid_map(ac, av);
 	launch_game();
+	key_press1(ft_data());
 	clean_all(ft_data());
 }

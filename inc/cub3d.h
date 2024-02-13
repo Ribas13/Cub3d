@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/13 16:43:58 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:47:06 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,20 @@
 # define WALL_TILE "./assets/wall.xpm"
 # define FLOOR_TILE "./assets/floor.xpm"
 # define SPACE_TILE "./assets/void.xpm"
+# define PLAYER "./assets/player.xpm"
 
 //For logic
+# define KEYPRESS_EVENT 2
+# define DESTROY_NOTIFY_EVENT 17
+# define ESC 65307
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define UP 65362
+# define DOWN 65364
+# define LEFT 65361
+# define RIGHT 65363
 # define TILE_SIZE 32
 # define ALLOWED_CHARS "10NSWE "
 # define PLAYER_CHARS "NSWE"
@@ -47,6 +59,7 @@ typedef struct s_tiles
 	void		*floor;
 	void		*wall;
 	void		*space;
+	void		*player;
 }				t_tiles;
 
 typedef struct s_map
@@ -57,12 +70,19 @@ typedef struct s_map
 	size_t		cols;
 }				t_map;
 
+typedef struct s_player
+{
+	t_point		pos;
+	//char		dir;
+}				t_player;
+
 typedef struct s_data
 {
 	t_map		*map;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_tiles		*tiles;
+	t_player	*player;
 }				t_data;
 
 //Prototypes
@@ -72,5 +92,7 @@ void	valid_map(int ac, char **av);
 void	errors(char *error_msg);
 void	clean_all(t_data *data);
 void	render_tiles(void);
+void	key_press1(t_data *data);
+void	update_player_pos(void);
 
 #endif

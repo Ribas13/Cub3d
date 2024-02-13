@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:22:42 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/13 15:44:22 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:31:58 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,31 @@ void	get_lines(char *map, t_data *data)
 	close(map_fd);
 }
 
+void	get_player_pos(t_data *data)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (i < data->map->rows)
+	{
+		j = 0;
+		while (data->map->map[i][j])
+		{
+			if (ft_strchr(PLAYER_CHARS, data->map->map[i][j]))
+			{
+				data->player->pos.x = j * TILE_SIZE + 12;
+				data->player->pos.y = i * TILE_SIZE + 12;
+				//data->player->dir = data->map->map[i][j];
+				data->map->map[i][j] = '0';
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void	save_map(char *map)
 {
 	get_nbr_rows(map, ft_data());
@@ -71,6 +96,7 @@ void	save_map(char *map)
 	if (!ft_data()->map->map)
 		errors("Error allocating map");
 	get_lines(map, ft_data());
+	get_player_pos(ft_data());
 }
 
 void	check_invalid_chars(t_data *data)
