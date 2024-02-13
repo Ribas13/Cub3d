@@ -6,7 +6,7 @@
 #    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/02/12 16:58:03 by diosanto         ###   ########.fr        #
+#    Updated: 2024/02/13 16:26:41 by diosanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,14 +25,16 @@ CFLAGS  = -Wall -Werror -Wextra -O3 -g $(LDFLAGS) #-fsanitize=address
 UNAME   := $(shell uname)
 
 SRC     = 	src/main.c			 	\
-			src/validate_input.c
+			src/validate_input.c	\
+			src/process_imgs.c
 
 OBJ     = $(SRC:%.c=%.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -L$(LIBFTDIR) -lft -Linc/minilibx-linux -lmlx -o $(NAME)
+	make -C $(LIBFTDIR)
+	$(CC) $(OBJ) -L$(LIBFTDIR) -L$(LIBMLXDIR) -lft -Linc/minilibx-linux -lmlx -lXext -lX11 -o $(NAME)
 
 # $(OBJ): $(SRC)
 # 	$(CC) -c $(SRC) $(CFLAGS)

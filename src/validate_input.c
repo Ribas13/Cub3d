@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:22:42 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/12 16:32:26 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:44:22 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,9 +161,7 @@ bool	map_check(char *map)
 	{
 		printf("%s\n", ft_data()->map->map[i]);
 	}
-	check_invalid_chars(ft_data());
-	check_borders(ft_data());
-	//check_player(ft_data());
+	
 	return (true);
 }
 

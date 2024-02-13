@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/11 13:30:50 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/13 16:39:23 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,12 @@ t_data	*ft_data(void)
 void	init_data(t_data *data)
 {
 	data->map = ft_calloc(1, sizeof(t_map));
+	data->tiles = ft_calloc(1, sizeof(t_tiles));
+	/* data->tiles->floor = NULL;
+	data->tiles->wall = NULL; */
 	if (!data->map)
 		errors("Error allocating data");
 }
-
-/* typedef struct s_map
-{
-	char		**map;
-	bool		has_player;
-	size_t		rows;
-	size_t		cols;
-}				t_map;
-
-typedef struct s_data
-{
-	t_map		*map;
-}				t_data; */
 
 void	clean_all(t_data *data)
 {
@@ -58,13 +48,27 @@ void	clean_all(t_data *data)
 	free(data->map);
 }
 
+void	launch_game(void)
+{
+	ft_data()->mlx_ptr = mlx_init();
+	if (!ft_data()->mlx_ptr)
+		errors("Error initializing mlx");
+	ft_data()->win_ptr = mlx_new_window(ft_data()->mlx_ptr, 1280, 720, "Cub3d");
+	if (!ft_data()->win_ptr)
+		errors("Error starting mlx window");
+	render_tiles();
+	//mlx_loop(ft_data()->mlx_ptr);
+	while (1)
+	{
+		continue;
+	}
+	//start_ray_casting();
+}
+
 int	main(int ac, char **av)
 {
-	//t_data	data;
-
-	(void)ac;
-	(void)av;
 	init_data(ft_data());
 	valid_map(ac, av);
+	launch_game();
 	clean_all(ft_data());
 }
