@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/13 19:37:55 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/14 20:05:35 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,29 +38,6 @@ static void	open_xpm(t_data *data)
 	check_errors_xpm();
 }
 
-void	update_player_pos(void)
-{}
-
-void	put_player(void)
-{
-	size_t	i;
-	size_t	j;
-
-	i = -1;
-	while (++i < ft_data()->map->rows)
-	{
-		j = -1;
-		while (++j < ft_data()->map->cols)
-		{
-			if (ft_strchr(PLAYER_CHARS, ft_data()->map->map[i][j]))
-			{
-				mlx_put_image_to_window(ft_data()->mlx_ptr, ft_data()->win_ptr,
-					ft_data()->tiles->player, ft_data()->player->pos.x, ft_data()->player->pos.y);
-			}
-		}
-	}
-}
-
 void	render_tiles(void)
 {
 	size_t	i;
@@ -76,7 +53,8 @@ void	render_tiles(void)
 			if (ft_data()->map->map[i][j] == WALL)
 				mlx_put_image_to_window(ft_data()->mlx_ptr, ft_data()->win_ptr,
 					ft_data()->tiles->wall, TILE_SIZE * j, TILE_SIZE * i);
-			else if (ft_data()->map->map[i][j] == FLOOR || ft_strchr(PLAYER_CHARS, ft_data()->map->map[i][j]))
+			else if (ft_data()->map->map[i][j] == FLOOR
+				|| ft_strchr(PLAYER_CHARS, ft_data()->map->map[i][j]))
 				mlx_put_image_to_window(ft_data()->mlx_ptr, ft_data()->win_ptr,
 					ft_data()->tiles->floor, TILE_SIZE * j, TILE_SIZE * i);
 			else
@@ -84,5 +62,9 @@ void	render_tiles(void)
 					ft_data()->tiles->space, TILE_SIZE * j, TILE_SIZE * i);
 		}
 		put_player();
+		mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
+			10, 10, 0x00FF0000, ft_itoa(ft_data()->player->pos.x));
+		mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
+			10, 40, 0x00FF0000, ft_itoa(ft_data()->player->pos.y));
 	}
 }

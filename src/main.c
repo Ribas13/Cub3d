@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/13 19:46:48 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/14 20:07:45 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 /* To do:
 
 1. Finish map validation(gnl, etc)
-2. Open window and draw map */
+2. Open window and draw map ✅
+3. Draw ray casting middle line*/
 
 t_data	*ft_data(void)
 {
@@ -49,25 +50,24 @@ void	clean_all(t_data *data)
 	}
 	free(data->map->map);
 	free(data->map);
-	
 }
 
 void	launch_game(void)
 {
-	ft_data()->mlx_ptr = mlx_init();
-	if (!ft_data()->mlx_ptr)
+	t_data	*data;
+
+	data = ft_data();
+	data->mlx_ptr = mlx_init();
+	if (!data->mlx_ptr)
 		errors("Error initializing mlx");
-	ft_data()->win_ptr = mlx_new_window(ft_data()->mlx_ptr, 1280, 720, "Cub3d");
-	if (!ft_data()->win_ptr)
+	data->win_ptr = mlx_new_window(data->mlx_ptr, 1280, 720, "Cub3d");
+	if (!data->win_ptr)
 		errors("Error starting mlx window");
 	render_tiles();
-	mlx_loop(ft_data()->mlx_ptr);
-	/* while (1)
-	{
-		continue;
-	} */
 	//start_ray_casting();
 }
+
+//need to calculate how many moves to change move player position no next tile
 
 int	main(int ac, char **av)
 {

@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/13 19:50:01 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/14 18:49:45 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	quit_game(void)
 	return (EXIT_SUCCESS);
 }
 
-int	on_press(int key, t_data *data)
+int	on_press(int key)
 {
 	if (key == ESC)
 		quit_game();
@@ -31,6 +31,7 @@ int	on_press(int key, t_data *data)
 		update_player_pos(false, 1);
 	else if (key == D || key == RIGHT)
 		update_player_pos(true, 1);
+	put_player();
 	return (EXIT_SUCCESS);
 }
 

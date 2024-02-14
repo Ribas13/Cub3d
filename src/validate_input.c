@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:22:42 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/13 19:31:58 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/14 18:53:40 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void	get_player_pos(t_data *data)
 		{
 			if (ft_strchr(PLAYER_CHARS, data->map->map[i][j]))
 			{
-				data->player->pos.x = j * TILE_SIZE + 12;
-				data->player->pos.y = i * TILE_SIZE + 12;
+				data->player->pos.x = j * TILE_SIZE;
+				data->player->pos.y = i * TILE_SIZE;
 				//data->player->dir = data->map->map[i][j];
 				data->map->map[i][j] = '0';
 				return ;
@@ -181,13 +181,6 @@ void	check_player(t_data *data)
 bool	map_check(char *map)
 {
 	save_map(map);
-	//printf map array
-	printf("Printing map in map_check() 🗺️\n");
-	for (int i = 0; ft_data()->map->map[i]; i++)
-	{
-		printf("%s\n", ft_data()->map->map[i]);
-	}
-	
 	return (true);
 }
 
@@ -202,20 +195,6 @@ bool	valid_extension(char *file)
 }
 
 //add flood_fill to check if empty spaces are isolated by walls
-
-/*   1111111111
-     1000000001
-     1000011111
-     100001    
-     10000111111111111
-1111110000000000000001
-1000000111111000111101
-10000001XXXX1000100001
-100000011XXX1000100001
-10E000001XXX1000000001
-1111111111111111111111 
-
-Replace ' ' with X*/
 
 /* Check for invalid number of args
 Check for invalid extension */
