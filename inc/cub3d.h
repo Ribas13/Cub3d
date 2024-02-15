@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/14 18:40:50 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/14 20:08:45 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,6 @@ void	render_tiles(void);
 void	key_press1(t_data *data);
 void	update_player_pos(bool horizontal, int dir);
 void	put_player(void);
+bool	check_wall(char *dir);
 
 #endif

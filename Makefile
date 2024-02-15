@@ -6,7 +6,7 @@
 #    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/02/13 19:49:38 by diosanto         ###   ########.fr        #
+#    Updated: 2024/02/14 20:09:02 by diosanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ UNAME   := $(shell uname)
 SRC     = 	src/main.c			 	\
 			src/validate_input.c	\
 			src/process_imgs.c		\
-			src/key_press.c
+			src/key_press.c			\
+			src/player_mov.c
 
 OBJ     = $(SRC:%.c=%.o)
 
