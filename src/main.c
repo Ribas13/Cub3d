@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/14 20:07:45 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/15 20:55:12 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	launch_game(void)
 	if (!data->win_ptr)
 		errors("Error starting mlx window");
 	render_tiles();
-	//start_ray_casting();
+	//cast_rays();
 }
 
 //need to calculate how many moves to change move player position no next tile

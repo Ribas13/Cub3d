@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/14 20:08:45 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/15 11:08:06 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 # include "minilibx-linux/mlx.h"
+# include <math.h>
 
 //Imgs
 # define WALL_TILE "./assets/wall.xpm"
@@ -29,6 +30,7 @@
 # define PLAYER "./assets/player.xpm"
 
 //For logic
+# define M_PI 3.14159265358979323846
 # define KEYPRESS_EVENT 2
 # define DESTROY_NOTIFY_EVENT 17
 # define ESC 65307
@@ -96,5 +98,6 @@ void	key_press1(t_data *data);
 void	update_player_pos(bool horizontal, int dir);
 void	put_player(void);
 bool	check_wall(char *dir);
+void	cast_rays(void);
 
 #endif

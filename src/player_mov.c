@@ -6,11 +6,51 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 20:05:02 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/14 20:06:05 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/15 21:00:49 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+/*
+void	draw_line(int beginX, int beginY, int endX, int endY)
+{
+	double	delta_x;
+	double	delta_y;
+	int		pixels;
+
+	delta_x = endX - beginX;
+	delta_y = endY - beginY;
+	pixels = sqrt((delta_x * delta_x) + (delta_y * delta_y));
+	delta_x /= pixels;
+	delta_y /= pixels;
+	double pixelX = beginX;
+	double pixelY = beginY;
+	while (pixels)
+	{
+		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, beginX, beginY, 0xFFFFFF);
+		pixelX += delta_x;
+		pixelY += delta_y;
+		--pixels;
+	}
+}
+*/
+
+//draw line from player to northenmost wall hit
+void	cast_rays(void)
+{
+	//draw line
+
+	/* draw_line(ft_data()->player->pos.x, ft_data()->player->pos.y,
+		ft_data()->player->pos.x, 0); */
+
+	for (int i = ft_data()->player->pos.y; i > 0; i--)
+	{
+		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
+			ft_data()->player->pos.x, i, 0xFFFFFF);
+		if (ft_data()->map->map[i / TILE_SIZE][ft_data()->player->pos.x / TILE_SIZE] == WALL)
+			break;
+	}
+}
 
 bool	check_wall(char *dir)
 {

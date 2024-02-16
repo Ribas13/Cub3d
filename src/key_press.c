@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/14 18:49:45 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/15 20:52:25 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	on_press(int key)
 	else if (key == D || key == RIGHT)
 		update_player_pos(true, 1);
 	put_player();
+	cast_rays();
 	return (EXIT_SUCCESS);
 }
 
