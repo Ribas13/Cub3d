@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/15 11:08:06 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/16 14:59:52 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_map
 typedef struct s_player
 {
 	t_point		pos;
-	//char		dir;
+	int			dir;
 }				t_player;
 
 typedef struct s_data

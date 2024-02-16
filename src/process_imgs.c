@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/14 20:05:35 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/16 15:10:54 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,9 @@ void	render_tiles(void)
 			10, 10, 0x00FF0000, ft_itoa(ft_data()->player->pos.x));
 		mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
 			10, 40, 0x00FF0000, ft_itoa(ft_data()->player->pos.y));
+		mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
+			10, 80, 0x00FF0000, "Angle: ");
+		mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
+			60, 80, 0x00FF0000, ft_itoa(ft_data()->player->dir));
 	}
 }

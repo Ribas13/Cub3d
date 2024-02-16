@@ -6,12 +6,12 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 20:05:02 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/15 21:00:49 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/16 15:09:20 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-/*
+
 void	draw_line(int beginX, int beginY, int endX, int endY)
 {
 	double	delta_x;
@@ -33,23 +33,15 @@ void	draw_line(int beginX, int beginY, int endX, int endY)
 		--pixels;
 	}
 }
-*/
+
 
 //draw line from player to northenmost wall hit
 void	cast_rays(void)
 {
-	//draw line
-
-	/* draw_line(ft_data()->player->pos.x, ft_data()->player->pos.y,
-		ft_data()->player->pos.x, 0); */
-
-	for (int i = ft_data()->player->pos.y; i > 0; i--)
-	{
-		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
-			ft_data()->player->pos.x, i, 0xFFFFFF);
-		if (ft_data()->map->map[i / TILE_SIZE][ft_data()->player->pos.x / TILE_SIZE] == WALL)
-			break;
-	}
+	//draw line from player in ft_data()->player->dir direction
+	//loop it until it hits a wall
+	
+	draw_line(ft_data()->player->pos.x + 4, ft_data()->player->pos.y + 4, ft_data()->player->pos.x + 100 * cos(ft_data()->player->dir), ft_data()->player->pos.y + 100 * sin(ft_data()->player->dir));
 }
 
 bool	check_wall(char *dir)
@@ -92,22 +84,22 @@ void	update_player_pos(bool horizontal, int dir)
 	if (horizontal == true && dir == 1)
 	{
 		if (check_wall("right"))
-			ft_data()->player->pos.x += 4;
+			ft_data()->player->pos.x += 1;
 	}
 	else if (horizontal == true && dir == -1)
 	{
 		if (check_wall("left"))
-			ft_data()->player->pos.x -= 4;
+			ft_data()->player->pos.x -= 1;
 	}
 	else if (horizontal == false && dir == 1)
 	{
 		if (check_wall("down"))
-			ft_data()->player->pos.y += 4;
+			ft_data()->player->pos.y += 1;
 	}
 	else if (horizontal == false && dir == -1)
 	{
 		if (check_wall("up"))
-			ft_data()->player->pos.y -= 4;
+			ft_data()->player->pos.y -= 1;
 	}
 	render_tiles();
 }

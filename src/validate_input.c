@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:22:42 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/14 18:53:40 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/16 15:10:47 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,19 @@ void	get_lines(char *map, t_data *data)
 	close(map_fd);
 }
 
+int	get_player_dir(char c)
+{
+	if (c == 'N')
+		return (0);
+	else if (c == 'E')
+		return (90);
+	else if (c == 'S')
+		return (180);
+	else if (c == 'W')
+		return (270);
+	return (-1);
+}
+
 void	get_player_pos(t_data *data)
 {
 	size_t	i;
@@ -79,7 +92,7 @@ void	get_player_pos(t_data *data)
 			{
 				data->player->pos.x = j * TILE_SIZE;
 				data->player->pos.y = i * TILE_SIZE;
-				//data->player->dir = data->map->map[i][j];
+				data->player->dir = get_player_dir(data->map->map[i][j]);
 				data->map->map[i][j] = '0';
 				return ;
 			}
