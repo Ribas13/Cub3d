@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:22:42 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/16 15:10:47 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/19 23:00:30 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,19 @@ void	get_lines(char *map, t_data *data)
 	close(map_fd);
 }
 
-int	get_player_dir(char c)
+float	get_player_dir(char c)
 {
 	if (c == 'N')
-		return (0);
+		return (PI / 2);
 	else if (c == 'E')
-		return (90);
+		return (0);
 	else if (c == 'S')
-		return (180);
+		return ((3 * PI) / 2);
 	else if (c == 'W')
-		return (270);
-	return (-1);
+		return (PI);
+	else
+		errors("Player direction assignation error");
+	return (0);
 }
 
 void	get_player_pos(t_data *data)

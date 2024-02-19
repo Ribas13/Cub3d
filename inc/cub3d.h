@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/16 14:59:52 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/19 23:21:20 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdbool.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdlib.h>
 # include "libft/libft.h"
 # include "minilibx-linux/mlx.h"
 # include <math.h>
@@ -28,9 +29,11 @@
 # define FLOOR_TILE "./assets/floor.xpm"
 # define SPACE_TILE "./assets/void.xpm"
 # define PLAYER "./assets/player.xpm"
+# define YELLOW 0xFFFF00
+# define RED 0xFF0000
 
 //For logic
-# define M_PI 3.14159265358979323846
+# define PI 3.14159265358979323846
 # define KEYPRESS_EVENT 2
 # define DESTROY_NOTIFY_EVENT 17
 # define ESC 65307
@@ -75,7 +78,9 @@ typedef struct s_map
 typedef struct s_player
 {
 	t_point		pos;
-	int			dir;
+	double		delta_x;
+	double		delta_y;
+	double		dir;
 }				t_player;
 
 typedef struct s_data

@@ -6,11 +6,22 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/16 15:10:54 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/19 23:24:35 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+void draw_line(float angle, int length) {
+    int x = ft_data()->player->pos.x;
+    int y = ft_data()->player->pos.y;
+
+    for (int i = 0; i < length; i++) {
+        int newX = x + i * cos(angle);
+        int newY = y + i * sin(angle);
+        mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, newX, newY, YELLOW);
+    }
+}
 
 static void	check_errors_xpm(void)
 {
@@ -62,13 +73,10 @@ void	render_tiles(void)
 					ft_data()->tiles->space, TILE_SIZE * j, TILE_SIZE * i);
 		}
 		put_player();
+		draw_line(ft_data()->player->dir, 30);
 		mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
 			10, 10, 0x00FF0000, ft_itoa(ft_data()->player->pos.x));
 		mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
 			10, 40, 0x00FF0000, ft_itoa(ft_data()->player->pos.y));
-		mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
-			10, 80, 0x00FF0000, "Angle: ");
-		mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
-			60, 80, 0x00FF0000, ft_itoa(ft_data()->player->dir));
 	}
 }
