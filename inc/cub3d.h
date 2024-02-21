@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/19 23:21:20 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:41:05 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,24 @@ typedef struct s_point
 	int			y;
 }				t_point;
 
+typedef struct s_tiles_img
+{
+	void		*img;
+	int			width;
+	int			height;
+}				t_tiles_img;
+
 typedef struct s_tiles
 {
-	void		*floor;
-	void		*wall;
-	void		*space;
+	t_tiles_img	*wall;
+	t_tiles_img	*space;
+	char		*floor;
+	char		*ceiling;
+	char		*north;
+	char		*south;
+	char		*east;
+	char		*west;
+	char		*sprite;
 	void		*player;
 }				t_tiles;
 
@@ -95,6 +108,8 @@ typedef struct s_data
 //Prototypes
 
 t_data	*ft_data(void);
+int		map_texture(t_data *data);
+bool	check_map(t_data *data);
 void	valid_map(int ac, char **av);
 void	errors(char *error_msg);
 void	clean_all(t_data *data);
@@ -104,5 +119,13 @@ void	update_player_pos(bool horizontal, int dir);
 void	put_player(void);
 bool	check_wall(char *dir);
 void	cast_rays(void);
+
+
+
+
+
+
+void	print_array(char **array);
+
 
 #endif

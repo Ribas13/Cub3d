@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:22:42 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/19 23:00:30 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:40:04 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	get_player_pos(t_data *data)
 	size_t	j;
 
 	i = 0;
-	while (i < data->map->rows)
+	while (data->map->map[i])
 	{
 		j = 0;
 		while (data->map->map[i][j])
@@ -111,6 +111,9 @@ void	save_map(char *map)
 	if (!ft_data()->map->map)
 		errors("Error allocating map");
 	get_lines(map, ft_data());
+	map_texture(ft_data());
+	if (check_map(ft_data()) == false)
+		errors("Invalid map aa  😭");
 	get_player_pos(ft_data());
 }
 

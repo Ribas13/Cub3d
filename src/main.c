@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/19 17:43:45 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/21 18:58:58 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,19 @@ void	init_data(t_data *data)
 		errors("Error allocating data");
 }
 
-void	clean_all(t_data *data)
+static void	free_array(char **array)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (i < data->map->rows)
-	{
-		free(data->map->map[i]);
-		i++;
-	}
-	free(data->map->map);
-	free(data->map);
+	while (array[i])
+		free(array[i++]);
+	free(array);
+}
+
+void	clean_all(t_data *data)
+{
+	free_array(data->map->map);
 }
 
 void	launch_game(void)

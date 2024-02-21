@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   process_imgs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/19 23:24:35 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/21 18:59:20 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
 void draw_line(float angle, int length) {
-    int x = ft_data()->player->pos.x;
-    int y = ft_data()->player->pos.y;
+	int x = ft_data()->player->pos.x;
+	int y = ft_data()->player->pos.y;
 
-    for (int i = 0; i < length; i++) {
-        int newX = x + i * cos(angle);
-        int newY = y + i * sin(angle);
-        mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, newX, newY, YELLOW);
-    }
+	for (int i = 0; i < length; i++) {
+		int newX = x + i * cos(angle);
+		int newY = y + i * sin(angle);
+		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, newX, newY, YELLOW);
+	}
 }
 
 static void	check_errors_xpm(void)
@@ -56,10 +56,10 @@ void	render_tiles(void)
 
 	open_xpm(ft_data());
 	i = -1;
-	while (++i < ft_data()->map->rows)
+	while (ft_data()->map->map[++i])
 	{
 		j = -1;
-		while (++j < ft_data()->map->cols)
+		while (ft_data()->map->map[i][++j])
 		{
 			if (ft_data()->map->map[i][j] == WALL)
 				mlx_put_image_to_window(ft_data()->mlx_ptr, ft_data()->win_ptr,
