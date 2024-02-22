@@ -6,21 +6,38 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/19 23:24:35 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:40:48 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void draw_line(float angle, int length) {
-    int x = ft_data()->player->pos.x;
-    int y = ft_data()->player->pos.y;
+void	draw_line(float angle, int length, int x, int y)
+{
+	int	i;
+	int	new_x;
+	int	new_y;
 
-    for (int i = 0; i < length; i++) {
-        int newX = x + i * cos(angle);
-        int newY = y + i * sin(angle);
-        mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, newX, newY, YELLOW);
-    }
+	i = 0;
+	while (i < length)
+	{
+		new_x = x + i * cos(angle);
+		new_y = y + i * sin(angle);
+		if (ft_data()->map->map[(int)new_y / TILE_SIZE]
+			[(int)new_x / TILE_SIZE] == WALL)
+		{
+			//save the distance of the wall to the player
+			ft_data()->player->distance = i;
+			//draw the vertical line on the side of the screen based on the distance
+			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
+				(int)(new_x / TILE_SIZE) * TILE_SIZE,
+				(int)(new_y / TILE_SIZE) * TILE_SIZE, RED);
+			break ;
+		}
+		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
+			new_x, new_y, YELLOW);
+		i++;
+	}
 }
 
 static void	check_errors_xpm(void)
@@ -73,7 +90,7 @@ void	render_tiles(void)
 					ft_data()->tiles->space, TILE_SIZE * j, TILE_SIZE * i);
 		}
 		put_player();
-		draw_line(ft_data()->player->dir, 30);
+		draw_line(ft_data()->player->dir, 5000, ft_data()->player->pos.x, ft_data()->player->pos.y);
 		mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
 			10, 10, 0x00FF0000, ft_itoa(ft_data()->player->pos.x));
 		mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,

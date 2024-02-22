@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/19 23:21:20 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:43:54 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_player
 	double		delta_x;
 	double		delta_y;
 	double		dir;
+	int			distance;
 }				t_player;
 
 typedef struct s_data

@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:22:42 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/19 23:00:30 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:10:46 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,28 @@ void	get_lines(char *map, t_data *data)
 
 float	get_player_dir(char c)
 {
+	float	angle;
+	//assign player direction based on the letter in the map (N, S, W, E)
+
+	//N = 90 degrees
+	//E = 0 degrees
+	//S = 270 degrees
+	//W = 180 degrees
+
+	//and convert to radians
+
+	//return the angle in radians
 	if (c == 'N')
-		return (PI / 2);
+		angle = 90;
 	else if (c == 'E')
-		return (0);
+		angle = 0;
 	else if (c == 'S')
-		return ((3 * PI) / 2);
+		angle = 270;
 	else if (c == 'W')
-		return (PI);
+		angle = 180;
 	else
 		errors("Player direction assignation error");
+	return (angle * (PI / 180));
 	return (0);
 }
 

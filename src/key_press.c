@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/19 23:25:31 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:34:47 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int	on_press(int key)
 		printf("INSIDE S\n");
 		printf("Angle: %f\n", ft_data()->player->dir);
 		printf("X: %i and Y: %i\n", ft_data()->player->pos.x, ft_data()->player->pos.y);
-		ft_data()->player->pos.x -= ft_data()->player->delta_x;
-		ft_data()->player->pos.y -= ft_data()->player->delta_y;
+		ft_data()->player->pos.x += -1 * (ft_data()->player->delta_x);
+		ft_data()->player->pos.y += -1 * (ft_data()->player->delta_y);
 	}
 	else if (key == D)
 	{
