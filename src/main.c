@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/21 18:58:58 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:34:54 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static void	free_array(char **array)
 	int	i;
 
 	i = 0;
+	if (!array)
+		return ;
 	while (array[i])
 		free(array[i++]);
 	free(array);
@@ -51,6 +53,16 @@ static void	free_array(char **array)
 void	clean_all(t_data *data)
 {
 	free_array(data->map->map);
+	mlx_destroy_image(data->mlx_ptr, data->tiles->floor);
+	mlx_destroy_image(data->mlx_ptr, data->tiles->wall);
+	mlx_destroy_image(data->mlx_ptr, data->tiles->space);
+	mlx_destroy_image(data->mlx_ptr, data->tiles->player);
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	mlx_destroy_display(data->mlx_ptr);
+	free(data->map);
+	free(data->player);
+	free(data->tiles);
+	free(data->mlx_ptr);
 }
 
 void	launch_game(void)
@@ -64,6 +76,7 @@ void	launch_game(void)
 	data->win_ptr = mlx_new_window(data->mlx_ptr, 1280, 720, "Cub3d");
 	if (!data->win_ptr)
 		errors("Error starting mlx window");
+	open_xpm(ft_data());
 	render_tiles();
 	//cast_rays();
 }

@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 03:36:02 by micarrel          #+#    #+#             */
-/*   Updated: 2024/02/21 18:59:40 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:11:24 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,16 @@ bool	check_map(t_data *data)
 	return (true);
 }
 
+int	ft_arraylen(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+		i++;
+	return (i);
+}
+
 int	get_real_map(t_data *data, int i)
 {
 	int		j;
@@ -158,6 +168,7 @@ int	get_real_map(t_data *data, int i)
 				j++;
 				i++;
 			}
+			tmp[j] = NULL;
 			break ;
 		}
 		i++;
@@ -181,10 +192,9 @@ int	get_real_map(t_data *data, int i)
 	j = 0;
 	free_array(data->map->map);
 	data->map->map = ft_calloc(count + 1, sizeof(char *));
-	while (j < count)
+	while (ft_strlen(tmp[j]) != 0)
 	{
-		if (ft_strlen(tmp[j]) != 0)
-			data->map->map[j] = ft_strdup(tmp[j]);
+		data->map->map[j] = ft_strdup(tmp[j]);
 		j++;
 	}
 	data->map->map[j] = NULL;
@@ -200,6 +210,7 @@ int map_texture(t_data *data)
 
 	i = 0;
 	flag = 0;
+	tmp = NULL;
 	while (data->map->map[i])
 	{
 		tmp = ft_split(data->map->map[i], ' ');
@@ -222,6 +233,8 @@ int map_texture(t_data *data)
 		free_array(tmp);
 		i++;
 	}
+	if (tmp)
+		free_array(tmp);
 	get_real_map(data, i);
 	return (EXIT_SUCCESS);
 }

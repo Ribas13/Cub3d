@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_imgs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/22 14:15:29 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:32:09 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	check_errors_xpm(void)
 		errors("Error with xpm files");
 }
 
-static void	open_xpm(t_data *data)
+void	open_xpm(t_data *data)
 {
 	int		img_s;
 	void	*mlx_ptr;
@@ -66,20 +66,24 @@ static void	open_xpm(t_data *data)
 	check_errors_xpm();
 }
 
+// char *x and *y are used to not have leaks in the mlx_string_put function
 void	render_tiles(void)
 {
 	size_t	i;
 	size_t	j;
+	char	*x;
+	char	*y;
 
-	open_xpm(ft_data());
 	i = -1;
+	x = ft_itoa(ft_data()->player->pos.x);
+	y = ft_itoa(ft_data()->player->pos.y);
 	while (ft_data()->map->map[++i])
 	{
 		j = -1;
 		while (ft_data()->map->map[i][++j])
 		{
 			if (ft_data()->map->map[i][j] == WALL)
-				mlx_put_image_to_window(ft_data()->mlx_ptr, ft_data()->win_ptr,
+					mlx_put_image_to_window(ft_data()->mlx_ptr, ft_data()->win_ptr,
 					ft_data()->tiles->wall, TILE_SIZE * j, TILE_SIZE * i);
 			else if (ft_data()->map->map[i][j] == FLOOR
 				|| ft_strchr(PLAYER_CHARS, ft_data()->map->map[i][j]))
@@ -92,8 +96,10 @@ void	render_tiles(void)
 		put_player();
 		draw_line(ft_data()->player->dir, 5000, ft_data()->player->pos.x, ft_data()->player->pos.y);
 		mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
-			10, 10, 0x00FF0000, ft_itoa(ft_data()->player->pos.x));
+			10, 10, 0x00FF0000, x);
 		mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
-			10, 40, 0x00FF0000, ft_itoa(ft_data()->player->pos.y));
+			10, 40, 0x00FF0000, y);
 	}
+	free(x);
+	free(y);
 }
