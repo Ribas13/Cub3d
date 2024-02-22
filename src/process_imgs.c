@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/20 17:40:48 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:15:29 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ void	render_tiles(void)
 
 	open_xpm(ft_data());
 	i = -1;
-	while (++i < ft_data()->map->rows)
+	while (ft_data()->map->map[++i])
 	{
 		j = -1;
-		while (++j < ft_data()->map->cols)
+		while (ft_data()->map->map[i][++j])
 		{
 			if (ft_data()->map->map[i][j] == WALL)
 				mlx_put_image_to_window(ft_data()->mlx_ptr, ft_data()->win_ptr,
