@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/22 18:43:16 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:00:27 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,47 +21,34 @@ int	quit_game(void)
 
 int	on_press(int key)
 {
+	mlx_clear_window(ft_data()->mlx_ptr, ft_data()->win_ptr);
+	ft_data()->player->delta_x = cos(ft_data()->player->dir) * 5;
+	ft_data()->player->delta_y = sin(ft_data()->player->dir) * 5;
 	if (key == ESC)
 		quit_game();
 	else if (key == W)
 	{
-		printf("INSIDE W\n");
-		printf("Angle: %f\n", ft_data()->player->dir);
-		printf("X: %i and Y: %i\n", ft_data()->player->pos.x, ft_data()->player->pos.y);
 		ft_data()->player->pos.x += ft_data()->player->delta_x;
 		ft_data()->player->pos.y += ft_data()->player->delta_y;
 	}
 	else if (key == A)
 	{
-		ft_data()->player->dir -= 0.1;
-		printf("INSIDE A\n");
-		printf("Angle: %f\n", ft_data()->player->dir);
-		printf("X: %i and Y: %i\n", ft_data()->player->pos.x, ft_data()->player->pos.y);
+		ft_data()->player->dir -= 0.05;
 		if (ft_data()->player->dir < 0)
 			ft_data()->player->dir += 2 * PI;
-		ft_data()->player->delta_x = cos(ft_data()->player->dir) * 5;
-		ft_data()->player->delta_y = sin(ft_data()->player->dir) * 5;
 	}
 	else if (key == S)
 	{
-		printf("INSIDE S\n");
-		printf("Angle: %f\n", ft_data()->player->dir);
-		printf("X: %i and Y: %i\n", ft_data()->player->pos.x, ft_data()->player->pos.y);
-		ft_data()->player->pos.x += -1 * (ft_data()->player->delta_x);
-		ft_data()->player->pos.y += -1 * (ft_data()->player->delta_y);
+		ft_data()->player->pos.x -= ft_data()->player->delta_x;
+		ft_data()->player->pos.y -= ft_data()->player->delta_y;
 	}
 	else if (key == D)
 	{
-		printf("INSIDE D\n");
-		printf("Angle: %f\n", ft_data()->player->dir);
-		printf("X: %i and Y: %i\n", ft_data()->player->pos.x, ft_data()->player->pos.y);
-		ft_data()->player->dir += 0.1;
+		ft_data()->player->dir += 0.05;
 		if (ft_data()->player->dir > 2 * PI)
 			ft_data()->player->dir -= 2 * PI;
-		ft_data()->player->delta_x = cos(ft_data()->player->dir) * 5;
-		ft_data()->player->delta_y = sin(ft_data()->player->dir) * 5;
 	}
-	render_tiles();
+	cast_rays();
 	return (1);
 }
 

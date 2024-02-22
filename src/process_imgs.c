@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   process_imgs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/22 18:32:09 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:02:30 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	draw_line(float angle, int length, int x, int y)
+int	ray_dist(float angle, int length, int x, int y)
 {
 	int	i;
 	int	new_x;
@@ -25,17 +25,69 @@ void	draw_line(float angle, int length, int x, int y)
 		new_y = y + i * sin(angle);
 		if (ft_data()->map->map[(int)new_y / TILE_SIZE]
 			[(int)new_x / TILE_SIZE] == WALL)
-		{
-			//save the distance of the wall to the player
-			ft_data()->player->distance = i;
-			//draw the vertical line on the side of the screen based on the distance
-			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
-				(int)(new_x / TILE_SIZE) * TILE_SIZE,
-				(int)(new_y / TILE_SIZE) * TILE_SIZE, RED);
 			break ;
+		i++;
+	}
+	return (i);
+}
+
+
+//given a degree and distance, draw a square shape
+//if the distance is bigger, smaller square(from the middle of  the screen)
+//if the distance is smaller, bigger square(from the middle of the screen)
+//each section is 60 pixels wide by 540 tall
+//there is a total of 17 sections
+void	draw_box(int degree, int distance)
+{
+	//start_x is the x position of the first pixel of the section
+	//start_y is the y position of the first pixel of the section
+	//middle is 540 / 2
+	//distance is the distance from the wall
+	//wall height is 540 / distance * 10
+	int	start_x;
+	int	start_y;
+	int	middle;
+	int	i;
+	int	wall_height;
+
+	middle = 540 / 2;
+	start_x = degree * 60;
+	wall_height = (540 / distance) * 50;
+	start_y = middle - wall_height / 2;
+	while (start_y < middle + wall_height / 2)
+	{
+		i = 0;
+		while (i < 60)
+		{
+			if (distance < 300)
+				mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, start_x + i,
+					start_y, WHITE);
+			else
+				mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, start_x + i,
+					start_y, BLACK);
+			i++;
 		}
-		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
-			new_x, new_y, YELLOW);
+		start_y++;
+	}
+}
+
+//function to draw cast rays around the player in a 60 degree fov
+//still need to add more rays, 60 is not enough
+void	cast_rays(void)
+{
+	float	angle;
+	int		i;
+	int		x;
+	int		y;
+
+	i = 0;
+	angle = ft_data()->player->dir - (FOV / 2);
+	while (i < 60)
+	{
+		x = ft_data()->player->pos.x;
+		y = ft_data()->player->pos.y;
+		draw_box(i, ray_dist(angle, 5000, x, y));
+		angle += 0.0174533;
 		i++;
 	}
 }
@@ -67,7 +119,7 @@ void	open_xpm(t_data *data)
 }
 
 // char *x and *y are used to not have leaks in the mlx_string_put function
-void	render_tiles(void)
+/* void	render_tiles(void)
 {
 	size_t	i;
 	size_t	j;
@@ -93,13 +145,39 @@ void	render_tiles(void)
 				mlx_put_image_to_window(ft_data()->mlx_ptr, ft_data()->win_ptr,
 					ft_data()->tiles->space, TILE_SIZE * j, TILE_SIZE * i);
 		}
-		put_player();
-		draw_line(ft_data()->player->dir, 5000, ft_data()->player->pos.x, ft_data()->player->pos.y);
-		mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
-			10, 10, 0x00FF0000, x);
-		mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
-			10, 40, 0x00FF0000, y);
+		//put_player();
+		//draw_line(ft_data()->player->dir, 5000, ft_data()->player->pos.x, ft_data()->player->pos.y);
+		//mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
+		//	10, 10, 0x00FF0000, x);
+		//mlx_string_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
+		//	10, 40, 0x00FF0000, y);
 	}
 	free(x);
 	free(y);
+} */
+
+void	render_tiles(void)
+{
+	size_t	i;
+	size_t	j;
+
+	open_xpm(ft_data());
+	i = -1;
+	while (ft_data()->map->map[++i])
+	{
+		j = -1;
+		while (ft_data()->map->map[i][++j])
+		{
+			if (ft_data()->map->map[i][j] == WALL)
+				mlx_put_image_to_window(ft_data()->mlx_ptr, ft_data()->win_ptr,
+					ft_data()->tiles->wall, TILE_SIZE * j, TILE_SIZE * i);
+			else if (ft_data()->map->map[i][j] == FLOOR
+				|| ft_strchr(PLAYER_CHARS, ft_data()->map->map[i][j]))
+				mlx_put_image_to_window(ft_data()->mlx_ptr, ft_data()->win_ptr,
+					ft_data()->tiles->floor, TILE_SIZE * j, TILE_SIZE * i);
+			else
+				mlx_put_image_to_window(ft_data()->mlx_ptr, ft_data()->win_ptr,
+					ft_data()->tiles->space, TILE_SIZE * j, TILE_SIZE * i);
+		}
+	}
 }

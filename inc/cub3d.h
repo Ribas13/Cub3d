@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/22 18:32:12 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:58:56 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,13 @@
 # define PLAYER "./assets/player.xpm"
 # define YELLOW 0xFFFF00
 # define RED 0xFF0000
+# define GREEN 0x00FF00
+# define BLUE 0x0000FF
+# define WHITE 0xFFFFFF
+# define BLACK 0x000000
 
 //For logic
+# define FOV 1.0471975511965976
 # define PI 3.14159265358979323846
 # define KEYPRESS_EVENT 2
 # define DESTROY_NOTIFY_EVENT 17
@@ -53,6 +58,19 @@
 # define SPACE ' '
 
 //Structs
+
+typedef struct s_keys
+{
+	bool		w;
+	bool		a;
+	bool		s;
+	bool		d;
+	bool		up;
+	bool		down;
+	bool		left;
+	bool		right;
+}				t_keys;
+
 typedef struct s_point
 {
 	int			x;
@@ -104,6 +122,7 @@ typedef struct s_data
 	void		*win_ptr;
 	t_tiles		*tiles;
 	t_player	*player;
+	t_keys		*keys;
 }				t_data;
 
 //Prototypes

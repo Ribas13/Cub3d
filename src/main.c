@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/22 18:34:54 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:01:12 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	launch_game(void)
 	data->win_ptr = mlx_new_window(data->mlx_ptr, 1280, 720, "Cub3d");
 	if (!data->win_ptr)
 		errors("Error starting mlx window");
-	open_xpm(ft_data());
-	render_tiles();
+	//open_xpm(ft_data());
+	//render_tiles();
 	//cast_rays();
 }
 
