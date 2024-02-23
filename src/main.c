@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/22 19:01:12 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:28:31 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	clean_all(t_data *data)
 	mlx_destroy_image(data->mlx_ptr, data->tiles->wall);
 	mlx_destroy_image(data->mlx_ptr, data->tiles->space);
 	mlx_destroy_image(data->mlx_ptr, data->tiles->player);
+	
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->map);
@@ -76,9 +77,9 @@ void	launch_game(void)
 	data->win_ptr = mlx_new_window(data->mlx_ptr, 1280, 720, "Cub3d");
 	if (!data->win_ptr)
 		errors("Error starting mlx window");
-	//open_xpm(ft_data());
-	//render_tiles();
-	//cast_rays();
+	open_xpm(ft_data());
+	render_tiles();
+	cast_rays();
 }
 
 //need to calculate how many moves to change move player position no next tile
