@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/26 00:09:08 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/26 17:11:35 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int	on_press(int key)
 			ft_data()->player->dir -= 2 * PI;
 	}
 	cast_rays();
-	render_tiles();
-	draw_player_rays();
+	//render_tiles();
+	//draw_player_rays();
 	return (1);
 }
 

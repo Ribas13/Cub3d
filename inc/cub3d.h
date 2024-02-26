@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/25 19:13:55 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/26 17:06:55 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@
 # define BLUE 0x0000FF
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
+# define NORTH_WALL 0xB5C0D0
+# define SOUTH_WALL 0xCCD3CA
+# define EAST_WALL 0xF5E8DD
+# define WEST_WALL 0xEED3D9
 
 //For logic
 # define FOV 1.0471975511965976
@@ -65,13 +69,11 @@ typedef struct s_ray
 {
 	int			distance;
 	float		angle;
-	void		*next;
+	int			x;
+	int			y;
+	char		wall_orientation;
+	int			section;
 }				t_ray;
-
-typedef struct s_rays
-{
-	t_ray		*ray;
-}				t_rays;
 
 typedef struct s_keys
 {
@@ -137,7 +139,6 @@ typedef struct s_data
 	t_tiles		*tiles;
 	t_player	*player;
 	t_keys		*keys;
-	t_rays		*rays;
 }				t_data;
 
 //Prototypes
@@ -152,10 +153,20 @@ void	render_tiles(void);
 void	key_press1(t_data *data);
 void	update_player_pos(bool horizontal, int dir);
 void	put_player(void);
-void	cast_rays(void);
 void	print_array(char **array);
 void	open_xpm(t_data *data);
 void	draw_line(float angle, int length, int x, int y, int color);
 void	draw_player_rays(void);
+
+//Raycasting
+
+void	cast_rays(void);
+t_ray	ray_properties(int i);
+char	calculate_wall_orientation(int x, int y);
+void	draw_ray(t_ray ray);
+void	draw_wall_pixel(int x, int y, char wall_orientation);
+int		calculate_start(int distance);
+int		calculate_end(int distance);
+int		ray_dist(float angle, int length, int x, int y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/26 15:53:34 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:05:43 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ void	draw_player_rays(void)
 
 	i = 0;
 	float angle2 = ft_data()->player->dir - (ONE_DEGREE * 30);
-	while (i < 60)
+	while (i < 120)
 	{
-		if (i == 30)
+		if (i == 60)
 			draw_line(angle2, 1000, ft_data()->player->pos.x, ft_data()->player->pos.y, RED);
 		else
 			draw_line(angle2, 1000, ft_data()->player->pos.x, ft_data()->player->pos.y, WHITE);
-		angle2 += ONE_DEGREE;
+		angle2 += ONE_DEGREE / 2;
 		i++;
 	}
 }

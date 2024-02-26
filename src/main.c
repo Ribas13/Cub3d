@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/26 15:53:22 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/26 17:12:00 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	init_data(t_data *data)
 	data->map = ft_calloc(1, sizeof(t_map));
 	data->tiles = ft_calloc(1, sizeof(t_tiles));
 	data->player = ft_calloc(1, sizeof(t_player));
-	data->rays = ft_calloc(1, sizeof(t_rays));
 	data->tiles->floor = NULL;
 	data->tiles->wall = NULL;
 	if (!data->map)
@@ -58,15 +57,12 @@ void	clean_all(t_data *data)
 	mlx_destroy_image(data->mlx_ptr, data->tiles->wall);
 	mlx_destroy_image(data->mlx_ptr, data->tiles->space);
 	mlx_destroy_image(data->mlx_ptr, data->tiles->player);
-	
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->map);
 	free(data->player);
 	free(data->tiles);
 	free(data->mlx_ptr);
-	free(data->win_ptr);
-	free(data->rays);
 }
 
 void	launch_game(void)
@@ -81,7 +77,7 @@ void	launch_game(void)
 	if (!data->win_ptr)
 		errors("Error starting mlx window");
 	open_xpm(ft_data());
-	render_tiles();
+	//render_tiles();
 	cast_rays();
 }
 
