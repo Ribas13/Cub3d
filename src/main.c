@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/23 17:28:31 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/02/26 15:53:22 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_data(t_data *data)
 	data->map = ft_calloc(1, sizeof(t_map));
 	data->tiles = ft_calloc(1, sizeof(t_tiles));
 	data->player = ft_calloc(1, sizeof(t_player));
+	data->rays = ft_calloc(1, sizeof(t_rays));
 	data->tiles->floor = NULL;
 	data->tiles->wall = NULL;
 	if (!data->map)
@@ -64,6 +65,8 @@ void	clean_all(t_data *data)
 	free(data->player);
 	free(data->tiles);
 	free(data->mlx_ptr);
+	free(data->win_ptr);
+	free(data->rays);
 }
 
 void	launch_game(void)
