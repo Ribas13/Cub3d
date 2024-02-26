@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:22:42 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/22 17:13:17 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/02/23 15:57:23 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,16 @@ float	get_player_dir(char c)
 
 	//return the angle in radians
 	if (c == 'N')
-		angle = 90;
+		angle = 4.712389;
 	else if (c == 'E')
-		angle = 0;
+		angle = 0.029204;
 	else if (c == 'S')
-		angle = 270;
+		angle = 1.5708;
 	else if (c == 'W')
-		angle = 180;
+		angle = 3.129204;
 	else
 		errors("Player direction assignation error");
-	return (angle * (PI / 180));
+	return (angle);
 	return (0);
 }
 

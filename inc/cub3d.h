@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/22 18:58:56 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/25 19:13:55 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 //For logic
 # define FOV 1.0471975511965976
 # define PI 3.14159265358979323846
+# define ONE_DEGREE 0.017453292519943295
+# define NINETY_DEGREES 1.5707963267948966
 # define KEYPRESS_EVENT 2
 # define DESTROY_NOTIFY_EVENT 17
 # define ESC 65307
@@ -58,6 +60,18 @@
 # define SPACE ' '
 
 //Structs
+
+typedef struct s_ray
+{
+	int			distance;
+	float		angle;
+	void		*next;
+}				t_ray;
+
+typedef struct s_rays
+{
+	t_ray		*ray;
+}				t_rays;
 
 typedef struct s_keys
 {
@@ -109,8 +123,8 @@ typedef struct s_map
 typedef struct s_player
 {
 	t_point		pos;
-	double		delta_x;
-	double		delta_y;
+	int			delta_x;
+	int			delta_y;
 	double		dir;
 	int			distance;
 }				t_player;
@@ -123,6 +137,7 @@ typedef struct s_data
 	t_tiles		*tiles;
 	t_player	*player;
 	t_keys		*keys;
+	t_rays		*rays;
 }				t_data;
 
 //Prototypes
@@ -137,15 +152,10 @@ void	render_tiles(void);
 void	key_press1(t_data *data);
 void	update_player_pos(bool horizontal, int dir);
 void	put_player(void);
-bool	check_wall(char *dir);
 void	cast_rays(void);
-
-
-
-
-
-
 void	print_array(char **array);
 void	open_xpm(t_data *data);
+void	draw_line(float angle, int length, int x, int y, int color);
+void	draw_player_rays(void);
 
 #endif
