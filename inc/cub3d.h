@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/26 17:06:55 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/26 22:17:56 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define WEST_WALL 0xEED3D9
 
 //For logic
-# define FOV 1.0471975511965976
+# define FOV 1.11701
 # define PI 3.14159265358979323846
 # define ONE_DEGREE 0.017453292519943295
 # define NINETY_DEGREES 1.5707963267948966

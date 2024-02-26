@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/26 17:11:35 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/26 23:34:16 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,38 @@ int	quit_game(void)
 	return (EXIT_SUCCESS);
 }
 
-int	check_wall(void)
+int	check_wall(int key)
 {
 	int	x;
 	int	y;
 
-	x = ft_data()->player->pos.x + ft_data()->player->delta_x;
-	y = ft_data()->player->pos.y + ft_data()->player->delta_y;
-	if (ft_data()->map->map[y / TILE_SIZE][x / TILE_SIZE] == WALL)
-		return (0);
+	if (key == W)
+	{
+		x = ft_data()->player->pos.x + ft_data()->player->delta_x;
+		y = ft_data()->player->pos.y + ft_data()->player->delta_y;
+		if (ft_data()->map->map[y / TILE_SIZE][x / TILE_SIZE] == WALL)
+			return (0);
+	}
+	else if (key == S)
+	{
+		x = ft_data()->player->pos.x - ft_data()->player->delta_x;
+		y = ft_data()->player->pos.y - ft_data()->player->delta_y;
+		if (ft_data()->map->map[y / TILE_SIZE][x / TILE_SIZE] == WALL)
+			return (0);
+	}
 	return (1);
 }
 
 int	on_press(int key)
 {
-	mlx_clear_window(ft_data()->mlx_ptr, ft_data()->win_ptr);
+	//mlx_clear_window(ft_data()->mlx_ptr, ft_data()->win_ptr);
 	ft_data()->player->delta_x = cos(ft_data()->player->dir) * 8;
 	ft_data()->player->delta_y = sin(ft_data()->player->dir) * 8;
 	if (key == ESC)
 		quit_game();
 	else if (key == W)
 	{
-		if (check_wall())
+		if (check_wall(key))
 		{
 			ft_data()->player->pos.x += ft_data()->player->delta_x;
 			ft_data()->player->pos.y += ft_data()->player->delta_y;
@@ -54,7 +64,7 @@ int	on_press(int key)
 	}
 	else if (key == S)
 	{
-		if (check_wall())
+		if (check_wall(key))
 		{
 			ft_data()->player->pos.x -= ft_data()->player->delta_x;
 			ft_data()->player->pos.y -= ft_data()->player->delta_y;

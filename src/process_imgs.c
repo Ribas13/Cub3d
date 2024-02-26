@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/26 16:05:43 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/26 22:34:16 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,7 @@ void	draw_line(float angle, int length, int x, int y, int color)
 
 void	draw_player_rays(void)
 {
-	//draw 60 rays (one for each fov degree) from the player
-	//get player angle ft_data()->player->dir
-	//draw a line from the player to the end of the map
-
-	int		i;
+	int	i;
 
 	i = 0;
 	float angle2 = ft_data()->player->dir - (ONE_DEGREE * 30);

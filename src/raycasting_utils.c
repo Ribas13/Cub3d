@@ -6,29 +6,20 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:56:17 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/26 17:41:34 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/26 23:05:02 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-//calculates the starting y coordinate of the wall on the screen based on the distance from the player
-//if the wall is closer, the starting coordinate is closer to the top of the screen
-//if the wall is further, the starting coordinate is closer to the middle of the screen
 int	calculate_start(int distance)
 {
-	//if (distance < 100)
-		//return (0);
-	//printf("wall start: %d\n", 720 / 2 - distance / 2);
-	return (720 / 2 - distance / 2);
+	return (360 - (360 - distance));
 }
 
 int	calculate_end(int distance)
 {
-	//if (distance < 100)
-		//return (720);
-	//printf("wall end: %d\n", 720 / 2 + distance / 2);
-	return (720 / 2 + distance / 2);
+	return (360 + (360 - distance));
 }
 
 int	ray_dist(float angle, int length, int x, int y)
