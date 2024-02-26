@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/26 23:34:16 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/26 23:48:17 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	check_wall(int key)
 
 int	on_press(int key)
 {
-	//mlx_clear_window(ft_data()->mlx_ptr, ft_data()->win_ptr);
 	ft_data()->player->delta_x = cos(ft_data()->player->dir) * 8;
 	ft_data()->player->delta_y = sin(ft_data()->player->dir) * 8;
 	if (key == ESC)

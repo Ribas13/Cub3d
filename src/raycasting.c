@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/26 23:34:55 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/26 23:41:41 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	draw_ray(t_ray ray)
 			if (screen_y > wall_start && screen_y < wall_end)
 				draw_wall_pixel(screen_x, screen_y, ray.wall_orientation);
 			else
-				mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_x, screen_y, BLACK);
+				mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
+					screen_x, screen_y, BLACK);
 			screen_y++;
 		}
 		screen_x++;
@@ -57,7 +58,8 @@ char	calculate_wall_orientation(int x, int y)
 	return ('0');
 }
 
-//Saves the ray distance, and x and y coordinates, ray angle and distance and wall orientation
+//Saves the ray distance, and x and y coordinates, ray angle and
+//distance and wall orientation
 t_ray	ray_properties(int i)
 {
 	t_ray	ray;
