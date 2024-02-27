@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/27 02:51:33 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/27 13:01:55 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "libft/libft.h"
 # include "minilibx-linux/mlx.h"
 # include <math.h>
+# include <pthread.h>
 
 //Imgs
 # define WALL_TILE "./assets/wall.xpm"
@@ -71,6 +72,13 @@
 # define SPACE ' '
 
 //Structs
+
+typedef struct s_render
+{
+	int			id;
+	pthread_t	thread;
+	int			starting_ray;
+}				t_render;
 
 typedef struct s_ray
 {
@@ -149,6 +157,7 @@ typedef struct s_data
 	t_tiles		*tiles;
 	t_player	*player;
 	t_keys		*keys;
+	t_render	*thread_array;
 }				t_data;
 
 //Prototypes
@@ -180,5 +189,7 @@ int		calculate_start(float distance);
 int		calculate_end(float distance);
 float	ray_dist(float angle, int length, int x, int y);
 float	normalize_angle(t_ray ray);
+void	start_thread(void);
+void	end_thread(void);
 
 #endif

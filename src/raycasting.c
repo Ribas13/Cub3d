@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/27 02:41:22 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/27 14:39:07 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,28 +72,114 @@ t_ray	ray_properties(int i)
 	ray.y = ft_data()->player->pos.y + ray.distance * sin(ray.angle);
 	ray.wall_orientation = calculate_wall_orientation(ray.x, ray.y);
 	ray.distance = normalize_angle(ray);
-	//printf("ray distance: %f\n", ray.distance);
 	return (ray);
 }
 
-//function to draw cast rays around the player in a 60 degree fov
-//still need to add more rays, 60 is not enough
-//we need to add a a check for where the ray hits the wall
-//if its on top of the player its a north wall, 
-//if its on the right its a east wall
-//if its on the bottom its a south wall, if its on the left its a west wall
-void	cast_rays(void)
+bool	stop_threads(void)
 {
-	float	angle;
-	int		ray;
-	int		sections;
+	if (ft_data()->keys->esc == true)
+	{
+		return (true);
+	}
+	return (false);
+}
+
+void	*render_section(void *threads)
+{
+	int			ray;
+	int			ray_end;
+	float		angle;
+	t_render	*threads2;
+
+	threads2 = (t_render *)threads;
+	ray = threads2->starting_ray;
+	ray_end = ray + 32;
+	//angle = ft_data()->player->dir - (FOV / 2) + (ray * ONE_DEGREE / 2);
+	angle = ft_data()->player->dir - (FOV / 2) + (ray * ONE_DEGREE / 2);
+	ray = threads2->starting_ray;
+	while (ray < ray_end)
+	{
+		draw_ray(ray_properties(ray));
+		angle += ONE_DEGREE / DEGREE_MULTIPLIER;
+		ray++;
+	}
+	return (NULL);
+}
+
+//void	work_threads()
+
+void	start_thread(void)
+{
+	t_render	threads[4];
+	int			ray;
+	int			starting_ray;
 
 	ray = -1;
-	angle = ft_data()->player->dir - (FOV / 2);
+	starting_ray = 0;
+	ft_data()->thread_array = threads;
+	while (++ray < 4)
+	{
+		threads[ray].id = ray;
+		threads[ray].starting_ray = starting_ray;
+		pthread_create(&threads[ray].thread, NULL,
+			render_section, &threads[ray]);
+		//usleep(500);
+		starting_ray += 32;
+	}
+}
+
+void	end_thread(void)
+{
+	int	ray;
+
+	ray = -1;
+	while (++ray < 4)
+	{
+		pthread_join(ft_data()->thread_array[ray].thread, NULL);
+	}
+}
+
+//function to draw cast rays around the player in a 64 degree fov
+//Divide the workload using threads
+//each thread draws 32 rays
+
+//Need to have a function that creates the threads, then another one that when called
+//makes each thread render their portion of the screen
+//Still need to join the threads on program exit or error
+void	cast_rays(void)
+{
+	//int			ray;
+	//int			starting_ray;
+	int	i;
+
+
+	i = -1;
+	while (++i < 4)
+	{
+		//printf("Here\n");
+		render_section(&ft_data()->thread_array[i]);
+	}
+	/* ray = -1;
+	starting_ray = 0;
+	ft_data()->thread_array = threads;
+	while (++ray < 4)
+	{
+		threads[ray].id = ray;
+		threads[ray].starting_ray = starting_ray;
+		pthread_create(&threads[ray].thread, NULL, render_section, &threads[ray]);
+		sleep(1);
+		starting_ray += 32;
+	}
+	ray = -1;
+	while (++ray < 4)
+	{
+		pthread_join(threads[ray].thread, NULL);
+	} */
+	/* angle = ft_data()->player->dir - (FOV / 2);
 	sections = (FOV * (180 / PI)) * DEGREE_MULTIPLIER;
 	while (++ray <= sections)
 	{
 		draw_ray(ray_properties(ray));
 		angle += ONE_DEGREE / DEGREE_MULTIPLIER;
-	}
+	} */
 }

@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/27 02:52:02 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/27 14:29:23 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,20 @@ void	init_data(t_data *data)
 	data->map = ft_calloc(1, sizeof(t_map));
 	data->tiles = ft_calloc(1, sizeof(t_tiles));
 	data->player = ft_calloc(1, sizeof(t_player));
+	data->keys = ft_calloc(1, sizeof(t_keys));
 	data->tiles->floor = NULL;
 	data->tiles->wall = NULL;
+	data->keys->a = false;
+	data->keys->d = false;
+	data->keys->s = false;
+	data->keys->w = false;
+	data->keys->esc = false;
+	data->keys->mouse_left = false;
+	data->keys->mouse_right = false;
+	data->keys->up = false;
+	data->keys->down = false;
+	data->keys->left = false;
+	data->keys->right = false;
 	if (!data->map)
 		errors("Error allocating data");
 	if (!data->tiles)
@@ -52,6 +64,8 @@ static void	free_array(char **array)
 
 void	clean_all(t_data *data)
 {
+	//int	i;
+
 	free_array(data->map->map);
 	//mlx_destroy_image(data->mlx_ptr, data->tiles->floor);
 	//mlx_destroy_image(data->mlx_ptr, data->tiles->wall);
@@ -63,6 +77,11 @@ void	clean_all(t_data *data)
 	free(data->player);
 	free(data->tiles);
 	free(data->mlx_ptr);
+	/* i = -1;
+	while (++i < 4)
+	{
+		pthread_join(data->thread_array[i].thread, NULL);
+	} */
 }
 
 void	launch_game(int width, int height)
@@ -76,6 +95,7 @@ void	launch_game(int width, int height)
 	data->win_ptr = mlx_new_window(data->mlx_ptr, width, height, "Cub3d");
 	if (!data->win_ptr)
 		errors("Error starting mlx window");
+	start_thread();
 	//open_xpm(ft_data());
 	//render_tiles();
 	//cast_rays();
