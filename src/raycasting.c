@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/27 02:04:12 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/27 02:41:22 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ void	cast_rays(void)
 
 	ray = -1;
 	angle = ft_data()->player->dir - (FOV / 2);
-	sections = (FOV * (180 / PI)) * 2;
+	sections = (FOV * (180 / PI)) * DEGREE_MULTIPLIER;
 	while (++ray <= sections)
 	{
 		draw_ray(ray_properties(ray));
-		angle += ONE_DEGREE / 2;
+		angle += ONE_DEGREE / DEGREE_MULTIPLIER;
 	}
 }

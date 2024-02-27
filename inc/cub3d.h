@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/27 02:23:50 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/27 02:51:33 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@
 //60 degrees in radians = 1.0472
 
 //For logic
+# define SCREEN_WIDTH 1280
+# define SCREEN_HEIGHT 720
+# define DEGREE_MULTIPLIER 4
 # define MIN_DISTANCE 0.1
 # define FOV 1.11701 // 64 degrees
 # define FOV_NORMAL 1.0472 //60 degrees
@@ -89,6 +92,9 @@ typedef struct s_keys
 	bool		down;
 	bool		left;
 	bool		right;
+	bool		esc;
+	bool		mouse_left;
+	bool		mouse_right;
 }				t_keys;
 
 typedef struct s_point
@@ -161,6 +167,7 @@ void	print_array(char **array);
 void	open_xpm(t_data *data);
 void	draw_line(float angle, int length, int x, int y, int color);
 void	draw_player_rays(void);
+int		on_press(int key);
 
 //Raycasting
 

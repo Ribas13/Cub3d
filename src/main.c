@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/26 17:12:00 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/27 02:52:02 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ static void	free_array(char **array)
 void	clean_all(t_data *data)
 {
 	free_array(data->map->map);
-	mlx_destroy_image(data->mlx_ptr, data->tiles->floor);
-	mlx_destroy_image(data->mlx_ptr, data->tiles->wall);
-	mlx_destroy_image(data->mlx_ptr, data->tiles->space);
-	mlx_destroy_image(data->mlx_ptr, data->tiles->player);
+	//mlx_destroy_image(data->mlx_ptr, data->tiles->floor);
+	//mlx_destroy_image(data->mlx_ptr, data->tiles->wall);
+	//mlx_destroy_image(data->mlx_ptr, data->tiles->space);
+	//mlx_destroy_image(data->mlx_ptr, data->tiles->player);
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->map);
@@ -65,7 +65,7 @@ void	clean_all(t_data *data)
 	free(data->mlx_ptr);
 }
 
-void	launch_game(void)
+void	launch_game(int width, int height)
 {
 	t_data	*data;
 
@@ -73,12 +73,12 @@ void	launch_game(void)
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
 		errors("Error initializing mlx");
-	data->win_ptr = mlx_new_window(data->mlx_ptr, 1280, 720, "Cub3d");
+	data->win_ptr = mlx_new_window(data->mlx_ptr, width, height, "Cub3d");
 	if (!data->win_ptr)
 		errors("Error starting mlx window");
-	open_xpm(ft_data());
+	//open_xpm(ft_data());
 	//render_tiles();
-	cast_rays();
+	//cast_rays();
 }
 
 //need to calculate how many moves to change move player position no next tile
@@ -87,7 +87,7 @@ int	main(int ac, char **av)
 {
 	init_data(ft_data());
 	valid_map(ac, av);
-	launch_game();
+	launch_game(SCREEN_WIDTH, SCREEN_HEIGHT);
 	key_press1(ft_data());
 	clean_all(ft_data());
 }
