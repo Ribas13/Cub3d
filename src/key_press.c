@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/27 14:28:36 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:49:00 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	on_press(int key)
 	}
 	else if (key == A)
 	{
-		ft_data()->player->dir -= PI / 64;
+		ft_data()->player->dir -= PI / 32;
 		if (ft_data()->player->dir < 0)
 			ft_data()->player->dir += 2 * PI;
 	}
@@ -74,7 +74,7 @@ int	on_press(int key)
 	}
 	else if (key == D)
 	{
-		ft_data()->player->dir += PI / 64;
+		ft_data()->player->dir += PI / 32;
 		if (ft_data()->player->dir > 2 * PI)
 			ft_data()->player->dir -= 2 * PI;
 	}
@@ -88,5 +88,8 @@ void	key_press1(t_data *data)
 {
 	mlx_hook(data->win_ptr, KEYPRESS_EVENT, (1L << 0), on_press, data);
 	mlx_hook(data->win_ptr, DESTROY_NOTIFY_EVENT, (1L << 17), quit_game, data);
+
+	//place mouse in the middle of the screen
+
 	mlx_loop(data->mlx_ptr);
 }

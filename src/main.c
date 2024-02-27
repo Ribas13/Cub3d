@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/27 14:29:23 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:12:32 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@ void	launch_game(int width, int height)
 	data->win_ptr = mlx_new_window(data->mlx_ptr, width, height, "Cub3d");
 	if (!data->win_ptr)
 		errors("Error starting mlx window");
-	start_thread();
+	//start_thread();
 	//open_xpm(ft_data());
 	//render_tiles();
-	//cast_rays();
+	cast_rays();
 }
 
 //need to calculate how many moves to change move player position no next tile
