@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/26 22:17:56 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/27 02:23:50 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,12 @@
 # define EAST_WALL 0xF5E8DD
 # define WEST_WALL 0xEED3D9
 
+//60 degrees in radians = 1.0472
+
 //For logic
-# define FOV 1.11701
+# define MIN_DISTANCE 0.1
+# define FOV 1.11701 // 64 degrees
+# define FOV_NORMAL 1.0472 //60 degrees
 # define PI 3.14159265358979323846
 # define ONE_DEGREE 0.017453292519943295
 # define NINETY_DEGREES 1.5707963267948966
@@ -67,7 +71,7 @@
 
 typedef struct s_ray
 {
-	int			distance;
+	float		distance;
 	float		angle;
 	int			x;
 	int			y;
@@ -128,7 +132,7 @@ typedef struct s_player
 	int			delta_x;
 	int			delta_y;
 	double		dir;
-	int			distance;
+	float		distance;
 }				t_player;
 
 typedef struct s_data
@@ -165,8 +169,9 @@ t_ray	ray_properties(int i);
 char	calculate_wall_orientation(int x, int y);
 void	draw_ray(t_ray ray);
 void	draw_wall_pixel(int x, int y, char wall_orientation);
-int		calculate_start(int distance);
-int		calculate_end(int distance);
-int		ray_dist(float angle, int length, int x, int y);
+int		calculate_start(float distance);
+int		calculate_end(float distance);
+float	ray_dist(float angle, int length, int x, int y);
+float	normalize_angle(t_ray ray);
 
 #endif

@@ -6,39 +6,83 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:56:17 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/26 23:05:02 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/27 02:28:46 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	calculate_start(int distance)
+//Fisheye effect correction
+/* float	normalize_angle(t_ray ray)
 {
-	return (360 - (360 - distance));
+	float	normalized;
+	float	distance;
+
+	normalized = fabs(ft_data()->player->dir - ray.angle);
+	if (normalized < 0)
+		normalized += 2 * PI;
+	if (normalized > 2 * PI)
+		normalized -= 2 * PI;
+	distance = ray.distance;
+	normalized = distance * cos(normalized);
+	return (normalized);
+} */
+
+float	normalize_angle(t_ray ray)
+{
+	float	corrected_distance;
+
+	corrected_distance = ray.distance * cos(ft_data()->player->dir - ray.angle);
+	if (corrected_distance < 0.1)
+		corrected_distance = 0.1;
+	return (corrected_distance);
 }
 
-int	calculate_end(int distance)
+int	calculate_start(float distance)
 {
-	return (360 + (360 - distance));
+	int	projected_height;
+	int	start;
+
+	if (distance < MIN_DISTANCE)
+		distance = MIN_DISTANCE;
+	projected_height = (int)((720 / 2) * 60 / distance);
+	start = (720 - projected_height) / 2;
+	if (start < 0)
+		start = 0;
+	return (start);
 }
 
-int	ray_dist(float angle, int length, int x, int y)
+int	calculate_end(float corrected_distance)
 {
-	int	i;
-	int	new_x;
-	int	new_y;
+	int	projected_height;
+	int	end;
 
-	i = 0;
-	while (i < length)
+	if (corrected_distance < MIN_DISTANCE)
+		corrected_distance = MIN_DISTANCE;
+	projected_height = (int)((720 / 2) * 60 / corrected_distance);
+	end = (720 + projected_height) / 2;
+	if (end > 720)
+		end = 720;
+	return (end);
+}
+
+float	ray_dist(float angle, int length, int x, int y)
+{
+	float	dist;
+	int		new_x;
+	int		new_y;
+
+	dist = 0;
+	while (dist < length)
 	{
-		new_x = x + i * cos(angle);
-		new_y = y + i * sin(angle);
+		new_x = x + dist * cos(angle);
+		new_y = y + dist * sin(angle);
 		if (ft_data()->map->map[(int)new_y / TILE_SIZE]
 			[(int)new_x / TILE_SIZE] == WALL)
 			break ;
-		i++;
+		dist += 1;
 	}
-	return (i);
+	return (dist);
 }
 
 void	draw_wall_pixel(int x, int y, char wall_orientation)

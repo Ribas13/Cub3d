@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/26 23:41:41 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/27 02:04:12 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ t_ray	ray_properties(int i)
 	ray.x = ft_data()->player->pos.x + ray.distance * cos(ray.angle);
 	ray.y = ft_data()->player->pos.y + ray.distance * sin(ray.angle);
 	ray.wall_orientation = calculate_wall_orientation(ray.x, ray.y);
+	ray.distance = normalize_angle(ray);
+	//printf("ray distance: %f\n", ray.distance);
 	return (ray);
 }
 
@@ -80,32 +82,18 @@ t_ray	ray_properties(int i)
 //if its on top of the player its a north wall, 
 //if its on the right its a east wall
 //if its on the bottom its a south wall, if its on the left its a west wall
-
-//might need to allocate memory for the rays
 void	cast_rays(void)
 {
 	float	angle;
-	int		i;
-	t_ray	ray;
+	int		ray;
+	int		sections;
 
-
-	i = 0;
+	ray = -1;
 	angle = ft_data()->player->dir - (FOV / 2);
-	while (i < 128)
+	sections = (FOV * (180 / PI)) * 2;
+	while (++ray <= sections)
 	{
-		ray = ray_properties(i);
-		draw_ray(ray);
-		/* if (i == 64)
-		{
-			printf("--------------------\n");
-			printf("ray hit x: %d, ray hit y: %d\n", ray.x, ray.y);
-			printf("ray_x / tilesize * tilesize %i\n", ray.x / TILE_SIZE * TILE_SIZE);
-			printf("ray_y / tilesize * tilesize %i\n", ray.y / TILE_SIZE * TILE_SIZE);
-			printf("ray x + 1 / tilesize * tilesize %i\n", (ray.x + 1) / TILE_SIZE * TILE_SIZE);
-			printf("ray y + 1 / tilesize * tilesize %i\n", (ray.y + 1) / TILE_SIZE * TILE_SIZE);
-			printf("orientation: %c\n", ray.wall_orientation);
-		} */
+		draw_ray(ray_properties(ray));
 		angle += ONE_DEGREE / 2;
-		i++;
 	}
 }
