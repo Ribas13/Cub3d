@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 03:36:02 by micarrel          #+#    #+#             */
-/*   Updated: 2024/02/22 18:11:24 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/02/28 23:43:47 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,19 +215,19 @@ int map_texture(t_data *data)
 	{
 		tmp = ft_split(data->map->map[i], ' ');
 		if (tmp[0] && ft_strncmp(tmp[0], "NO", 2) == 0 && flag++ >= 8)
-			data->tiles->north = ft_strdup(tmp[1]);
+			data->tiles->north->img = ft_strdup(tmp[1]);
 		else if (tmp[0] && ft_strncmp(tmp[0], "SO", 2) == 0 && flag++ >= 8)
-			data->tiles->south = ft_strdup(tmp[1]);
+			data->tiles->south->img = ft_strdup(tmp[1]);
 		else if (tmp[0] && ft_strncmp(tmp[0], "WE", 2) == 0 && flag++ >= 8)
-			data->tiles->west = ft_strdup(tmp[1]);
+			data->tiles->west->img = ft_strdup(tmp[1]);
 		else if (tmp[0] && ft_strncmp(tmp[0], "EA", 2) == 0 && flag++ >= 8)
-			data->tiles->east = ft_strdup(tmp[1]);
+			data->tiles->east->img = ft_strdup(tmp[1]);
 		else if (tmp[0] && ft_strncmp(tmp[0], "S", 1) == 0 && flag++ >= 8)
-			data->tiles->sprite = ft_strdup(tmp[1]);
+			data->tiles->sprite->img = ft_strdup(tmp[1]);
 		else if (tmp[0] && ft_strncmp(tmp[0], "F", 1) == 0 && flag++ >= 8)
-			data->tiles->floor = ft_strdup(tmp[1]);
+			data->tiles->floor->img = ft_strdup(tmp[1]);
 		else if (tmp[0] && ft_strncmp(tmp[0], "C", 1) == 0 && flag++ >= 8)
-			data->tiles->ceiling = ft_strdup(tmp[1]);
+			data->tiles->ceiling->img = ft_strdup(tmp[1]);
 		else if (flag >= 8)
 			break;
 		free_array(tmp);
