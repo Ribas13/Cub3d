@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_imgs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/26 22:34:16 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/28 23:51:39 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,31 @@ static void	check_errors_xpm(void)
 		errors("Error with xpm files");
 }
 
+
+t_tiles_img	*init_tiles_img(void *mlx_ptr, char *path)
+{
+	t_tiles_img	*img;
+	
+	img = malloc(sizeof(t_tiles_img));
+	if (!img)
+		errors("Malloc failed");
+	img->img = mlx_xpm_file_to_image(mlx_ptr, path, &img->width, &img->height);
+	img->addr = mlx_get_data_addr(img->img, &img->bpp,
+			&img->size_line, &img->endian);
+	return (img);
+}
+
 void	open_xpm(t_data *data)
 {
-	int		img_s;
 	void	*mlx_ptr;
 	t_tiles	*tiles;
 
-	img_s = TILE_SIZE;
 	tiles = data->tiles;
 	mlx_ptr = data->mlx_ptr;
-	tiles->floor = mlx_xpm_file_to_image(mlx_ptr, FLOOR_TILE, &img_s, &img_s);
-	tiles->wall = mlx_xpm_file_to_image(mlx_ptr, WALL_TILE, &img_s, &img_s);
-	tiles->space = mlx_xpm_file_to_image(mlx_ptr, SPACE_TILE, &img_s, &img_s);
-	tiles->player = mlx_xpm_file_to_image(mlx_ptr, PLAYER, &img_s, &img_s);
+	tiles->floor = init_tiles_img(mlx_ptr, FLOOR_TILE);
+	tiles->wall = init_tiles_img(mlx_ptr, WALL_TILE);
+	tiles->space = init_tiles_img(mlx_ptr, SPACE_TILE);
+	tiles->player = init_tiles_img(mlx_ptr, PLAYER);
 	check_errors_xpm();
 }
 
