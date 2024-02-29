@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/28 23:38:01 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/02/29 01:06:59 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	launch_game(int width, int height)
 	if (!data->win_ptr)
 		errors("Error starting mlx window");
 	//start_thread();
-	//open_xpm(ft_data());
+	open_xpm(ft_data());
 	//render_tiles();
 	cast_rays();
 }
