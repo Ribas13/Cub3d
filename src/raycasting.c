@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/28 23:52:48 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/02/29 01:07:13 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_texture_color(t_tiles_img *texture, int texture_x_offset, int texture_y)
 
 	arr = (int *)texture->addr;
 	color = arr[texture_y * texture->width + texture_x_offset];
-	return color;
+	return (color);
 }
 
 void	draw_wall(int wall_start, int wall_end, int screen_x, t_tiles_img *texture, t_ray ray)
@@ -30,6 +30,7 @@ void	draw_wall(int wall_start, int wall_end, int screen_x, t_tiles_img *texture,
 	int		color;
 
 	screen_y = 0;
+	(void)ray;
 	while (screen_y < SCREEN_HEIGHT)
 	{
 		if (screen_y >= wall_start && screen_y < wall_end)
@@ -82,7 +83,7 @@ char	calculate_wall_orientation(int x, int y)
 //Saves the ray distance, and x and y coordinates, ray angle and
 //distance and wall orientation
 
-t_tiles_img *get_texture(char wall_orientation)
+t_tiles_img	*get_texture(char wall_orientation)
 {
 	if (wall_orientation == 'N')
 		return (init_tiles_img(ft_data()->mlx_ptr,WALL_TILE));
@@ -99,7 +100,7 @@ t_ray	ray_properties(int i)
 {
 	t_ray	ray;
 
-	ray.angle = ft_data()->player->dir - (FOV / 2) + (i * ONE_DEGREE / 2);
+	ray.angle = ft_data()->player->dir - HALF_FOV + (i * HALF_DEGREE);
 	ray.section = i * 10;
 	ray.distance = ray_dist(ray.angle, 5000, ft_data()->player->pos.x,
 			ft_data()->player->pos.y);
@@ -114,68 +115,6 @@ t_ray	ray_properties(int i)
 		ray.texture_x_offset = (ray.y % TILE_SIZE) * (double)ray.texture->width / TILE_SIZE;
 	return (ray);
 }
-/* 
-bool	stop_threads(void)
-{
-	if (ft_data()->keys->esc == true)
-	{
-		return (true);
-	}
-	return (false);
-}
-
-void	*render_section(void *threads)
-{
-	int			ray;
-	int			ray_end;
-	float		angle;
-	t_render	*threads2;
-
-	threads2 = (t_render *)threads;
-	ray = threads2->starting_ray;
-	ray_end = ray + 32;
-	angle = ft_data()->player->dir - (FOV / 2) + (ray * ONE_DEGREE / 2);
-	ray = threads2->starting_ray;
-	while (ray < ray_end)
-	{
-		draw_ray(ray_properties(ray));
-		angle += ONE_DEGREE / DEGREE_MULTIPLIER;
-		ray++;
-	}
-	return (NULL);
-}
-
-//void	work_threads()
-
-void	start_thread(void)
-{
-	t_render	threads[4];
-	int			ray;
-	int			starting_ray;
-
-	ray = -1;
-	starting_ray = 0;
-	ft_data()->thread_array = threads;
-	while (++ray < 4)
-	{
-		threads[ray].id = ray;
-		threads[ray].starting_ray = starting_ray;
-		pthread_create(&threads[ray].thread, NULL,
-			render_section, &threads[ray]);
-		starting_ray += 32;
-	}
-}
-
-void	end_thread(void)
-{
-	int	ray;
-
-	ray = -1;
-	while (++ray < 4)
-	{
-		pthread_join(ft_data()->thread_array[ray].thread, NULL);
-	}
-} */
 
 void	cast_rays(void)
 {
@@ -184,10 +123,11 @@ void	cast_rays(void)
 	float	angle;
 
 	ray = -1;
-	angle = ft_data()->player->dir - (FOV / 2);
+	angle = ft_data()->player->dir - HALF_FOV;
 	sections = (FOV * (180 / PI)) * DEGREE_MULTIPLIER;
 	while (++ray <= sections)
 	{
+
 		draw_ray(ray_properties(ray));
 		angle += ONE_DEGREE / DEGREE_MULTIPLIER;
 	}

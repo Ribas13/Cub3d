@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/28 23:53:51 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/02/29 00:41:21 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@
 # define DEGREE_MULTIPLIER 4
 # define MIN_DISTANCE 0.1
 # define FOV 1.11701 // 64 degrees
+# define HALF_FOV 0.558505 // 32 degrees
+# define HALF_DEGREE 0.00872665
 # define FOV_NORMAL 1.0472 //60 degrees
 # define PI 3.14159265358979323846
 # define ONE_DEGREE 0.017453292519943295

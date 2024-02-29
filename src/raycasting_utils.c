@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:56:17 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/28 23:37:44 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/02/29 00:36:07 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,18 @@ float	ray_dist(float angle, int length, int x, int y)
 	float	dist;
 	int		new_x;
 	int		new_y;
+	float	a_cos;
+	float	a_sin;
 
 	dist = 0;
+	a_cos = cos(angle);
+	a_sin = sin(angle);
 	while (dist < length)
 	{
-		new_x = x + dist * cos(angle);
-		new_y = y + dist * sin(angle);
-		if (ft_data()->map->map[(int)new_y / TILE_SIZE]
-			[(int)new_x / TILE_SIZE] == WALL)
+		new_x = x + dist * a_cos;
+		new_y = y + dist * a_sin;
+		if (ft_data()->map->map[new_y / TILE_SIZE]
+			[new_x / TILE_SIZE] == WALL)
 			break ;
 		dist += 1;
 	}
