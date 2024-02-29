@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/29 01:07:13 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/02/29 01:20:45 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,14 @@ char	calculate_wall_orientation(int x, int y)
 t_tiles_img	*get_texture(char wall_orientation)
 {
 	if (wall_orientation == 'N')
-		return (init_tiles_img(ft_data()->mlx_ptr,WALL_TILE));
+		return (ft_data()->tiles->wall);
 	else if (wall_orientation == 'E')
-		return (init_tiles_img(ft_data()->mlx_ptr,WALL_TILE));
+		return (ft_data()->tiles->wall);
 	else if (wall_orientation == 'S')
-		return (init_tiles_img(ft_data()->mlx_ptr,SPACE_TILE));
+		return (ft_data()->tiles->space);
 	else if (wall_orientation == 'W')
 		return (init_tiles_img(ft_data()->mlx_ptr,SPACE_TILE));
-	return (ft_data()->tiles->north);
+	return (ft_data()->tiles->space);
 }
 
 t_ray	ray_properties(int i)
