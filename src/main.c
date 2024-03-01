@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/29 01:06:59 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/01 18:21:57 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	clean_all(t_data *data)
 	} */
 }
 
-void	launch_game(int width, int height)
+int	launch_game(int width, int height)
 {
 	t_data	*data;
 
@@ -99,6 +99,7 @@ void	launch_game(int width, int height)
 	open_xpm(ft_data());
 	//render_tiles();
 	cast_rays();
+	return (0);
 }
 
 //need to calculate how many moves to change move player position no next tile

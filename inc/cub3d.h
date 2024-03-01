@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/28 23:53:51 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/01 18:21:28 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@
 # define ONE_DEGREE 0.017453292519943295
 # define NINETY_DEGREES 1.5707963267948966
 # define KEYPRESS_EVENT 2
+# define KEYRELEASE_EVENT 3
 # define DESTROY_NOTIFY_EVENT 17
 # define ESC 65307
 # define W 119
@@ -155,7 +156,6 @@ typedef struct s_player {
 	float	distance;
 }	t_player;
 
-
 typedef struct s_data {
 	t_map		*map;
 	void		*mlx_ptr;
@@ -164,11 +164,14 @@ typedef struct s_data {
 	t_player	*player;
 	t_keys		*keys;
 	t_render	*thread_array;
+	
 }	t_data;
 
 //Prototypes
 
 t_tiles_img	*init_tiles_img(void *mlx_ptr, char *path);
+int			launch_game(int width, int height);
+void		hooks(void);
 
 t_data	*ft_data(void);
 int		map_texture(t_data *data);
@@ -188,7 +191,7 @@ int		on_press(int key);
 
 //Raycasting
 
-void	cast_rays(void);
+int		cast_rays(void);
 t_ray	ray_properties(int i);
 char	calculate_wall_orientation(int x, int y);
 void	draw_ray(t_ray ray);

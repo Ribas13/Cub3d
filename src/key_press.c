@@ -6,11 +6,12 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/28 23:38:04 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/01 18:22:56 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
 
 int	quit_game(void)
 {
@@ -51,45 +52,73 @@ int	on_press(int key)
 		quit_game();
 	}
 	else if (key == W)
+		ft_data()->keys->w = true;
+	else if (key == A)
+		ft_data()->keys->a = true;
+	else if (key == S)
+		ft_data()->keys->s = true;
+	else if (key == D)
+		ft_data()->keys->d = true;
+	return (0);
+}
+
+int	on_release(int key)
+{
+	if (key == W)
+		ft_data()->keys->w = false;
+	else if (key == A)
+		ft_data()->keys->a = false;
+	else if (key == S)
+		ft_data()->keys->s = false;
+	else if (key == D)
+		ft_data()->keys->d = false;
+	ft_data()->player->delta_x = 0;
+	ft_data()->player->delta_y = 0;
+	return (0);
+}
+
+void	hooks(void)
+{
+	if (ft_data()->keys->w == true)
 	{
-		if (check_wall(key))
+		if (check_wall(W))
 		{
 			ft_data()->player->pos.x += ft_data()->player->delta_x;
 			ft_data()->player->pos.y += ft_data()->player->delta_y;
 		}
 	}
-	else if (key == A)
+	if (ft_data()->keys->s == true)
 	{
-		ft_data()->player->dir -= PI / 32;
-		if (ft_data()->player->dir < 0)
-			ft_data()->player->dir += 2 * PI;
-	}
-	else if (key == S)
-	{
-		if (check_wall(key))
+		if (check_wall(S))
 		{
 			ft_data()->player->pos.x -= ft_data()->player->delta_x;
 			ft_data()->player->pos.y -= ft_data()->player->delta_y;
 		}
 	}
-	else if (key == D)
+	if (ft_data()->keys->a == true)
+	{
+		ft_data()->player->dir -= PI / 32;
+		if (ft_data()->player->dir < 0)
+			ft_data()->player->dir += 2 * PI;
+	}
+	if (ft_data()->keys->d == true)
 	{
 		ft_data()->player->dir += PI / 32;
 		if (ft_data()->player->dir > 2 * PI)
 			ft_data()->player->dir -= 2 * PI;
 	}
-	cast_rays();
-	//render_tiles();
-	//draw_player_rays();
-	return (1);
 }
+
+
+
 
 void	key_press1(t_data *data)
 {
-	mlx_hook(data->win_ptr, KEYPRESS_EVENT, (1L << 0), on_press, data);
-	mlx_hook(data->win_ptr, DESTROY_NOTIFY_EVENT, (1L << 17), quit_game, data);
-
+	mlx_loop_hook(data->mlx_ptr, cast_rays, NULL);
+	mlx_hook(data->win_ptr, KEYPRESS_EVENT, (1L << 0), on_press, NULL);
+	mlx_hook(data->win_ptr, KEYRELEASE_EVENT, (1L << 1), on_release, NULL);
+	mlx_hook(data->win_ptr, DESTROY_NOTIFY_EVENT, (1L << 17), quit_game, NULL);
+	
 	//place mouse in the middle of the screen
-
 	mlx_loop(data->mlx_ptr);
 }
