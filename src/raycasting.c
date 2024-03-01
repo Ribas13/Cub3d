@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/01 15:37:29 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/01 18:22:11 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,12 +197,13 @@ void	draw_floor(void)
 	}
 }
 
-void	cast_rays(void)
+int	cast_rays(void)
 {
 	int		ray;
 	int		sections;
 	float	angle;
 
+	hooks();
 	ray = -1;
 	angle = ft_data()->player->dir - HALF_FOV;
 	sections = (FOV * (180 / PI)) * 2;//DEGREE_MULTIPLIER;
@@ -213,4 +214,5 @@ void	cast_rays(void)
 		draw_ray(ray_properties(ray));
 		angle += ONE_DEGREE / DEGREE_MULTIPLIER;
 	}
+	return (0);
 }
