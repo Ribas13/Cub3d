@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:56:17 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/28 23:37:44 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/01 15:32:26 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int	calculate_start(float distance)
 		distance = MIN_DISTANCE;
 	projected_height = (int)((720 / 2) * 60 / distance);
 	start = (720 - projected_height) / 2;
-	if (start < 0)
-		start = 0;
+	/* if (start < 30)
+		start = 30; */
 	return (start);
 }
 
@@ -61,8 +61,8 @@ int	calculate_end(float corrected_distance)
 		corrected_distance = MIN_DISTANCE;
 	projected_height = (int)((720 / 2) * 60 / corrected_distance);
 	end = (720 + projected_height) / 2;
-	if (end > 720)
-		end = 720;
+	/* if (end > 720)
+		end = 720; */
 	return (end);
 }
 
@@ -71,14 +71,18 @@ float	ray_dist(float angle, int length, int x, int y)
 	float	dist;
 	int		new_x;
 	int		new_y;
+	float	a_cos;
+	float	a_sin;
 
 	dist = 0;
+	a_cos = cos(angle);
+	a_sin = sin(angle);
 	while (dist < length)
 	{
-		new_x = x + dist * cos(angle);
-		new_y = y + dist * sin(angle);
-		if (ft_data()->map->map[(int)new_y / TILE_SIZE]
-			[(int)new_x / TILE_SIZE] == WALL)
+		new_x = x + dist * a_cos;
+		new_y = y + dist * a_sin;
+		if (ft_data()->map->map[new_y / TILE_SIZE]
+			[new_x / TILE_SIZE] == WALL)
 			break ;
 		dist += 1;
 	}

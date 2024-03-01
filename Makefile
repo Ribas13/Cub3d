@@ -6,7 +6,7 @@
 #    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/02/27 14:20:24 by diosanto         ###   ########.fr        #
+#    Updated: 2024/02/29 00:17:21 by diosanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBMLX  	= $(LIBMLXDIR)/libmlx_Linux.a# could be /usr/lib, depends on where you 
 LFLAGS		= -L /bin/valgrind
 CC			= cc
 
-CFLAGS  = -Wall -Werror -Wextra -pthread -g -O3 -O2 -O1 $(LDFLAGS) #-fsanitize=address
+CFLAGS  = -Wall -Werror -Wextra -pthread -g -O3 $(LDFLAGS) #-fsanitize=address
 UNAME   := $(shell uname)
 
 SRC     = 	src/main.c			 	\

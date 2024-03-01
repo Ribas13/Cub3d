@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
 /*   Updated: 2024/03/01 18:22:11 by micarrel         ###   ########.fr       */
@@ -19,7 +19,7 @@ int	get_texture_color(t_tiles_img *texture, int texture_x_offset, int texture_y)
 
 	arr = (int *)texture->addr;
 	color = arr[texture_y * texture->width + texture_x_offset];
-	return color;
+	return (color);
 }
 
 void	draw_wall(int wall_start, int wall_end, int screen_x, t_tiles_img *texture, t_ray ray)
@@ -30,20 +30,30 @@ void	draw_wall(int wall_start, int wall_end, int screen_x, t_tiles_img *texture,
 	int		color;
 
 	screen_y = 0;
+	(void)ray;
+	//(void)texture;
+	//(void)y_offset;
 	while (screen_y < SCREEN_HEIGHT)
 	{
-		if (screen_y >= wall_start && screen_y < wall_end)
+		while (screen_y < wall_start && screen_y < SCREEN_HEIGHT)
+		{
+			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_x, screen_y, 0x87CEEB);
+			screen_y++;
+		}
+		while (screen_y >= wall_start && screen_y < wall_end)
 		{
 			y_offset = (double)(screen_y - wall_start) / (wall_end - wall_start);
 			texture_y = (int)(y_offset * texture->height);
 			color = get_texture_color(texture, ray.texture_x_offset, texture_y);
 			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_x, screen_y, color);
+			screen_y++;
 		}
-		else
+		while (screen_y < SCREEN_HEIGHT)
 		{
-			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_x, screen_y, BLACK);
+			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_x, screen_y, 0x8B4513);
+			screen_y++;
 		}
-		screen_y++;
+		//screen_y++;
 	}
 }
 
@@ -82,7 +92,7 @@ char	calculate_wall_orientation(int x, int y)
 //Saves the ray distance, and x and y coordinates, ray angle and
 //distance and wall orientation
 
-t_tiles_img *get_texture(char wall_orientation)
+t_tiles_img	*get_texture(char wall_orientation)
 {
 	if (wall_orientation == 'N')
 		return (ft_data()->tiles->wall);
@@ -91,7 +101,7 @@ t_tiles_img *get_texture(char wall_orientation)
 	else if (wall_orientation == 'S')
 		return (ft_data()->tiles->space);
 	else if (wall_orientation == 'W')
-		return (init_tiles_img(ft_data()->mlx_ptr,SPACE_TILE));
+		return (ft_data()->tiles->space);
 	return (ft_data()->tiles->space);
 }
 
@@ -99,7 +109,7 @@ t_ray	ray_properties(int i)
 {
 	t_ray	ray;
 
-	ray.angle = ft_data()->player->dir - (FOV / 2) + (i * ONE_DEGREE / 2);
+	ray.angle = ft_data()->player->dir - HALF_FOV + (i * HALF_DEGREE);
 	ray.section = i * 10;
 	ray.distance = ray_dist(ray.angle, 5000, ft_data()->player->pos.x,
 			ft_data()->player->pos.y);
@@ -112,70 +122,80 @@ t_ray	ray_properties(int i)
 		ray.texture_x_offset = (ray.x % TILE_SIZE) * (double)ray.texture->width / TILE_SIZE;
 	else // ray.wall_orientation is 'E' or 'W'
 		ray.texture_x_offset = (ray.y % TILE_SIZE) * (double)ray.texture->width / TILE_SIZE;
-	return (ray);
+  return (ray);
 }
 /* 
-bool	stop_threads(void)
+void	end_threads()
 {
-	if (ft_data()->keys->esc == true)
-	{
-		return (true);
-	}
-	return (false);
+
 }
 
-void	*render_section(void *threads)
+void	*section_routine(void *thread)
 {
-	int			ray;
-	int			ray_end;
-	float		angle;
-	t_render	*threads2;
-
-	threads2 = (t_render *)threads;
-	ray = threads2->starting_ray;
-	ray_end = ray + 32;
-	angle = ft_data()->player->dir - (FOV / 2) + (ray * ONE_DEGREE / 2);
-	ray = threads2->starting_ray;
-	while (ray < ray_end)
-	{
-		draw_ray(ray_properties(ray));
-		angle += ONE_DEGREE / DEGREE_MULTIPLIER;
-		ray++;
-	}
-	return (NULL);
+	//while game is not over (ft_data()->game_over == false)
+	
 }
 
-//void	work_threads()
-
-void	start_thread(void)
+void	start_threads()
 {
-	t_render	threads[4];
-	int			ray;
-	int			starting_ray;
+	pthread_t	threads[8];
+	int			i;
 
-	ray = -1;
-	starting_ray = 0;
-	ft_data()->thread_array = threads;
-	while (++ray < 4)
+	i = -1;
+	while (++i < 8)
 	{
-		threads[ray].id = ray;
-		threads[ray].starting_ray = starting_ray;
-		pthread_create(&threads[ray].thread, NULL,
-			render_section, &threads[ray]);
-		starting_ray += 32;
-	}
-}
-
-void	end_thread(void)
-{
-	int	ray;
-
-	ray = -1;
-	while (++ray < 4)
-	{
-		pthread_join(ft_data()->thread_array[ray].thread, NULL);
+		ft_data()->threads[i].thread = threads[i];
+		ft_data()->threads[i].id = i;
+		ft_data()->threads[i].starting_ray = i * 160;
+		pthread_create(&threads[i], NULL, section_routine, &ft_data()->threads[i].thread);
 	}
 } */
+
+/* Need to split the screen into 8 sections each of them will be handled by a thread
+	Start the threads in the beggining of the program execution and send them to a loop
+	inside draw_ray() there will be a check inside the loop that turns true once the player
+	moves the camera and is changed to false once the key is not pressed anymore
+	
+	1. Create the threads inside the cast_rays()
+	2. Send the threads to a function with an infinite loop (ideally only updates up
+		to 60 times per second)
+	3. Draw t_rays_x = true; (flag for each of the threads)  */
+
+void	draw_ceiling(void)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < SCREEN_WIDTH)
+	{
+		y = 0;
+		while (y < SCREEN_HEIGHT / 2)
+		{
+			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, x, y, 0x87CEEB);
+			y++;
+		}
+		x++;
+	}
+}
+
+void	draw_floor(void)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < SCREEN_WIDTH)
+	{
+		y = SCREEN_HEIGHT / 2;
+		while (y < SCREEN_HEIGHT)
+		{
+			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, x, y, 0x8B4513);
+			y++;
+		}
+		x++;
+	}
+}
 
 int	cast_rays(void)
 {
@@ -185,8 +205,10 @@ int	cast_rays(void)
 
 	hooks();
 	ray = -1;
-	angle = ft_data()->player->dir - (FOV / 2);
-	sections = (FOV * (180 / PI)) * DEGREE_MULTIPLIER;
+	angle = ft_data()->player->dir - HALF_FOV;
+	sections = (FOV * (180 / PI)) * 2;//DEGREE_MULTIPLIER;
+	//draw_ceiling();
+	//draw_floor();
 	while (++ray <= sections)
 	{
 		draw_ray(ray_properties(ray));
