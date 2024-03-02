@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/01 18:21:28 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/02 00:15:42 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,16 +121,16 @@ typedef struct s_tiles_img
 
 typedef struct s_tiles
 {
-	t_tiles_img	*wall;
-	t_tiles_img	*space;
-	t_tiles_img	*floor;
-	t_tiles_img	*ceiling;
-	t_tiles_img	*north;
-	t_tiles_img	*south;
-	t_tiles_img	*east;
-	t_tiles_img	*west;
-	t_tiles_img	*sprite;
-	t_tiles_img	*player;
+	t_tiles_img		*wall;
+	t_tiles_img		*space;
+	unsigned int	floor;
+	unsigned int	ceiling;
+	t_tiles_img		*north;
+	t_tiles_img		*south;
+	t_tiles_img		*east;
+	t_tiles_img		*west;
+	t_tiles_img		*sprite;
+	t_tiles_img		*player;
 }	t_tiles;
 
 
@@ -232,7 +232,7 @@ int			on_press(int key);
 
 //Raycasting
 
-void		cast_rays(void);
+int		cast_rays(void);
 t_ray		ray_properties(int i);
 char		calculate_wall_orientation(int x, int y);
 void		draw_ray(t_ray ray);
