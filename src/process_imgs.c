@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   process_imgs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
 /*   Updated: 2024/03/02 21:36:39 by diosanto         ###   ########.fr       */
@@ -85,7 +85,7 @@ void	open_xpm(t_data *data)
 	tiles->player = init_tiles_img(mlx_ptr, PLAYER);
 	check_errors_xpm();
 }
-
+/* 
 void	render_tiles(void)
 {
 	size_t	i;
@@ -110,4 +110,4 @@ void	render_tiles(void)
 		}
 	}
 	put_player();
-}
+} */

@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2024/03/02 21:35:16 by diosanto         ###   ########.fr       */
-=======
-/*   Updated: 2024/03/04 18:39:43 by micarrel         ###   ########.fr       */
->>>>>>> parent of 64352a1 (Merge branch 'master' into miguel)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +31,8 @@ void	init_data(t_data *data)
 	data->tiles = ft_calloc(1, sizeof(t_tiles));
 	data->player = ft_calloc(1, sizeof(t_player));
 	data->keys = ft_calloc(1, sizeof(t_keys));
-	data->tiles->floor = NULL;
-	data->tiles->wall = NULL;
+	//data->tiles->floor = NULL;
+	//data->tiles->wall = NULL;
 	data->keys->a = false;
 	data->keys->d = false;
 	data->keys->s = false;
