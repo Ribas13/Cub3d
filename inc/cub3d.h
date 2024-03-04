@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/02 00:15:42 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/04 19:01:13 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 //60 degrees in radians = 1.0472
 
 //For logic
+# define MOTION_NOTIFY_EVENT 6
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
 # define DEGREE_MULTIPLIER 4
@@ -95,8 +96,7 @@ typedef struct s_keys
 	bool	left;
 	bool	right;
 	bool	esc;
-	bool	mouse_left;
-	bool	mouse_right;
+	int		mouse;
 }	t_keys;
 
 
