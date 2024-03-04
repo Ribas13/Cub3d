@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/26 15:53:34 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/02 21:36:39 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,51 +33,59 @@ void	draw_line(float angle, int length, int x, int y, int color)
 
 void	draw_player_rays(void)
 {
-	//draw 60 rays (one for each fov degree) from the player
-	//get player angle ft_data()->player->dir
-	//draw a line from the player to the end of the map
-
-	int		i;
+	int	i;
 
 	i = 0;
 	float angle2 = ft_data()->player->dir - (ONE_DEGREE * 30);
-	while (i < 60)
+	while (i < 120)
 	{
-		if (i == 30)
+		if (i == 60)
 			draw_line(angle2, 1000, ft_data()->player->pos.x, ft_data()->player->pos.y, RED);
 		else
 			draw_line(angle2, 1000, ft_data()->player->pos.x, ft_data()->player->pos.y, WHITE);
-		angle2 += ONE_DEGREE;
+		angle2 += ONE_DEGREE / 2;
 		i++;
 	}
 }
 
 static void	check_errors_xpm(void)
 {
-	if (!ft_data()->tiles->floor)
-		errors("Error with xpm files");
+	//if (!ft_data()->tiles->floor)
+		//errors("Error with xpm files");
 	if (!ft_data()->tiles->wall)
 		errors("Error with xpm files");
 	if (!ft_data()->tiles->space)
 		errors("Error with xpm files");
 }
 
+
+t_tiles_img	*init_tiles_img(void *mlx_ptr, char *path)
+{
+	t_tiles_img	*img;
+	
+	img = malloc(sizeof(t_tiles_img));
+	if (!img)
+		errors("Malloc failed");
+	img->img = mlx_xpm_file_to_image(mlx_ptr, path, &img->width, &img->height);
+	img->addr = mlx_get_data_addr(img->img, &img->bpp,
+			&img->size_line, &img->endian);
+	return (img);
+}
+
 void	open_xpm(t_data *data)
 {
-	int		img_s;
 	void	*mlx_ptr;
 	t_tiles	*tiles;
 
-	img_s = TILE_SIZE;
 	tiles = data->tiles;
 	mlx_ptr = data->mlx_ptr;
-	tiles->floor = mlx_xpm_file_to_image(mlx_ptr, FLOOR_TILE, &img_s, &img_s);
-	tiles->wall = mlx_xpm_file_to_image(mlx_ptr, WALL_TILE, &img_s, &img_s);
-	tiles->space = mlx_xpm_file_to_image(mlx_ptr, SPACE_TILE, &img_s, &img_s);
-	tiles->player = mlx_xpm_file_to_image(mlx_ptr, PLAYER, &img_s, &img_s);
+	//tiles->floor = init_tiles_img(mlx_ptr, FLOOR_TILE);
+	tiles->wall = init_tiles_img(mlx_ptr, WALL_TILE);
+	tiles->space = init_tiles_img(mlx_ptr, SPACE_TILE);
+	tiles->player = init_tiles_img(mlx_ptr, PLAYER);
 	check_errors_xpm();
 }
-
+/* 
 void	render_tiles(void)
 {
 	size_t	i;
@@ -102,4 +110,4 @@ void	render_tiles(void)
 		}
 	}
 	put_player();
-}
+} */

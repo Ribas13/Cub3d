@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 03:36:02 by micarrel          #+#    #+#             */
-/*   Updated: 2024/02/22 18:11:24 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/02 21:33:54 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_array(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (array[i])
@@ -51,9 +51,12 @@ void	print_array(char **array)
 int	is_closed(int i, int j)
 {
 	if (ft_data()->map->map[i][j] == '0' \
-		|| (ft_data()->map->map[i][j] != '1' && ft_data()->map->map[i][j] != ' ' && ft_data()->map->map[i][j] != '\n'))
+		|| (ft_data()->map->map[i][j] != '1'
+		&& ft_data()->map->map[i][j] != ' '
+		&& ft_data()->map->map[i][j] != '\n'))
 	{
-		if (i == 0 || !ft_data()->map->map[i + 1] || j == 0 || !ft_data()->map->map[i][j + 1])
+		if (i == 0 || !ft_data()->map->map[i + 1]
+			|| j == 0 || !ft_data()->map->map[i][j + 1])
 			return (1);
 		if (ft_data()->map->map[i - 1] && ft_data()->map->map[i - 1][j]
 			&& ft_data()->map->map[i - 1][j] == ' ')
@@ -100,7 +103,8 @@ int	empty_line(char *str)
 	flag = 0;
 	while (str[i])
 	{
-		if (str[i] == '1' || str[i] == '0' || str[i] == 'N' || str[i] == 'S' || str[i] == 'W' || str[i] == 'E')
+		if (str[i] == '1' || str[i] == '0'
+			|| str[i] == 'N' || str[i] == 'S' || str[i] == 'W' || str[i] == 'E')
 			flag = 1;
 		i++;
 	}
@@ -155,6 +159,7 @@ int	get_real_map(t_data *data, int i)
 	int		j;
 	char	**tmp;
 	int		count;
+
 	j = 0;
 	tmp = ft_calloc(data->map->rows, sizeof(char *));
 	i++;
@@ -202,6 +207,27 @@ int	get_real_map(t_data *data, int i)
 	return (EXIT_SUCCESS);
 }
 
+unsigned int	rgb_to_hex(char *str)
+{
+	int				r;
+	int				g;
+	int				b;
+	unsigned int	hex;
+	char			**tmp;
+
+	tmp = ft_split(str, ',');
+	r = ft_atoi(tmp[0]);
+	g = ft_atoi(tmp[1]);
+	b = ft_atoi(tmp[2]);
+	hex = ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+	free_array(tmp);
+	printf("r = %d\n", r);
+	printf("g = %d\n", g);
+	printf("b = %d\n", b);
+	printf("hex = %d\n", hex);
+	return (hex);
+}
+
 int map_texture(t_data *data)
 {
 	int		i;
@@ -215,21 +241,21 @@ int map_texture(t_data *data)
 	{
 		tmp = ft_split(data->map->map[i], ' ');
 		if (tmp[0] && ft_strncmp(tmp[0], "NO", 2) == 0 && flag++ >= 8)
-			data->tiles->north = ft_strdup(tmp[1]);
+			data->tiles->north->img = ft_strdup(tmp[1]);
 		else if (tmp[0] && ft_strncmp(tmp[0], "SO", 2) == 0 && flag++ >= 8)
-			data->tiles->south = ft_strdup(tmp[1]);
+			data->tiles->south->img = ft_strdup(tmp[1]);
 		else if (tmp[0] && ft_strncmp(tmp[0], "WE", 2) == 0 && flag++ >= 8)
-			data->tiles->west = ft_strdup(tmp[1]);
+			data->tiles->west->img = ft_strdup(tmp[1]);
 		else if (tmp[0] && ft_strncmp(tmp[0], "EA", 2) == 0 && flag++ >= 8)
-			data->tiles->east = ft_strdup(tmp[1]);
+			data->tiles->east->img = ft_strdup(tmp[1]);
 		else if (tmp[0] && ft_strncmp(tmp[0], "S", 1) == 0 && flag++ >= 8)
-			data->tiles->sprite = ft_strdup(tmp[1]);
+			data->tiles->sprite->img = ft_strdup(tmp[1]);
 		else if (tmp[0] && ft_strncmp(tmp[0], "F", 1) == 0 && flag++ >= 8)
-			data->tiles->floor = ft_strdup(tmp[1]);
+			data->tiles->floor = rgb_to_hex(tmp[1]);
 		else if (tmp[0] && ft_strncmp(tmp[0], "C", 1) == 0 && flag++ >= 8)
-			data->tiles->ceiling = ft_strdup(tmp[1]);
+			data->tiles->ceiling = rgb_to_hex(tmp[1]);
 		else if (flag >= 8)
-			break;
+			break ;
 		free_array(tmp);
 		i++;
 	}

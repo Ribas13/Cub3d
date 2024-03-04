@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:22:42 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/23 15:57:23 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/02 00:26:04 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,7 @@ void	get_lines(char *map, t_data *data)
 float	get_player_dir(char c)
 {
 	float	angle;
-	//assign player direction based on the letter in the map (N, S, W, E)
 
-	//N = 90 degrees
-	//E = 0 degrees
-	//S = 270 degrees
-	//W = 180 degrees
-
-	//and convert to radians
-
-	//return the angle in radians
 	if (c == 'N')
 		angle = 4.712389;
 	else if (c == 'E')
@@ -202,12 +193,6 @@ void	check_player(t_data *data)
 		errors("Map must contain a player 😭");
 }
 
-//loop to look at each line
-	//Requirements:
-	//Must be surrounded by '1', so first and last lines must be all '1'
-	//Beggining and end of each line in between must also be a '1'
-	//Must contain player spawn location(N, S, W, E)
-	//First, save the map to an array of strings
 bool	map_check(char *map)
 {
 	save_map(map);

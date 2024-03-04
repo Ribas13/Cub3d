@@ -6,7 +6,7 @@
 #    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/02/23 15:00:28 by diosanto         ###   ########.fr        #
+#    Updated: 2024/02/29 00:17:21 by diosanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBMLX  	= $(LIBMLXDIR)/libmlx_Linux.a# could be /usr/lib, depends on where you 
 LFLAGS		= -L /bin/valgrind
 CC			= cc
 
-CFLAGS  = -Wall -Werror -Wextra -O3 -g $(LDFLAGS) #-fsanitize=address
+CFLAGS  = -Wall -Werror -Wextra -pthread -g -O3 $(LDFLAGS) #-fsanitize=address
 UNAME   := $(shell uname)
 
 SRC     = 	src/main.c			 	\
@@ -30,7 +30,8 @@ SRC     = 	src/main.c			 	\
 			src/key_press.c			\
 			src/player_mov.c		\
 			src/parser.c			\
-			src/raycasting.c
+			src/raycasting.c		\
+			src/raycasting_utils.c
 
 OBJ     = $(SRC:%.c=%.o)
 
@@ -38,7 +39,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C $(LIBFTDIR)
-	$(CC) $(OBJ) -L$(LIBFTDIR) -L$(LIBMLXDIR) -lft -Linc/minilibx-linux -lmlx -lXext -lX11 -lm -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFTDIR) -L$(LIBMLXDIR) -lft -Linc/minilibx-linux -lmlx -lXext -lX11 -lm -o $(NAME)
 
 # $(OBJ): $(SRC)
 # 	$(CC) -c $(SRC) $(CFLAGS)
