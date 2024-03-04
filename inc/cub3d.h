@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/04 18:02:49 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/02 00:15:42 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 //Imgs
 # define WALL_TILE "./assets/test1.xpm"
 # define FLOOR_TILE "./assets/floor.xpm"
-# define SPACE_TILE "./assets/test1.xpm"
+# define SPACE_TILE "./assets/test2.xpm"
 # define PLAYER "./assets/player.xpm"
 # define YELLOW 0xFFFF00
 # define RED 0xFF0000
@@ -113,7 +113,6 @@ typedef struct s_tiles_img
 	int		width;
 	int		height;
 	char	*addr;
-	int		color;
 	int		bpp;
 	int		size_line;
 	int		endian;
@@ -122,20 +121,16 @@ typedef struct s_tiles_img
 
 typedef struct s_tiles
 {
-	char		*north_path;
-	char		*south_path;
-	char		*east_path;
-	char		*west_path;
-	t_tiles_img	*wall;
-	t_tiles_img	*space;
-	t_tiles_img	*floor;
-	t_tiles_img	*ceiling;
-	t_tiles_img	*north;
-	t_tiles_img	*south;
-	t_tiles_img	*east;
-	t_tiles_img	*west;
-	t_tiles_img	*sprite;
-	t_tiles_img	*player;
+	t_tiles_img		*wall;
+	t_tiles_img		*space;
+	unsigned int	floor;
+	unsigned int	ceiling;
+	t_tiles_img		*north;
+	t_tiles_img		*south;
+	t_tiles_img		*east;
+	t_tiles_img		*west;
+	t_tiles_img		*sprite;
+	t_tiles_img		*player;
 }	t_tiles;
 
 
@@ -177,8 +172,6 @@ typedef struct s_data
 	t_map		*map;
 	void		*mlx_ptr;
 	void		*win_ptr;
-	unsigned int			f_color;
-	unsigned int			c_color;
 	t_tiles		*tiles;
 	t_player	*player;
 	t_keys		*keys;
@@ -239,6 +232,7 @@ int			on_press(int key);
 
 //Raycasting
 
+int		cast_rays(void);
 t_ray		ray_properties(int i);
 char		calculate_wall_orientation(int x, int y);
 void		draw_ray(t_ray ray);
