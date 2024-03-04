@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 03:36:02 by micarrel          #+#    #+#             */
 /*   Updated: 2024/03/04 18:21:39 by micarrel         ###   ########.fr       */
@@ -14,7 +14,7 @@
 
 void	free_array(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (array[i])
@@ -51,9 +51,12 @@ void	print_array(char **array)
 int	is_closed(int i, int j)
 {
 	if (ft_data()->map->map[i][j] == '0' \
-		|| (ft_data()->map->map[i][j] != '1' && ft_data()->map->map[i][j] != ' ' && ft_data()->map->map[i][j] != '\n'))
+		|| (ft_data()->map->map[i][j] != '1'
+		&& ft_data()->map->map[i][j] != ' '
+		&& ft_data()->map->map[i][j] != '\n'))
 	{
-		if (i == 0 || !ft_data()->map->map[i + 1] || j == 0 || !ft_data()->map->map[i][j + 1])
+		if (i == 0 || !ft_data()->map->map[i + 1]
+			|| j == 0 || !ft_data()->map->map[i][j + 1])
 			return (1);
 		if (ft_data()->map->map[i - 1] && ft_data()->map->map[i - 1][j]
 			&& ft_data()->map->map[i - 1][j] == ' ')
@@ -100,7 +103,8 @@ int	empty_line(char *str)
 	flag = 0;
 	while (str[i])
 	{
-		if (str[i] == '1' || str[i] == '0' || str[i] == 'N' || str[i] == 'S' || str[i] == 'W' || str[i] == 'E')
+		if (str[i] == '1' || str[i] == '0'
+			|| str[i] == 'N' || str[i] == 'S' || str[i] == 'W' || str[i] == 'E')
 			flag = 1;
 		i++;
 	}
@@ -158,6 +162,7 @@ int	get_real_map(t_data *data, int i)
 	int		j;
 	char	**tmp;
 	int		count;
+
 	j = 0;
 	tmp = ft_calloc(data->map->rows, sizeof(char *));
 	i++;

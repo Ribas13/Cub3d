@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
 /*   Updated: 2024/03/04 18:34:14 by micarrel         ###   ########.fr       */
@@ -72,9 +72,25 @@ int	on_release(int key)
 		ft_data()->keys->s = false;
 	else if (key == D)
 		ft_data()->keys->d = false;
-	ft_data()->player->delta_x = 0;
-	ft_data()->player->delta_y = 0;
+	//ft_data()->player->delta_x = 0;
+	//ft_data()->player->delta_y = 0;
 	return (0);
+}
+
+void	hooks_2(void)
+{
+	if (ft_data()->keys->a == true)
+	{
+		ft_data()->player->dir -= PI / 64;
+		if (ft_data()->player->dir < 0)
+			ft_data()->player->dir += 2 * PI;
+	}
+	if (ft_data()->keys->d == true)
+	{
+		ft_data()->player->dir += PI / 64;
+		if (ft_data()->player->dir > 2 * PI)
+			ft_data()->player->dir -= 2 * PI;
+	}
 }
 
 void	hooks(void)
@@ -95,18 +111,7 @@ void	hooks(void)
 			ft_data()->player->pos.y -= ft_data()->player->delta_y;
 		}
 	}
-	if (ft_data()->keys->a == true)
-	{
-		ft_data()->player->dir -= PI / 32;
-		if (ft_data()->player->dir < 0)
-			ft_data()->player->dir += 2 * PI;
-	}
-	if (ft_data()->keys->d == true)
-	{
-		ft_data()->player->dir += PI / 32;
-		if (ft_data()->player->dir > 2 * PI)
-			ft_data()->player->dir -= 2 * PI;
-	}
+	hooks_2();
 }
 
 
@@ -117,8 +122,7 @@ void	key_press1(t_data *data)
 	mlx_loop_hook(data->mlx_ptr, cast_rays, NULL);
 	mlx_hook(data->win_ptr, KEYPRESS_EVENT, (1L << 0), on_press, NULL);
 	mlx_hook(data->win_ptr, KEYRELEASE_EVENT, (1L << 1), on_release, NULL);
-	// mlx_hook(data->win_ptr, DESTROY_NOTIFY_EVENT, (1L << 17), quit_game, NULL);
-	
-	//place mouse in the middle of the screen
+	mlx_hook(data->win_ptr, DESTROY_NOTIFY_EVENT, (1L << 17), quit_game, NULL);
+ 
 	mlx_loop(data->mlx_ptr);
 }
