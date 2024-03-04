@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 03:36:02 by micarrel          #+#    #+#             */
-/*   Updated: 2024/02/28 23:43:47 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:21:39 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,10 @@ bool	check_map(t_data *data)
 	{
 		j = 0;
 		if (ft_strlen(data->map->map[i]) == 0 && flag == 0)
-		{printf("LNE = %ld\n", ft_strlen(data->map->map[i]));	flag = 1;}
+		{
+			ft_strlen(data->map->map[i]);
+			flag = 1;
+		}
 		while (data->map->map[i][j])
 		{
 			if ((data->map->map[i][j] == '0' || data->map->map[i][j] == '1' || data->map->map[i][j] == 'N' || data->map->map[i][j] == 'S' || data->map->map[i][j] == 'W' || data->map->map[i][j] == 'E') && flag == 1)
@@ -202,6 +205,31 @@ int	get_real_map(t_data *data, int i)
 	return (EXIT_SUCCESS);
 }
 
+unsigned long	rgb_to_hex(char *str)
+{
+	int		red;
+	int		green;
+	int		blue;
+
+	red = ft_atoi(str);
+	while (ft_isdigit(*str))
+		str++;
+	while (!ft_isdigit(*str))
+		str++;
+	green = ft_atoi(str);
+	while (ft_isdigit(*str))
+		str++;
+	while (!ft_isdigit(*str))
+		str++;
+	blue = ft_atoi(str);
+	printf("red = %d\n", red);
+	printf("green = %d\n", green);
+	printf("blue = %d\n", blue);
+	if (red > 255 || green > 255 || blue > 255)
+		errors("Invalid color");
+	return (((red & 0xff) << 16) + ((green & 0xff) << 8) + (blue & 0xff));
+}
+
 int map_texture(t_data *data)
 {
 	int		i;
@@ -214,21 +242,21 @@ int map_texture(t_data *data)
 	while (data->map->map[i])
 	{
 		tmp = ft_split(data->map->map[i], ' ');
-		if (tmp[0] && ft_strncmp(tmp[0], "NO", 2) == 0 && flag++ >= 8)
-			data->tiles->north->img = ft_strdup(tmp[1]);
-		else if (tmp[0] && ft_strncmp(tmp[0], "SO", 2) == 0 && flag++ >= 8)
-			data->tiles->south->img = ft_strdup(tmp[1]);
-		else if (tmp[0] && ft_strncmp(tmp[0], "WE", 2) == 0 && flag++ >= 8)
-			data->tiles->west->img = ft_strdup(tmp[1]);
-		else if (tmp[0] && ft_strncmp(tmp[0], "EA", 2) == 0 && flag++ >= 8)
-			data->tiles->east->img = ft_strdup(tmp[1]);
-		else if (tmp[0] && ft_strncmp(tmp[0], "S", 1) == 0 && flag++ >= 8)
-			data->tiles->sprite->img = ft_strdup(tmp[1]);
-		else if (tmp[0] && ft_strncmp(tmp[0], "F", 1) == 0 && flag++ >= 8)
-			data->tiles->floor->img = ft_strdup(tmp[1]);
-		else if (tmp[0] && ft_strncmp(tmp[0], "C", 1) == 0 && flag++ >= 8)
-			data->tiles->ceiling->img = ft_strdup(tmp[1]);
-		else if (flag >= 8)
+		if (tmp[0] && ft_strncmp(tmp[0], "NO", 2) == 0 && flag <= 7)
+			{data->tiles->north_path = ft_strdup(tmp[1]); flag++;}
+		else if (tmp[0] && ft_strncmp(tmp[0], "SO", 2) == 0 && flag <= 7)
+			{data->tiles->south_path = ft_strdup(tmp[1]); flag++;}
+		else if (tmp[0] && ft_strncmp(tmp[0], "WE", 2) == 0 && flag <= 7)
+			{data->tiles->west_path = ft_strdup(tmp[1]); flag++;}
+		else if (tmp[0] && ft_strncmp(tmp[0], "EA", 2) == 0 && flag <= 7)
+			{data->tiles->east_path = ft_strdup(tmp[1]); flag++;}
+		else if (tmp[0] && ft_strncmp(tmp[0], "S", 1) == 0 && flag <= 7)
+			flag++;
+		else if (tmp[0] && ft_strncmp(tmp[0], "F", 1) == 0 && flag <= 7)
+			{data->f_color = rgb_to_hex(tmp[1]); flag++;}
+		else if (tmp[0] && ft_strncmp(tmp[0], "C", 1) == 0 && flag <= 7)
+			{data->c_color = rgb_to_hex(tmp[1]); flag++;}
+		else if (flag >= 7)
 			break;
 		free_array(tmp);
 		i++;

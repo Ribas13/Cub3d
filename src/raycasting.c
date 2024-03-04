@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/01 18:22:11 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:20:21 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	draw_wall(int wall_start, int wall_end, int screen_x, t_tiles_img *texture,
 	{
 		while (screen_y < wall_start && screen_y < SCREEN_HEIGHT)
 		{
-			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_x, screen_y, 0x87CEEB);
+			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_x, screen_y, ft_data()->c_color);
 			screen_y++;
 		}
 		while (screen_y >= wall_start && screen_y < wall_end)
@@ -50,7 +50,7 @@ void	draw_wall(int wall_start, int wall_end, int screen_x, t_tiles_img *texture,
 		}
 		while (screen_y < SCREEN_HEIGHT)
 		{
-			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_x, screen_y, 0x8B4513);
+			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_x, screen_y, ft_data()->f_color);
 			screen_y++;
 		}
 		//screen_y++;
@@ -95,16 +95,15 @@ char	calculate_wall_orientation(int x, int y)
 t_tiles_img	*get_texture(char wall_orientation)
 {
 	if (wall_orientation == 'N')
-		return (ft_data()->tiles->wall);
+		return (ft_data()->tiles->north);
 	else if (wall_orientation == 'E')
-		return (ft_data()->tiles->wall);
+		return (ft_data()->tiles->east);
 	else if (wall_orientation == 'S')
-		return (ft_data()->tiles->space);
+		return (ft_data()->tiles->south);
 	else if (wall_orientation == 'W')
-		return (ft_data()->tiles->space);
-	return (ft_data()->tiles->space);
+		return (ft_data()->tiles->west);
+	return (ft_data()->tiles->north);
 }
-
 t_ray	ray_properties(int i)
 {
 	t_ray	ray;
@@ -172,7 +171,7 @@ void	draw_ceiling(void)
 		y = 0;
 		while (y < SCREEN_HEIGHT / 2)
 		{
-			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, x, y, 0x87CEEB);
+			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, x, y, ft_data()->c_color);
 			y++;
 		}
 		x++;
@@ -190,7 +189,7 @@ void	draw_floor(void)
 		y = SCREEN_HEIGHT / 2;
 		while (y < SCREEN_HEIGHT)
 		{
-			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, x, y, 0x8B4513);
+			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, x, y, ft_data()->f_color);
 			y++;
 		}
 		x++;

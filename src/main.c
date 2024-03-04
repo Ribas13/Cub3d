@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/01 18:21:57 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:39:43 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 t_data	*ft_data(void)
 {
 	static t_data	data;
-
 	return (&data);
 }
 
@@ -67,21 +66,31 @@ void	clean_all(t_data *data)
 	//int	i;
 
 	free_array(data->map->map);
-	//mlx_destroy_image(data->mlx_ptr, data->tiles->floor);
-	//mlx_destroy_image(data->mlx_ptr, data->tiles->wall);
-	//mlx_destroy_image(data->mlx_ptr, data->tiles->space);
-	//mlx_destroy_image(data->mlx_ptr, data->tiles->player);
+	mlx_destroy_image(data->mlx_ptr, data->tiles->north->img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles->south->img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles->east->img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles->west->img);
+	free(data->tiles->north);
+	free(data->tiles->south);
+	free(data->tiles->east);
+	free(data->tiles->west);
+	free(data->tiles->north_path);
+	free(data->tiles->south_path);
+	free(data->tiles->east_path);
+	free(data->tiles->west_path);
+	free(data->tiles);
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->map);
 	free(data->player);
-	free(data->tiles);
 	free(data->mlx_ptr);
+	free(data->keys);
 	/* i = -1;
 	while (++i < 4)
 	{
 		pthread_join(data->thread_array[i].thread, NULL);
 	} */
+	exit(1);
 }
 
 int	launch_game(int width, int height)

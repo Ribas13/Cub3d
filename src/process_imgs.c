@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/29 01:34:35 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:40:53 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,21 @@ void	draw_player_rays(void)
 	}
 }
 
-static void	check_errors_xpm(void)
-{
-	if (!ft_data()->tiles->floor)
-		errors("Error with xpm files");
-	if (!ft_data()->tiles->wall)
-		errors("Error with xpm files");
-	if (!ft_data()->tiles->space)
-		errors("Error with xpm files");
-}
+// static void	check_errors_xpm(void)
+// {
+// 	if (!ft_data()->tiles->floor)
+// 		errors("Error with xpm files");
+// 	if (!ft_data()->tiles->wall)
+// 		errors("Error with xpm files");
+// 	if (!ft_data()->tiles->space)
+// 		errors("Error with xpm files");
+// }
 
 
 t_tiles_img	*init_tiles_img(void *mlx_ptr, char *path)
 {
 	t_tiles_img	*img;
-	
+		
 	img = malloc(sizeof(t_tiles_img));
 	if (!img)
 		errors("Malloc failed");
@@ -79,11 +79,11 @@ void	open_xpm(t_data *data)
 
 	tiles = data->tiles;
 	mlx_ptr = data->mlx_ptr;
-	tiles->floor = init_tiles_img(mlx_ptr, FLOOR_TILE);
-	tiles->wall = init_tiles_img(mlx_ptr, WALL_TILE);
-	tiles->space = init_tiles_img(mlx_ptr, SPACE_TILE);
-	tiles->player = init_tiles_img(mlx_ptr, PLAYER);
-	check_errors_xpm();
+	tiles->north = init_tiles_img(mlx_ptr, data->tiles->north_path);
+	tiles->south = init_tiles_img(mlx_ptr, data->tiles->south_path);
+	tiles->east = init_tiles_img(mlx_ptr, data->tiles->east_path);
+	tiles->west = init_tiles_img(mlx_ptr, data->tiles->west_path);
+	// check_errors_xpm();
 }
 
 void	render_tiles(void)
@@ -96,7 +96,7 @@ void	render_tiles(void)
 	{
 		j = -1;
 		while (ft_data()->map->map[i][++j])
-		{
+		{	
 			if (ft_data()->map->map[i][j] == WALL)
 				mlx_put_image_to_window(ft_data()->mlx_ptr, ft_data()->win_ptr,
 					ft_data()->tiles->wall, TILE_SIZE * j, TILE_SIZE * i);
