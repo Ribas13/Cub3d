@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_imgs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/02/29 01:34:35 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/02 21:36:39 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	draw_player_rays(void)
 
 static void	check_errors_xpm(void)
 {
-	if (!ft_data()->tiles->floor)
-		errors("Error with xpm files");
+	//if (!ft_data()->tiles->floor)
+		//errors("Error with xpm files");
 	if (!ft_data()->tiles->wall)
 		errors("Error with xpm files");
 	if (!ft_data()->tiles->space)
@@ -79,13 +79,13 @@ void	open_xpm(t_data *data)
 
 	tiles = data->tiles;
 	mlx_ptr = data->mlx_ptr;
-	tiles->floor = init_tiles_img(mlx_ptr, FLOOR_TILE);
+	//tiles->floor = init_tiles_img(mlx_ptr, FLOOR_TILE);
 	tiles->wall = init_tiles_img(mlx_ptr, WALL_TILE);
 	tiles->space = init_tiles_img(mlx_ptr, SPACE_TILE);
 	tiles->player = init_tiles_img(mlx_ptr, PLAYER);
 	check_errors_xpm();
 }
-
+/* 
 void	render_tiles(void)
 {
 	size_t	i;
@@ -110,4 +110,4 @@ void	render_tiles(void)
 		}
 	}
 	put_player();
-}
+} */
