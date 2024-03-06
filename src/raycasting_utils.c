@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:56:17 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/05 14:57:14 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:19:28 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,27 +74,18 @@ float	ray_dist(float angle, int length, int x, int y)
 	float	a_cos;
 	float	a_sin;
 
-	printf("ray_dist\n");
 	dist = 0;
-	printf("Here0\n");
 	a_cos = cos(angle);
-	printf("Here1\n");
 	a_sin = sin(angle);
-	printf("Here2\n");
 	while (dist < length)
 	{
-		printf("Here3\n");
 		new_x = x + dist * a_cos;
-		printf("Here4\n");
 		new_y = y + dist * a_sin;
-		printf("Here5\n");
 		if (ft_data()->map->map[new_y / TILE_SIZE]
 			[new_x / TILE_SIZE] == WALL)
 			break ;
-		printf("Here6\n");
 		dist += 1;
 	}
-	printf("Here7\n");
 	return (dist);
 }
 

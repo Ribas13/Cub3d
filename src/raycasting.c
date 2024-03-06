@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/05 14:55:38 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:20:07 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,31 +111,20 @@ t_ray	ray_properties(int i)
 	int	x;
 	int	y;
 
-	printf("ray_properties\n");
 	x = (int)ft_data()->player->pos.x;
 	y = (int)ft_data()->player->pos.y;
-	printf("assignations\n");
 	ray.angle = ft_data()->player->dir - HALF_FOV + (i * HALF_DEGREE);
-	printf("Here0\n");
 	ray.section = i * 10;
-	printf("Here1\n");
 	ray.distance = ray_dist(ray.angle, 5000, ft_data()->player->pos.x, ft_data()->player->pos.y);
-	printf("Here2\n");
 	ray.x = x + ray.distance * cos(ray.angle);
-	printf("Here3\n");
 	ray.y = y + ray.distance * sin(ray.angle);
-	printf("Here4\n");
 	ray.wall_orientation = calculate_wall_orientation(ray.x, ray.y);
-	printf("Here5\n");
 	ray.distance = normalize_angle(ray);
-	printf("Here6\n");
 	ray.texture = get_texture(ray.wall_orientation);
-	printf("Here7\n");
 	if (ray.wall_orientation == 'N' || ray.wall_orientation == 'S')
 		ray.texture_x_offset = (ray.x % TILE_SIZE) * (double)ray.texture->width / TILE_SIZE;
 	else // ray.wall_orientation is 'E' or 'W'
 		ray.texture_x_offset = (ray.y % TILE_SIZE) * (double)ray.texture->width / TILE_SIZE;
-	printf("Here8\n");
   return (ray);
 }
 /* 
