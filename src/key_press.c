@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/04 19:16:09 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:48:55 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ void	hooks(void)
 		{
 			ft_data()->player->pos.x += ft_data()->player->delta_x;
 			ft_data()->player->pos.y += ft_data()->player->delta_y;
+			printf("x: %d, y: %d\n", ft_data()->player->pos.x, ft_data()->player->pos.y);
+			printf("delta_x: %f, delta_y: %f\n", ft_data()->player->delta_x, ft_data()->player->delta_y);
 		}
 	}
 	if (ft_data()->keys->s == true)

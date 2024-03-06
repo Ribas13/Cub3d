@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/04 19:01:13 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:50:38 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ typedef struct s_keys
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
+	float	x;
+	float	y;
 }	t_point;
 
 
@@ -160,8 +160,10 @@ typedef struct s_map
 typedef struct s_player
 {
 	t_point	pos;
-	int		delta_x;
-	int		delta_y;
+	float	f_x;
+	float	f_y;
+	float	delta_x;
+	float	delta_y;
 	double	dir;
 	float	distance;
 }	t_player;

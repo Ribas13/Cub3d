@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/02 00:13:24 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:55:38 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,20 +108,34 @@ t_tiles_img	*get_texture(char wall_orientation)
 t_ray	ray_properties(int i)
 {
 	t_ray	ray;
+	int	x;
+	int	y;
 
+	printf("ray_properties\n");
+	x = (int)ft_data()->player->pos.x;
+	y = (int)ft_data()->player->pos.y;
+	printf("assignations\n");
 	ray.angle = ft_data()->player->dir - HALF_FOV + (i * HALF_DEGREE);
+	printf("Here0\n");
 	ray.section = i * 10;
-	ray.distance = ray_dist(ray.angle, 5000, ft_data()->player->pos.x,
-			ft_data()->player->pos.y);
-	ray.x = ft_data()->player->pos.x + ray.distance * cos(ray.angle);
-	ray.y = ft_data()->player->pos.y + ray.distance * sin(ray.angle);
+	printf("Here1\n");
+	ray.distance = ray_dist(ray.angle, 5000, ft_data()->player->pos.x, ft_data()->player->pos.y);
+	printf("Here2\n");
+	ray.x = x + ray.distance * cos(ray.angle);
+	printf("Here3\n");
+	ray.y = y + ray.distance * sin(ray.angle);
+	printf("Here4\n");
 	ray.wall_orientation = calculate_wall_orientation(ray.x, ray.y);
+	printf("Here5\n");
 	ray.distance = normalize_angle(ray);
+	printf("Here6\n");
 	ray.texture = get_texture(ray.wall_orientation);
+	printf("Here7\n");
 	if (ray.wall_orientation == 'N' || ray.wall_orientation == 'S')
 		ray.texture_x_offset = (ray.x % TILE_SIZE) * (double)ray.texture->width / TILE_SIZE;
 	else // ray.wall_orientation is 'E' or 'W'
 		ray.texture_x_offset = (ray.y % TILE_SIZE) * (double)ray.texture->width / TILE_SIZE;
+	printf("Here8\n");
   return (ray);
 }
 /* 
@@ -211,6 +225,12 @@ int	cast_rays(void)
 	{
 		draw_ray(ray_properties(ray));
 		angle += ONE_DEGREE / DEGREE_MULTIPLIER;
+	}
+	//draw a vertical and horizontal line from the middle of the screen
+	for (int i = 0; i < SCREEN_WIDTH; i++)
+	{
+		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, SCREEN_WIDTH / 2, i, WHITE);
+		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, i, SCREEN_HEIGHT / 2, WHITE);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/02 21:35:16 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:41:24 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ void	init_data(t_data *data)
 	data->keys->s = false;
 	data->keys->w = false;
 	data->keys->esc = false;
-	data->keys->mouse_left = false;
-	data->keys->mouse_right = false;
+	//data->keys->mouse_left = false;
+	//data->keys->mouse_right = false;
 	data->keys->up = false;
 	data->keys->down = false;
 	data->keys->left = false;
 	data->keys->right = false;
+	data->player->f_x = 0;
+	data->player->f_y = 0;
 	if (!data->map)
 		errors("Error allocating data");
 	if (!data->tiles)
