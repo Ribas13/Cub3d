@@ -1,8 +1,0 @@
-TO FIX ✅ | ❌
-
-- Start direction is reversed (if N the angle should be 90º or 2 / PI) ❌(validate_input.c)
-- When moving around the map, going forward and backwards aren't moving
-in the same angle ❌
-(player_mov.c and key_press.c)
-- When moving forward, the player is not following the center line ❌
-(player_mov.c and key_press.c)
