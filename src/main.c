@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/02 21:35:16 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:08:52 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,50 +38,18 @@ void	init_data(t_data *data)
 	data->keys->s = false;
 	data->keys->w = false;
 	data->keys->esc = false;
-	data->keys->mouse_left = false;
-	data->keys->mouse_right = false;
+	//data->keys->mouse_left = false;
+	//data->keys->mouse_right = false;
 	data->keys->up = false;
 	data->keys->down = false;
 	data->keys->left = false;
 	data->keys->right = false;
+	data->player->f_x = 0;
+	data->player->f_y = 0;
 	if (!data->map)
 		errors("Error allocating data");
 	if (!data->tiles)
 		errors("Error allocating data");
-}
-
-static void	free_array(char **array)
-{
-	int	i;
-
-	i = 0;
-	if (!array)
-		return ;
-	while (array[i])
-		free(array[i++]);
-	free(array);
-}
-
-void	clean_all(t_data *data)
-{
-	//int	i;
-
-	free_array(data->map->map);
-	//mlx_destroy_image(data->mlx_ptr, data->tiles->floor);
-	//mlx_destroy_image(data->mlx_ptr, data->tiles->wall);
-	//mlx_destroy_image(data->mlx_ptr, data->tiles->space);
-	//mlx_destroy_image(data->mlx_ptr, data->tiles->player);
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
-	free(data->map);
-	free(data->player);
-	free(data->tiles);
-	free(data->mlx_ptr);
-	/* i = -1;
-	while (++i < 4)
-	{
-		pthread_join(data->thread_array[i].thread, NULL);
-	} */
 }
 
 int	launch_game(int width, int height)

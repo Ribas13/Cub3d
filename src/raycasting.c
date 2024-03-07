@@ -214,5 +214,11 @@ int	cast_rays(void)
 		draw_ray(ray_properties(ray));
 		angle += ONE_DEGREE / DEGREE_MULTIPLIER;
 	}
+	//draw a vertical and horizontal line from the middle of the screen
+	for (int i = 0; i < SCREEN_WIDTH; i++)
+	{
+		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, SCREEN_WIDTH / 2, i, WHITE);
+		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, i, SCREEN_HEIGHT / 2, WHITE);
+	}
 	return (0);
 }

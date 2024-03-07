@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/02 00:15:42 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:22:29 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 //60 degrees in radians = 1.0472
 
 //For logic
+# define MOTION_NOTIFY_EVENT 6
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
 # define DEGREE_MULTIPLIER 4
@@ -95,8 +96,7 @@ typedef struct s_keys
 	bool	left;
 	bool	right;
 	bool	esc;
-	bool	mouse_left;
-	bool	mouse_right;
+	int		mouse;
 }	t_keys;
 
 
@@ -160,8 +160,10 @@ typedef struct s_map
 typedef struct s_player
 {
 	t_point	pos;
-	int		delta_x;
-	int		delta_y;
+	float	f_x;
+	float	f_y;
+	float	delta_x;
+	float	delta_y;
 	double	dir;
 	float	distance;
 }	t_player;
@@ -181,58 +183,48 @@ typedef struct s_data
 
 //Prototypes
 
+//exits
+
+int			quit_game(void);
+void		free_array(char **array);
+void		clean_all(t_data *data);
+
+//collision
+
+int			check_wall(int key);
+
 t_tiles_img	*init_tiles_img(void *mlx_ptr, char *path);
 int			launch_game(int width, int height);
 void		hooks(void);
 
-t_data	*ft_data(void);
-int		map_texture(t_data *data);
-bool	check_map(t_data *data);
-void	valid_map(int ac, char **av);
-void	errors(char *error_msg);
-void	clean_all(t_data *data);
-void	render_tiles(void);
-void	key_press1(t_data *data);
-void	update_player_pos(bool horizontal, int dir);
-void	put_player(void);
-void	print_array(char **array);
-void	open_xpm(t_data *data);
-void	draw_line(float angle, int length, int x, int y, int color);
-void	draw_player_rays(void);
-int		on_press(int key);
+//mouse
+
+int			mouse_move(void);
+int			mouse_position(void);
+
+//player_move
+
+void		move_back(void);
+void		move_forward(void);
+
+void		render_tiles(void);
+void		update_player_pos(bool horizontal, int dir);
+void		put_player(void);
 
 //Raycasting
 
-int		cast_rays(void);
-t_ray	ray_properties(int i);
-char	calculate_wall_orientation(int x, int y);
-void	draw_ray(t_ray ray);
-void	draw_wall_pixel(int x, int y, char wall_orientation);
-int		calculate_start(float distance);
-int		calculate_end(float distance);
-float	ray_dist(float angle, int length, int x, int y);
-float	normalize_angle(t_ray ray);
-void	start_thread(void);
-void	end_thread(void);
 t_data		*ft_data(void);
 int			map_texture(t_data *data);
 bool		check_map(t_data *data);
 void		valid_map(int ac, char **av);
 void		errors(char *error_msg);
-void		clean_all(t_data *data);
-void		render_tiles(void);
 void		key_press1(t_data *data);
-void		update_player_pos(bool horizontal, int dir);
-void		put_player(void);
 void		print_array(char **array);
 void		open_xpm(t_data *data);
 void		draw_line(float angle, int length, int x, int y, int color);
 void		draw_player_rays(void);
 int			on_press(int key);
-
-//Raycasting
-
-int		cast_rays(void);
+int			cast_rays(void);
 t_ray		ray_properties(int i);
 char		calculate_wall_orientation(int x, int y);
 void		draw_ray(t_ray ray);
@@ -241,7 +233,5 @@ int			calculate_start(float distance);
 int			calculate_end(float distance);
 float		ray_dist(float angle, int length, int x, int y);
 float		normalize_angle(t_ray ray);
-void		start_thread(void);
-void		end_thread(void);
 
 #endif

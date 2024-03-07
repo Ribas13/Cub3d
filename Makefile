@@ -6,7 +6,7 @@
 #    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/02/29 00:17:21 by diosanto         ###   ########.fr        #
+#    Updated: 2024/03/06 16:13:41 by diosanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,10 @@ SRC     = 	src/main.c			 	\
 			src/player_mov.c		\
 			src/parser.c			\
 			src/raycasting.c		\
-			src/raycasting_utils.c
+			src/raycasting_utils.c	\
+			src/collision.c			\
+			src/exit_functions.c	\
+			src/mouse.c
 
 OBJ     = $(SRC:%.c=%.o)
 
