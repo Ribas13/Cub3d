@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/07 02:50:00 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:45:21 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	get_texture_color(t_tiles_img *texture, int texture_x_offset, int texture_y)
 
 float to_radians(float degrees)
 {
-	return degrees * M_PI / 180;
+	return degrees * 3.14 / 180;
 }
 
 void	draw_wall(int wall_start, int wall_end, int screen_x, t_tiles_img *texture, t_ray ray)
@@ -108,23 +108,24 @@ t_tiles_img	*get_texture(char wall_orientation)
 
 t_ray	ray_properties(int i)
 {
-    t_ray	ray;
+	t_ray	ray;
 
-    ray.angle = ft_data()->player->dir - HALF_FOV + (i * HALF_DEGREE);
-    ray.section = i * 10;
-    ray.distance = ray_dist(ray.angle, 5000, ft_data()->player->pos.x,
-            ft_data()->player->pos.y);
-    ray.x = ft_data()->player->pos.x + ray.distance * cos(ray.angle);
-    ray.y = ft_data()->player->pos.y + ray.distance * sin(ray.angle);
-    ray.wall_orientation = calculate_wall_orientation(ray.x, ray.y);
-    // Apply fisheye correction to the distance
-    ray.distance = ray.distance * cos(to_radians(ft_data()->player->dir - ray.angle));
-    ray.texture = get_texture(ray.wall_orientation);
-    if (ray.wall_orientation == 'N' || ray.wall_orientation == 'S')
-        ray.texture_x_offset = (ray.x % TILE_SIZE) * (double)ray.texture->width / TILE_SIZE;
-    else // ray.wall_orientation is 'E' or 'W'
-        ray.texture_x_offset = (ray.y % TILE_SIZE) * (double)ray.texture->width / TILE_SIZE;
-  return (ray);
+	ray.angle = ft_data()->player->dir - HALF_FOV + (i * HALF_DEGREE);
+	ray.section = i * 10;
+	ray.distance = ray_dist(ray.angle, 5000, ft_data()->player->pos.x,
+			ft_data()->player->pos.y);
+	ray.x = ft_data()->player->pos.x + ray.distance * cos(ray.angle);
+	ray.y = ft_data()->player->pos.y + ray.distance * sin(ray.angle);
+	ray.wall_orientation = calculate_wall_orientation(ray.x, ray.y);
+	ray.distance = normalize_angle(ray);
+	ray.texture = get_texture(ray.wall_orientation);
+	if (ray.wall_orientation == 'N' || ray.wall_orientation == 'S')
+		ray.texture_x_offset = (ray.x % TILE_SIZE)
+			* (double)ray.texture->width / TILE_SIZE;
+	else
+		ray.texture_x_offset = (ray.y % TILE_SIZE)
+			* (double)ray.texture->width / TILE_SIZE;
+	return (ray);
 }
 /* 
 void	end_threads()
@@ -204,6 +205,7 @@ int	cast_rays(void)
 	int		ray;
 	int		sections;
 	float	angle;
+	t_ray	rays;
 
 	hooks();
 	ray = -1;
@@ -211,14 +213,15 @@ int	cast_rays(void)
 	sections = (FOV * (180 / PI)) * 2;
 	while (++ray <= sections)
 	{
-		draw_ray(ray_properties(ray));
+		rays = ray_properties(ray);
+		draw_ray(rays);
 		angle += ONE_DEGREE / DEGREE_MULTIPLIER;
 	}
 	//draw a vertical and horizontal line from the middle of the screen
-	for (int i = 0; i < SCREEN_WIDTH; i++)
+	/* for (int i = 0; i < SCREEN_WIDTH; i++)
 	{
 		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, SCREEN_WIDTH / 2, i, WHITE);
 		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, i, SCREEN_HEIGHT / 2, WHITE);
-	}
+	} */
 	return (0);
 }
