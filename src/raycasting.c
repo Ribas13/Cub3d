@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/12 16:45:21 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:55:41 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,33 +29,33 @@ float to_radians(float degrees)
 
 void	draw_wall(int wall_start, int wall_end, int screen_x, t_tiles_img *texture, t_ray ray)
 {
-    int		screen_y;
-    double	y_offset;
-    int		texture_y;
-    int		color;
+	int		screen_y;
+	double	y_offset;
+	int		texture_y;
+	int		color;
 
-    screen_y = 0;
-    while (screen_y < SCREEN_HEIGHT)
-    {
-        while (screen_y < wall_start && screen_y < SCREEN_HEIGHT)
-        {
-            mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_x, screen_y, 0x87CEEB);
-            screen_y++;
-        }
-        while (screen_y >= wall_start && screen_y < wall_end)
-        {
-            y_offset = (double)(screen_y - wall_start) / (wall_end - wall_start);
-            texture_y = (int)(y_offset * texture->height);
-            color = get_texture_color(texture, ray.texture_x_offset, texture_y);
-            mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_x, screen_y, color);
-            screen_y++;
-        }
-        while (screen_y < SCREEN_HEIGHT)
-        {
-            mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_x, screen_y, 0x8B4513);
-            screen_y++;
-        }
-    }
+	screen_y = 0;
+	while (screen_y < SCREEN_HEIGHT)
+	{
+		while (screen_y < wall_start && screen_y < SCREEN_HEIGHT)
+		{
+			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_x, screen_y, 0x87CEEB);
+			screen_y++;
+		}
+		while (screen_y >= wall_start && screen_y < wall_end)
+		{
+			y_offset = (double)(screen_y - wall_start) / (wall_end - wall_start);
+			texture_y = (int)(y_offset * texture->height);
+			color = get_texture_color(texture, ray.texture_x_offset, texture_y);
+			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_x, screen_y, color);
+			screen_y++;
+		}
+		while (screen_y < SCREEN_HEIGHT)
+		{
+			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_x, screen_y, 0x8B4513);
+			screen_y++;
+		}
+	}
 }
 
 void	draw_ray(t_ray ray)
@@ -96,14 +96,14 @@ char	calculate_wall_orientation(int x, int y)
 t_tiles_img	*get_texture(char wall_orientation)
 {
 	if (wall_orientation == 'N')
-		return (ft_data()->tiles->wall);
+		return (ft_data()->tiles->north);
 	else if (wall_orientation == 'E')
-		return (ft_data()->tiles->wall);
+		return (ft_data()->tiles->east);
 	else if (wall_orientation == 'S')
-		return (ft_data()->tiles->space);
+		return (ft_data()->tiles->south);
 	else if (wall_orientation == 'W')
-		return (ft_data()->tiles->space);
-	return (ft_data()->tiles->space);
+		return (ft_data()->tiles->west);
+	return (NULL);
 }
 
 t_ray	ray_properties(int i)

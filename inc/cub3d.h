@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/12 16:07:40 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:52:59 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,6 @@ typedef struct s_tiles
 {
 	t_tiles_img		*wall;
 	t_tiles_img		*space;
-	unsigned int	floor;
-	unsigned int	ceiling;
 	t_tiles_img		*north;
 	t_tiles_img		*south;
 	t_tiles_img		*east;
@@ -177,6 +175,12 @@ typedef struct s_data
 	t_tiles		*tiles;
 	t_player	*player;
 	t_keys		*keys;
+	char		*path_north;
+	char		*path_south;
+	char		*path_east;
+	char		*path_west;
+	unsigned int	floor;
+	unsigned int	ceiling;
 	t_render	*thread_array;
 	t_render	threads[8];
 }	t_data;
