@@ -3,39 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:56:17 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/06 15:19:28 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:55:47 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
 //Fisheye effect correction
-/* float	normalize_angle(t_ray ray)
-{
-	float	normalized;
-	float	distance;
-
-	normalized = fabs(ft_data()->player->dir - ray.angle);
-	if (normalized < 0)
-		normalized += 2 * PI;
-	if (normalized > 2 * PI)
-		normalized -= 2 * PI;
-	distance = ray.distance;
-	normalized = distance * cos(normalized);
-	return (normalized);
-} */
-
 float	normalize_angle(t_ray ray)
 {
-	float	corrected_distance;
+	float	normalized;
 
-	corrected_distance = ray.distance * cos(ft_data()->player->dir - ray.angle);
-	if (corrected_distance < 0.1)
-		corrected_distance = 0.1;
-	return (corrected_distance);
+	normalized = sqrt(pow(ray.x - ft_data()->player->pos.x, 2)
+			+ pow(ray.y - ft_data()->player->pos.y, 2))
+		* cos(ray.angle - ft_data()->player->dir);
+	return (normalized);
 }
 
 int	calculate_start(float distance)
@@ -47,8 +32,6 @@ int	calculate_start(float distance)
 		distance = MIN_DISTANCE;
 	projected_height = (int)((720 / 2) * 60 / distance);
 	start = (720 - projected_height) / 2;
-	/* if (start < 30)
-		start = 30; */
 	return (start);
 }
 
@@ -61,8 +44,6 @@ int	calculate_end(float corrected_distance)
 		corrected_distance = MIN_DISTANCE;
 	projected_height = (int)((720 / 2) * 60 / corrected_distance);
 	end = (720 + projected_height) / 2;
-	/* if (end > 720)
-		end = 720; */
 	return (end);
 }
 

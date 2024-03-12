@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 16:08:14 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/06 16:19:17 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:53:06 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,39 @@ static void	free_array2(char **array)
 	while (array[i])
 		free(array[i++]);
 	free(array);
+}	
+
+
+void	ft_destroy_image(t_tiles_img *img, char *path)
+{
+	if (img->img)
+		mlx_destroy_image(ft_data()->mlx_ptr, img->img);
+	if (path)
+		free(path);
+	if (img)
+		free(img);
 }
 
 void	clean_all(t_data *data)
 {
-	//int	i;
-
 	free_array2(data->map->map);
-	//mlx_destroy_image(data->mlx_ptr, data->tiles->floor);
-	//mlx_destroy_image(data->mlx_ptr, data->tiles->wall);
-	//mlx_destroy_image(data->mlx_ptr, data->tiles->space);
-	//mlx_destroy_image(data->mlx_ptr, data->tiles->player);
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
+	if (data->tiles->north)
+		ft_destroy_image(data->tiles->north, data->path_north);
+	if (data->tiles->south)
+		ft_destroy_image(data->tiles->south, data->path_south);
+	if (data->tiles->west)
+		ft_destroy_image(data->tiles->west, data->path_west);
+	if (data->tiles->east)
+		ft_destroy_image(data->tiles->east, data->path_east);
+	if (data->tiles)
+		free(data->tiles);
+	if (data->mlx_ptr && data->win_ptr)
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	if (data->mlx_ptr)
+		mlx_destroy_display(data->mlx_ptr);
 	free(data->map);
 	free(data->player);
-	free(data->tiles);
 	free(data->mlx_ptr);
-	/* i = -1;
-	while (++i < 4)
-	{
-		pthread_join(data->thread_array[i].thread, NULL);
-	} */
+	free(data->keys);
+	
 }

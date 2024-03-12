@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_imgs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/02 21:36:39 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:55:51 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,9 @@ void	draw_player_rays(void)
 
 static void	check_errors_xpm(void)
 {
-	//if (!ft_data()->tiles->floor)
-		//errors("Error with xpm files");
-	if (!ft_data()->tiles->wall)
-		errors("Error with xpm files");
-	if (!ft_data()->tiles->space)
-		errors("Error with xpm files");
+	if (!ft_data()->tiles->north->img || !ft_data()->tiles->south->img
+		|| !ft_data()->tiles->west->img || !ft_data()->tiles->east->img)
+		errors("XPM file not found");
 }
 
 
@@ -67,6 +64,8 @@ t_tiles_img	*init_tiles_img(void *mlx_ptr, char *path)
 	if (!img)
 		errors("Malloc failed");
 	img->img = mlx_xpm_file_to_image(mlx_ptr, path, &img->width, &img->height);
+	if (!img->img)
+		return (img);
 	img->addr = mlx_get_data_addr(img->img, &img->bpp,
 			&img->size_line, &img->endian);
 	return (img);
@@ -79,10 +78,10 @@ void	open_xpm(t_data *data)
 
 	tiles = data->tiles;
 	mlx_ptr = data->mlx_ptr;
-	//tiles->floor = init_tiles_img(mlx_ptr, FLOOR_TILE);
-	tiles->wall = init_tiles_img(mlx_ptr, WALL_TILE);
-	tiles->space = init_tiles_img(mlx_ptr, SPACE_TILE);
-	tiles->player = init_tiles_img(mlx_ptr, PLAYER);
+	tiles->north = init_tiles_img(mlx_ptr, data->path_north);
+	tiles->south = init_tiles_img(mlx_ptr, data->path_south);
+	tiles->west = init_tiles_img(mlx_ptr, data->path_west);
+	tiles->east = init_tiles_img(mlx_ptr, data->path_east);
 	check_errors_xpm();
 }
 /* 

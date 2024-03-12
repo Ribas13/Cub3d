@@ -1,8 +1,7 @@
-NO NORTE
-SO SUL
-WE OESTE
-EA ESTE
-S  YES
+NO ./assets/test1.xpm
+SO ./assets/test2.xpm
+WE ./assets/test1.xpm
+EA ./assets/test2.xpm
 F 220,100,0
 C 225,30,0
 

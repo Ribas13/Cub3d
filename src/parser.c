@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 03:36:02 by micarrel          #+#    #+#             */
-/*   Updated: 2024/03/02 21:33:54 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:52:42 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_array(char **array)
 	int	i;
 
 	i = 0;
+	if (!array)
+		return ;
 	while (array[i])
 		free(array[i++]);
 	free(array);
@@ -221,10 +223,6 @@ unsigned int	rgb_to_hex(char *str)
 	b = ft_atoi(tmp[2]);
 	hex = ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 	free_array(tmp);
-	printf("r = %d\n", r);
-	printf("g = %d\n", g);
-	printf("b = %d\n", b);
-	printf("hex = %d\n", hex);
 	return (hex);
 }
 
@@ -240,25 +238,25 @@ int map_texture(t_data *data)
 	while (data->map->map[i])
 	{
 		tmp = ft_split(data->map->map[i], ' ');
-		if (tmp[0] && ft_strncmp(tmp[0], "NO", 2) == 0 && flag++ >= 8)
-			data->tiles->north->img = ft_strdup(tmp[1]);
-		else if (tmp[0] && ft_strncmp(tmp[0], "SO", 2) == 0 && flag++ >= 8)
-			data->tiles->south->img = ft_strdup(tmp[1]);
-		else if (tmp[0] && ft_strncmp(tmp[0], "WE", 2) == 0 && flag++ >= 8)
-			data->tiles->west->img = ft_strdup(tmp[1]);
-		else if (tmp[0] && ft_strncmp(tmp[0], "EA", 2) == 0 && flag++ >= 8)
-			data->tiles->east->img = ft_strdup(tmp[1]);
-		else if (tmp[0] && ft_strncmp(tmp[0], "S", 1) == 0 && flag++ >= 8)
-			data->tiles->sprite->img = ft_strdup(tmp[1]);
-		else if (tmp[0] && ft_strncmp(tmp[0], "F", 1) == 0 && flag++ >= 8)
-			data->tiles->floor = rgb_to_hex(tmp[1]);
-		else if (tmp[0] && ft_strncmp(tmp[0], "C", 1) == 0 && flag++ >= 8)
-			data->tiles->ceiling = rgb_to_hex(tmp[1]);
-		else if (flag >= 8)
+		if (tmp[0] && ft_strncmp(tmp[0], "NO", 2) == 0 && flag < 7)
+			{data->path_north = ft_strdup(tmp[1]); flag++;}
+		else if (tmp[0] && ft_strncmp(tmp[0], "SO", 2) == 0 && flag < 7)
+			{data->path_south = ft_strdup(tmp[1]); flag++;}
+		else if (tmp[0] && ft_strncmp(tmp[0], "WE", 2) == 0 && flag < 7)
+			{data->path_west = ft_strdup(tmp[1]); flag++;}
+		else if (tmp[0] && ft_strncmp(tmp[0], "EA", 2) == 0 && flag < 7)
+			{data->path_east = ft_strdup(tmp[1]); flag++;}
+		else if (tmp[0] && ft_strncmp(tmp[0], "F", 1) == 0 && flag < 7)
+			{data->floor = rgb_to_hex(tmp[1]); flag++;}
+		else if (tmp[0] && ft_strncmp(tmp[0], "C", 1) == 0 && flag < 7)
+			{data->ceiling = rgb_to_hex(tmp[1]); flag++;}
+		else if (flag >= 6)
 			break ;
 		free_array(tmp);
 		i++;
 	}
+	if (flag < 6)
+		errors("Something is missing in the map");
 	if (tmp)
 		free_array(tmp);
 	get_real_map(data, i);
