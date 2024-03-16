@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 03:36:02 by micarrel          #+#    #+#             */
-/*   Updated: 2024/03/12 20:52:42 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/15 20:06:50 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_emptystr(char *str)
 
 void	print_array(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (array[i])

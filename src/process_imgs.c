@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   process_imgs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/12 20:55:51 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/16 16:28:29 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
+/* 
 void	draw_line(float angle, int length, int x, int y, int color)
 {
 	int	i;
@@ -26,27 +26,31 @@ void	draw_line(float angle, int length, int x, int y, int color)
 		if (ft_data()->map->map[(int)new_y / TILE_SIZE]
 			[(int)new_x / TILE_SIZE] == WALL)
 			break ;
-		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, new_x, new_y, color);
+		mlx_pixel_put(ft_data()->mlx_ptr,
+			ft_data()->win_ptr, new_x, new_y, color);
 		i++;
 	}
-}
-
+} */
+/* 
 void	draw_player_rays(void)
 {
-	int	i;
+	int		i;
+	float	angle2;
 
 	i = 0;
-	float angle2 = ft_data()->player->dir - (ONE_DEGREE * 30);
+	angle2 = ft_data()->player->dir - (ONE_DEGREE * 30);
 	while (i < 120)
 	{
 		if (i == 60)
-			draw_line(angle2, 1000, ft_data()->player->pos.x, ft_data()->player->pos.y, RED);
+			draw_line(angle2, 1000, ft_data()->player->pos.x,
+				ft_data()->player->pos.y, RED);
 		else
-			draw_line(angle2, 1000, ft_data()->player->pos.x, ft_data()->player->pos.y, WHITE);
+			draw_line(angle2, 1000, ft_data()->player->pos.x,
+				ft_data()->player->pos.y, WHITE);
 		angle2 += ONE_DEGREE / 2;
 		i++;
 	}
-}
+} */
 
 static void	check_errors_xpm(void)
 {
@@ -55,11 +59,10 @@ static void	check_errors_xpm(void)
 		errors("XPM file not found");
 }
 
-
 t_tiles_img	*init_tiles_img(void *mlx_ptr, char *path)
 {
 	t_tiles_img	*img;
-	
+
 	img = malloc(sizeof(t_tiles_img));
 	if (!img)
 		errors("Malloc failed");
@@ -84,29 +87,3 @@ void	open_xpm(t_data *data)
 	tiles->east = init_tiles_img(mlx_ptr, data->path_east);
 	check_errors_xpm();
 }
-/* 
-void	render_tiles(void)
-{
-	size_t	i;
-	size_t	j;
-
-	i = -1;
-	while (ft_data()->map->map[++i])
-	{
-		j = -1;
-		while (ft_data()->map->map[i][++j])
-		{
-			if (ft_data()->map->map[i][j] == WALL)
-				mlx_put_image_to_window(ft_data()->mlx_ptr, ft_data()->win_ptr,
-					ft_data()->tiles->wall, TILE_SIZE * j, TILE_SIZE * i);
-			else if (ft_data()->map->map[i][j] == FLOOR
-				|| ft_strchr(PLAYER_CHARS, ft_data()->map->map[i][j]))
-				mlx_put_image_to_window(ft_data()->mlx_ptr, ft_data()->win_ptr,
-					ft_data()->tiles->floor, TILE_SIZE * j, TILE_SIZE * i);
-			else
-				mlx_put_image_to_window(ft_data()->mlx_ptr, ft_data()->win_ptr,
-					ft_data()->tiles->space, TILE_SIZE * j, TILE_SIZE * i);
-		}
-	}
-	put_player();
-} */

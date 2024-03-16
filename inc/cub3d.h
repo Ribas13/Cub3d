@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/12 20:52:59 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/15 20:03:16 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,43 +79,43 @@
 
 typedef struct s_render
 {
-	int			id;
-	pthread_t	thread;
-	int			starting_ray;
+	int				id;
+	pthread_t		thread;
+	int				starting_ray;
 }	t_render;
 
 
 typedef struct s_keys
 {
-	bool	w;
-	bool	a;
-	bool	s;
-	bool	d;
-	bool	up;
-	bool	down;
-	bool	left;
-	bool	right;
-	bool	esc;
-	int		mouse;
+	bool			w;
+	bool			a;
+	bool			s;
+	bool			d;
+	bool			up;
+	bool			down;
+	bool			left;
+	bool			right;
+	bool			esc;
+	int				mouse;
 }	t_keys;
 
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
+	int				x;
+	int				y;
 }	t_point;
 
 
 typedef struct s_tiles_img
 {
-	void	*img;
-	int		width;
-	int		height;
-	char	*addr;
-	int		bpp;
-	int		size_line;
-	int		endian;
+	void			*img;
+	int				width;
+	int				height;
+	char			*addr;
+	int				bpp;
+	int				size_line;
+	int				endian;
 }	t_tiles_img;
 
 
@@ -134,55 +134,55 @@ typedef struct s_tiles
 
 typedef struct s_ray
 {
-	float		distance;
-	float		angle;
-	int			x;
-	int			y;
-	char		wall_orientation;
-	int			section;
-	double		hit_x;
-	t_tiles_img	*texture;
-	double		texture_x_offset;
+	float			distance;
+	float			angle;
+	int				x;
+	int				y;
+	char			wall_orientation;
+	int				section;
+	double			hit_x;
+	t_tiles_img		*texture;
+	double			texture_x_offset;
 }	t_ray;
 
 
 typedef struct s_map
 {
-	char	**map;
-	bool	has_player;
-	size_t	rows;
-	size_t	cols;
+	char			**map;
+	bool			has_player;
+	size_t			rows;
+	size_t			cols;
 }	t_map;
 
 
 typedef struct s_player
 {
-	t_point	pos;
-	float	f_x;
-	float	f_y;
-	float	delta_x;
-	float	delta_y;
-	float	dir;
-	float	distance;
+	t_point			pos;
+	float			f_x;
+	float			f_y;
+	float			delta_x;
+	float			delta_y;
+	float			dir;
+	float			distance;
 }	t_player;
 
 
 typedef struct s_data
 {
-	t_map		*map;
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_tiles		*tiles;
-	t_player	*player;
-	t_keys		*keys;
-	char		*path_north;
-	char		*path_south;
-	char		*path_east;
-	char		*path_west;
+	t_map			*map;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	t_tiles			*tiles;
+	t_player		*player;
+	t_keys			*keys;
+	char			*path_north;
+	char			*path_south;
+	char			*path_east;
+	char			*path_west;
 	unsigned int	floor;
 	unsigned int	ceiling;
-	t_render	*thread_array;
-	t_render	threads[8];
+	t_render		*thread_array;
+	t_render		threads[8];
 }	t_data;
 
 //Prototypes
@@ -225,7 +225,7 @@ void		errors(char *error_msg);
 void		key_press1(t_data *data);
 void		print_array(char **array);
 void		open_xpm(t_data *data);
-void		draw_line(float angle, int length, int x, int y, int color);
+//void		draw_line(float angle, int length, int x, int y, int color);
 void		draw_player_rays(void);
 int			on_press(int key);
 int			cast_rays(void);
@@ -237,5 +237,7 @@ int			calculate_start(float distance);
 int			calculate_end(float distance);
 float		ray_dist(float angle, int length, int x, int y);
 float		normalize_angle(t_ray ray);
+int			get_texture_color(t_tiles_img *texture,
+				int texture_x_offset, int texture_y);
 
 #endif

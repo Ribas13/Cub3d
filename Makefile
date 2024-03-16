@@ -6,7 +6,7 @@
 #    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/03/06 16:13:41 by diosanto         ###   ########.fr        #
+#    Updated: 2024/03/15 19:56:48 by diosanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SRC     = 	src/main.c			 	\
 			src/raycasting_utils.c	\
 			src/collision.c			\
 			src/exit_functions.c	\
-			src/mouse.c
+			src/mouse.c				\
+			src/raycaster_draw.c
 
 OBJ     = $(SRC:%.c=%.o)
 

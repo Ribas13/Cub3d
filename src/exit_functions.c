@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 16:08:14 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/12 20:53:06 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/15 20:05:54 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ static void	free_array2(char **array)
 	while (array[i])
 		free(array[i++]);
 	free(array);
-}	
-
+}
 
 void	ft_destroy_image(t_tiles_img *img, char *path)
 {
@@ -63,5 +62,4 @@ void	clean_all(t_data *data)
 	free(data->player);
 	free(data->mlx_ptr);
 	free(data->keys);
-	
 }

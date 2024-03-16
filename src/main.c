@@ -6,17 +6,11 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/06 16:08:52 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/15 20:06:24 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-/* To do:
-
-1. Finish map validation(gnl, etc)
-2. Open window and draw map ✅
-3. Draw ray casting middle line*/
 
 t_data	*ft_data(void)
 {
@@ -31,15 +25,11 @@ void	init_data(t_data *data)
 	data->tiles = ft_calloc(1, sizeof(t_tiles));
 	data->player = ft_calloc(1, sizeof(t_player));
 	data->keys = ft_calloc(1, sizeof(t_keys));
-	//data->tiles->floor = NULL;
-	//data->tiles->wall = NULL;
 	data->keys->a = false;
 	data->keys->d = false;
 	data->keys->s = false;
 	data->keys->w = false;
 	data->keys->esc = false;
-	//data->keys->mouse_left = false;
-	//data->keys->mouse_right = false;
 	data->keys->up = false;
 	data->keys->down = false;
 	data->keys->left = false;
@@ -63,9 +53,7 @@ int	launch_game(int width, int height)
 	data->win_ptr = mlx_new_window(data->mlx_ptr, width, height, "Cub3d");
 	if (!data->win_ptr)
 		errors("Error starting mlx window");
-	//start_thread();
 	open_xpm(ft_data());
-	//render_tiles();
 	cast_rays();
 	return (0);
 }
