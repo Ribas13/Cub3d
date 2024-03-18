@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 03:36:02 by micarrel          #+#    #+#             */
-/*   Updated: 2024/03/15 20:06:50 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/18 00:50:45 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,16 +127,14 @@ bool	check_map(t_data *data)
 	{
 		j = 0;
 		if (ft_strlen(data->map->map[i]) == 0 && flag == 0)
-		{printf("LNE = %ld\n", ft_strlen(data->map->map[i]));	flag = 1;}
+			flag = 1;
 		while (data->map->map[i][j])
 		{
 			if ((data->map->map[i][j] == '0' || data->map->map[i][j] == '1' || data->map->map[i][j] == 'N' || data->map->map[i][j] == 'S' || data->map->map[i][j] == 'W' || data->map->map[i][j] == 'E') && flag == 1)
 				errors("Empty line in map");
 			if (data->map->map[i][j] != '1' && data->map->map[i][j] != ' ')
-			{
 				if (data->map->map[i][j] != '0' && data->map->map[i][j] != '1' && data->map->map[i][j] != 'N' && data->map->map[i][j] != 'S' && data->map->map[i][j] != 'W' && data->map->map[i][j] != 'E' && data->map->map[i][j] != '\n')
-					{printf("AAAAAAAA = %c\n", data->map->map[i][j]); errors("Invalid character in map");}
-			}
+					errors("Invalid character in map");
 			j++;
 		}
 		i++;
@@ -226,7 +224,7 @@ unsigned int	rgb_to_hex(char *str)
 	return (hex);
 }
 
-int map_texture(t_data *data)
+int	map_texture(t_data *data)
 {
 	int		i;
 	int		flag;
@@ -239,17 +237,35 @@ int map_texture(t_data *data)
 	{
 		tmp = ft_split(data->map->map[i], ' ');
 		if (tmp[0] && ft_strncmp(tmp[0], "NO", 2) == 0 && flag < 7)
-			{data->path_north = ft_strdup(tmp[1]); flag++;}
+		{
+			data->path_north = ft_strdup(tmp[1]); 
+			flag++;
+		}
 		else if (tmp[0] && ft_strncmp(tmp[0], "SO", 2) == 0 && flag < 7)
-			{data->path_south = ft_strdup(tmp[1]); flag++;}
+		{
+			data->path_south = ft_strdup(tmp[1]); 
+			flag++;
+		}
 		else if (tmp[0] && ft_strncmp(tmp[0], "WE", 2) == 0 && flag < 7)
-			{data->path_west = ft_strdup(tmp[1]); flag++;}
+		{
+			data->path_west = ft_strdup(tmp[1]); 
+			flag++;
+		}
 		else if (tmp[0] && ft_strncmp(tmp[0], "EA", 2) == 0 && flag < 7)
-			{data->path_east = ft_strdup(tmp[1]); flag++;}
+		{
+			data->path_east = ft_strdup(tmp[1]); 
+			flag++;
+		}
 		else if (tmp[0] && ft_strncmp(tmp[0], "F", 1) == 0 && flag < 7)
-			{data->floor = rgb_to_hex(tmp[1]); flag++;}
+		{
+			data->floor = rgb_to_hex(tmp[1]); 
+			flag++;
+		}
 		else if (tmp[0] && ft_strncmp(tmp[0], "C", 1) == 0 && flag < 7)
-			{data->ceiling = rgb_to_hex(tmp[1]); flag++;}
+		{
+			data->ceiling = rgb_to_hex(tmp[1]); 
+			flag++;
+		}
 		else if (flag >= 6)
 			break ;
 		free_array(tmp);

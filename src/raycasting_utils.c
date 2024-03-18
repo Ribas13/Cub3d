@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:56:17 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/12 20:55:47 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/18 00:51:37 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ float	ray_dist(float angle, int length, int x, int y)
 		new_x = x + dist * a_cos;
 		new_y = y + dist * a_sin;
 		if (ft_data()->map->map[new_y / TILE_SIZE]
-			[new_x / TILE_SIZE] == WALL)
+			[new_x / TILE_SIZE] == '1')
 			break ;
 		dist += 1;
 	}

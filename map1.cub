@@ -1,7 +1,7 @@
 NO ./assets/test1.xpm
-SO ./assets/test2.xpm
+SO ./assets/floor.xpm
 WE ./assets/test1.xpm
-EA ./assets/test2.xpm
+EA ./assets/floor.xpm
 F 220,100,0
 C 225,30,0
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:13:38 by diosanto          #+#    #+#             */
-/*   Updated: 2022/10/24 16:20:15 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/18 00:38:05 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	*ft_memset(void *s, int c, size_t n)
 	p = s;
 	while (n > 0)
 	{
-	*p = c;
-	p++;
-	n--;
+		*p = c;
+		p++;
+		n--;
 	}
 	return (s);
 }

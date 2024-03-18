@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
+#    By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/03/15 19:56:48 by diosanto         ###   ########.fr        #
+#    Updated: 2024/03/18 00:52:27 by micarrel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ UNAME   := $(shell uname)
 
 SRC     = 	src/main.c			 	\
 			src/validate_input.c	\
+			src/validate_input2.c	\
+			src/validate_input3.c	\
 			src/process_imgs.c		\
 			src/key_press.c			\
 			src/player_mov.c		\

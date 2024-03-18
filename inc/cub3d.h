@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/15 20:03:16 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/18 00:55:29 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@
 # define TILE_SIZE 32
 # define ALLOWED_CHARS "10NSWE "
 # define PLAYER_CHARS "NSWE"
-# define WALL '1'
-# define FLOOR '0'
-# define SPACE ' '
+# define WALL "1"
+# define FLOOR "0"
+# define SPACE " "
 
 //Structs
 
@@ -83,7 +83,6 @@ typedef struct s_render
 	pthread_t		thread;
 	int				starting_ray;
 }	t_render;
-
 
 typedef struct s_keys
 {
@@ -99,13 +98,11 @@ typedef struct s_keys
 	int				mouse;
 }	t_keys;
 
-
 typedef struct s_point
 {
 	int				x;
 	int				y;
 }	t_point;
-
 
 typedef struct s_tiles_img
 {
@@ -118,7 +115,6 @@ typedef struct s_tiles_img
 	int				endian;
 }	t_tiles_img;
 
-
 typedef struct s_tiles
 {
 	t_tiles_img		*wall;
@@ -130,7 +126,6 @@ typedef struct s_tiles
 	t_tiles_img		*sprite;
 	t_tiles_img		*player;
 }	t_tiles;
-
 
 typedef struct s_ray
 {
@@ -145,7 +140,6 @@ typedef struct s_ray
 	double			texture_x_offset;
 }	t_ray;
 
-
 typedef struct s_map
 {
 	char			**map;
@@ -153,7 +147,6 @@ typedef struct s_map
 	size_t			rows;
 	size_t			cols;
 }	t_map;
-
 
 typedef struct s_player
 {
@@ -165,7 +158,6 @@ typedef struct s_player
 	float			dir;
 	float			distance;
 }	t_player;
-
 
 typedef struct s_data
 {
@@ -196,7 +188,12 @@ void		clean_all(t_data *data);
 //collision
 
 int			check_wall(int key);
-
+void		save_map(char *map);
+bool		map_check(char *map);
+bool		valid_extension(char *file);
+void		get_lines(char *map, t_data *data);
+void		get_nbr_rows(char *map, t_data *data);
+void		get_player_pos(t_data *data);
 t_tiles_img	*init_tiles_img(void *mlx_ptr, char *path);
 int			launch_game(int width, int height);
 void		hooks(void);
