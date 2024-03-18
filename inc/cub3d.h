@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/18 00:55:29 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:44:15 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,13 @@ typedef struct s_data
 
 //Prototypes
 
+
+//parser
+char		**allocate_tmp(t_data *data);
+int			ifnot_map(char str);
+int			if_map(char str);
+void		copy_non_empty_strings(t_data *data, char **tmp, int *i, int *j);
+
 //exits
 
 int			quit_game(void);
@@ -190,6 +197,7 @@ void		clean_all(t_data *data);
 int			check_wall(int key);
 void		save_map(char *map);
 bool		map_check(char *map);
+int			validate_map(void);
 bool		valid_extension(char *file);
 void		get_lines(char *map, t_data *data);
 void		get_nbr_rows(char *map, t_data *data);
@@ -218,9 +226,9 @@ t_data		*ft_data(void);
 int			map_texture(t_data *data);
 bool		check_map(t_data *data);
 void		valid_map(int ac, char **av);
+int			get_real_map(t_data *data, int i);
 void		errors(char *error_msg);
 void		key_press1(t_data *data);
-void		print_array(char **array);
 void		open_xpm(t_data *data);
 //void		draw_line(float angle, int length, int x, int y, int color);
 void		draw_player_rays(void);

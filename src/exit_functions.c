@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 16:08:14 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/15 20:05:54 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:42:02 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,38 @@ static void	free_array2(char **array)
 	free(array);
 }
 
-void	ft_destroy_image(t_tiles_img *img, char *path)
+void	ft_destroy_image(t_tiles_img *img)
 {
 	if (img->img)
 		mlx_destroy_image(ft_data()->mlx_ptr, img->img);
-	if (path)
-		free(path);
 	if (img)
 		free(img);
+}
+
+void	free_image(t_data *data)
+{
+	if (data->tiles->north)
+		ft_destroy_image(data->tiles->north);
+	if (data->tiles->south)
+		ft_destroy_image(data->tiles->south);
+	if (data->tiles->west)
+		ft_destroy_image(data->tiles->west);
+	if (data->tiles->east)
+		ft_destroy_image(data->tiles->east);
 }
 
 void	clean_all(t_data *data)
 {
 	free_array2(data->map->map);
-	if (data->tiles->north)
-		ft_destroy_image(data->tiles->north, data->path_north);
-	if (data->tiles->south)
-		ft_destroy_image(data->tiles->south, data->path_south);
-	if (data->tiles->west)
-		ft_destroy_image(data->tiles->west, data->path_west);
-	if (data->tiles->east)
-		ft_destroy_image(data->tiles->east, data->path_east);
+	free_image(data);
+	if (data->path_north)
+		free(data->path_north);
+	if (data->path_south)
+		free(data->path_south);
+	if (data->path_east)
+		free(data->path_east);
+	if (data->path_west)
+		free(data->path_west);
 	if (data->tiles)
 		free(data->tiles);
 	if (data->mlx_ptr && data->win_ptr)
