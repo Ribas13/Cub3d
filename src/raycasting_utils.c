@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:56:17 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/18 00:51:37 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:44:50 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
