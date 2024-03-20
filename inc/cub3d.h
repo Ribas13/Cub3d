@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/20 15:27:35 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/20 22:48:28 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,14 +136,17 @@ typedef struct s_ray
 	float			angle;
 	int				x;
 	int				y;
+	int				new_x;
+	int				new_y;
 	int				x_hit1;
 	int				y_hit1;
 	int				x_hit2;
 	int				y_hit2;
-	int				new_x;
-	int				new_y;
+	float			a_cos;
+	float			a_sin;
 	int				og_tile_y;
 	bool			found_h_wall;
+	bool			found_v_wall;
 	int				x_offset;
 	int				y_offset;
 	char			wall_orientation;
@@ -256,5 +259,19 @@ float		ray_dist(float dir, int length, int x, int y);
 float		normalize_angle(t_ray ray);
 int			get_texture_color(t_tiles_img *texture,
 				int texture_x_offset, int texture_y);
+
+//dda_algo_hor
+
+int			horizontal_dist(t_ray ray, int x, int y);
+float		calc_h(int p_x, int p_y, int r_x, int r_y);
+
+//dda_algo_ver
+
+int			vertical_dist(t_ray ray, int x, int y);
+
+//dda_algo_utils
+
+float		set_angle(float angle);
+float		calc_h(int p_x, int p_y, int r_x, int r_y);
 
 #endif

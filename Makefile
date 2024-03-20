@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+         #
+#    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/03/18 16:42:54 by micarrel         ###   ########.fr        #
+#    Updated: 2024/03/20 22:31:15 by diosanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,10 @@ SRC     = 	src/main.c			 	\
 			src/collision.c			\
 			src/exit_functions.c	\
 			src/mouse.c				\
-			src/raycaster_draw.c
+			src/raycaster_draw.c	\
+			src/dda_algo_hor.c		\
+			src/dda_algo_ver.c		\
+			src/dda_algo_utils.c
 
 OBJ     = $(SRC:%.c=%.o)
 
