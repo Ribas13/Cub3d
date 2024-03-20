@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:22:42 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/18 00:41:14 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:47:56 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	get_nbr_rows(char *map, t_data *data)
 	if (rows == 0)
 		errors("Empty map");
 	data->map->rows = rows;
+	printf("rows: %ld\n", data->map->rows);
 	close(map_fd);
 }
 
@@ -61,6 +62,7 @@ void	get_lines(char *map, t_data *data)
 		i++;
 	}
 	data->map->cols = ft_strlen(data->map->map[0]);
+	printf("rows: %ld\n", data->map->cols);
 	close(map_fd);
 }
 
