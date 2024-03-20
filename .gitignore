@@ -4,3 +4,4 @@ src/*.o
 cub3d
 inc/libft/*.o
 inc/libft/*.a
+vgcore.*

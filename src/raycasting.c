@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/20 01:35:03 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/20 21:43:52 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,71 +136,6 @@ t_tiles_img	*get_texture(char wall_orientation)
 		return (ft_data()->tiles->west);
 	return (NULL);
 }
-//function to calculate the distance from the player to the closest horizontal wall
-float	r_h_dist(t_ray ray, float angle, t_data *data)
-{
-	float	dist;
-	float	a_cos;
-	float	a_sin;
-	int		new_x;
-	int		new_y;
-	int		map_y;
-	int		next_map_y;
-
-	dist = 0;
-	if (angle < 0)
-		angle += 2 * PI;
-	if (angle > 2 * PI)
-		angle -= 2 * PI;
-	a_cos = cos(angle);
-	a_sin = sin(angle);
-	new_x = data->player->pos.x + dist * a_cos;
-	new_y = data->player->pos.y + dist * a_sin;
-	map_y = data->player->pos.y / 64;
-	(void)ray;
-	next_map_y = map_y; //target map y coordinate
-	printf("next_map_y: %d\n", next_map_y);
-	if (angle == (float)PI || angle == 0) //looking right or left(never hits vertical wall)
-		return (5000);
-	if (angle > PI) //looking up
-	{
-		next_map_y = (map_y - 1) * 64;
-		if (next_map_y < 0)
-			next_map_y = 0;
-		//progress along the direction of the ray
-		while (new_y > next_map_y)
-		{
-			printf("curr map_y: %d\n", map_y);
-			printf("next map_y: %d\n", next_map_y);
-			new_x = data->player->pos.x + dist * a_cos;
-			new_y = data->player->pos.y + dist * a_sin;
-			//if (data->map->map[new_y / TILE_SIZE][new_x / TILE_SIZE] == '1')
-				//break ;
-			if (new_x > 0 && new_y > 0 && new_x < (int)data->map->cols * 64 && new_y < (int)data->map->rows * 64)
-			{
-				//is within the map borders
-				//now check for 
-				if (new_y == next_map_y)
-					if (data->map->map[new_y / 64][new_x / 64] == '1')
-						break ;
-			}
-			dist += 1;
-		}
-	}
-	else //looking down
-	{
-		return (2000);
-	}
-	/* while (dist < 5000)
-	{
-		new_x = data->player->pos.x + dist * a_cos;
-		new_y = data->player->pos.y + dist * a_sin;
-		if (data->map->map[new_y / TILE_SIZE][new_x / TILE_SIZE] == '1')
-			break ;
-		dist += 1;
-	} */
-	return (dist);
-}
 
 t_ray	ray_properties(int i)
 {
@@ -212,21 +147,11 @@ t_ray	ray_properties(int i)
 			ft_data()->player->pos.y);
 	ray.x = ft_data()->player->pos.x + ray.distance * cos(ray.angle);
 	ray.y = ft_data()->player->pos.y + ray.distance * sin(ray.angle);
-	/* if (i ==  32)
-	{
-		ray.h_distance = r_h_dist(ray, ray.angle, ft_data());
-		printf("middle ray distance: %f | middle h_distance: %f\n", ray.distance, ray.h_distance);
-	} */
+	ray.h_distance = horizontal_dist(ray, ft_data()->player->pos.x,
+			ft_data()->player->pos.y);
 	ray.wall_orientation = calculate_wall_orientation(ray, ray.x, ray.y);
 	ray.distance = normalize_angle(ray);
 	ray.texture = get_texture(ray.wall_orientation);
-	/* if (ray.wall_orientation == 'W')
-	{
-		printf("Ray index W: %d\n", i);
-		printf("Ray angle W: %f\n", ray.angle);
-		printf("Ray x W: %d\n", ray.x);
-		printf("Ray y W: %d\n", ray.y);
-	} */
 	if (ray.wall_orientation == 'N' || ray.wall_orientation == 'S')
 		ray.texture_x_offset = (ray.x % TILE_SIZE)
 			* (double)ray.texture->width / TILE_SIZE;
