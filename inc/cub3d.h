@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/20 00:16:51 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:27:35 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # include <pthread.h>
 
 //Imgs
-# define WALL_TILE "./assets/test1.xpm"
+# define WALL_TILE "./assets/wall.xpm"
 # define FLOOR_TILE "./assets/floor.xpm"
-# define SPACE_TILE "./assets/test2.xpm"
+# define SPACE_TILE "./assets/void.xpm"
 # define PLAYER "./assets/player.xpm"
 # define YELLOW 0xFFFF00
 # define RED 0xFF0000
@@ -71,9 +71,9 @@
 # define TILE_SIZE 32
 # define ALLOWED_CHARS "10NSWE "
 # define PLAYER_CHARS "NSWE"
-# define WALL "1"
-# define FLOOR "0"
-# define SPACE " "
+# define WALL '1'
+# define FLOOR '0'
+# define SPACE ' '
 
 //Structs
 
@@ -125,21 +125,29 @@ typedef struct s_tiles
 	t_tiles_img		*west;
 	t_tiles_img		*sprite;
 	t_tiles_img		*player;
+	t_tiles_img		*floor;
 }	t_tiles;
 
 typedef struct s_ray
 {
-	float			distance;
-	float			v_distance;
-	float			h_distance;
+	int				distance;
+	int				v_distance;
+	int				h_distance;
 	float			angle;
 	int				x;
 	int				y;
-	float			x_offset;
-	float			y_offset;
+	int				x_hit1;
+	int				y_hit1;
+	int				x_hit2;
+	int				y_hit2;
+	int				new_x;
+	int				new_y;
+	int				og_tile_y;
+	bool			found_h_wall;
+	int				x_offset;
+	int				y_offset;
 	char			wall_orientation;
 	int				section;
-	double			hit_x;
 	t_tiles_img		*texture;
 	double			texture_x_offset;
 }	t_ray;
@@ -220,7 +228,7 @@ int			mouse_position(void);
 void		move_back(void);
 void		move_forward(void);
 
-void		render_tiles(void);
+int			render_tiles(void);
 void		update_player_pos(bool horizontal, int dir);
 void		put_player(void);
 
