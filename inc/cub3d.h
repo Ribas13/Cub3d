@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/18 00:55:29 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/20 00:16:51 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,13 @@ typedef struct s_tiles
 typedef struct s_ray
 {
 	float			distance;
+	float			v_distance;
+	float			h_distance;
 	float			angle;
 	int				x;
 	int				y;
+	float			x_offset;
+	float			y_offset;
 	char			wall_orientation;
 	int				section;
 	double			hit_x;
@@ -227,12 +231,12 @@ void		draw_player_rays(void);
 int			on_press(int key);
 int			cast_rays(void);
 t_ray		ray_properties(int i);
-char		calculate_wall_orientation(int x, int y);
+char		calculate_wall_orientation(t_ray ray, int x, int y);
 void		draw_ray(t_ray ray);
 void		draw_wall_pixel(int x, int y, char wall_orientation);
 int			calculate_start(float distance);
 int			calculate_end(float distance);
-float		ray_dist(float angle, int length, int x, int y);
+float		ray_dist(float dir, int length, int x, int y);
 float		normalize_angle(t_ray ray);
 int			get_texture_color(t_tiles_img *texture,
 				int texture_x_offset, int texture_y);

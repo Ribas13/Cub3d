@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/15 20:06:24 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/19 22:13:38 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	launch_game(int width, int height)
 
 int	main(int ac, char **av)
 {
+	//segfault when map has no player (map12.cub)
 	init_data(ft_data());
 	valid_map(ac, av);
 	launch_game(SCREEN_WIDTH, SCREEN_HEIGHT);
