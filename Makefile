@@ -6,7 +6,7 @@
 #    By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/03/18 00:52:27 by micarrel         ###   ########.fr        #
+#    Updated: 2024/03/18 16:42:54 by micarrel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ SRC     = 	src/main.c			 	\
 			src/key_press.c			\
 			src/player_mov.c		\
 			src/parser.c			\
+			src/parser2.c			\
+			src/parser3.c			\
 			src/raycasting.c		\
 			src/raycasting_utils.c	\
 			src/collision.c			\
