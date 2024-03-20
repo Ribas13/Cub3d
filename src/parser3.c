@@ -53,12 +53,30 @@ void	copy_tmp_to_map(t_data *data, char **tmp, int count)
 	j = 0;
 	free_array(data->map->map);
 	data->map->map = ft_calloc(count + 1, sizeof(char *));
-	while (ft_strlen(tmp[j]) != 0)
+	while (tmp && tmp[j] && ft_strlen(tmp[j]) != 0)
 	{
 		data->map->map[j] = ft_strdup(tmp[j]);
 		j++;
 	}
 	data->map->map[j] = NULL;
+}
+
+int	get_columns_lines(t_data *data, char **tmp, int i)
+{
+	int	j;
+	int	count;
+
+	j = 0;
+	count = 0;
+	while (tmp[j])
+	{
+		if (ft_strlen(tmp[j]) > count)
+			count = ft_strlen(tmp[j]);
+		j++;
+	}
+	data->map->cols = count;
+	data->map->rows = j;
+	return (i);
 }
 
 int	get_real_map(t_data *data, int i)
@@ -76,5 +94,13 @@ int	get_real_map(t_data *data, int i)
 	count = find_last_valid_row(tmp, count);
 	copy_tmp_to_map(data, tmp, count);
 	free_array(tmp);
+	
+
+	i = 0;
+	while (data->map->map[i])
+	{
+		printf("%s\n", data->map->map[i]);
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }
