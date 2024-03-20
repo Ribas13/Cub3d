@@ -61,7 +61,7 @@ void	copy_tmp_to_map(t_data *data, char **tmp, int count)
 	data->map->map[j] = NULL;
 }
 
-int	get_columns_lines(t_data *data, char **tmp, int i)
+void	get_columns_lines(t_data *data, char **tmp)
 {
 	int	j;
 	int	count;
@@ -76,7 +76,6 @@ int	get_columns_lines(t_data *data, char **tmp, int i)
 	}
 	data->map->cols = count;
 	data->map->rows = j;
-	return (i);
 }
 
 int	get_real_map(t_data *data, int i)
