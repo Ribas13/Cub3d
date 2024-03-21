@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/21 18:56:16 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:29:28 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ t_ray	ray_properties2(int i)
 	return (ray);
 }
 
-void solve_conflict(t_ray *ray) {
+/* void solve_conflict(t_ray *ray) {
     int mapX = (int)ray->x / TILE_SIZE;
     int mapY = (int)ray->y / TILE_SIZE;
 
@@ -145,6 +145,31 @@ void solve_conflict(t_ray *ray) {
             ray->wall_orientation = 'N';
         }
     }
+} */
+
+void solve_conflict(t_ray *ray) {
+    int mapX = (int)ray->x / TILE_SIZE;
+    int mapY = (int)ray->y / TILE_SIZE;
+
+    // Check the cells in the direction of the ray
+    int nextX = mapX + (int)cos(ray->angle);
+    int nextY = mapY + (int)sin(ray->angle);
+
+    if (ft_data()->map->map[nextY][nextX] == '1') {
+        // There's a wall in the direction of the ray, so the ray hit a wall facing that direction
+        if (ray->angle > 0 && ray->angle < PI) {
+            ray->wall_orientation = 'N';
+        } else {
+            ray->wall_orientation = 'S';
+        }
+    } else {
+        // There's no wall in the direction of the ray, so the ray hit a wall facing the opposite direction
+        if (ray->angle > 0 && ray->angle < PI) {
+            ray->wall_orientation = 'S';
+        } else {
+            ray->wall_orientation = 'N';
+        }
+    }
 }
 
 t_ray	ray_properties(int i)
@@ -158,13 +183,15 @@ t_ray	ray_properties(int i)
 	ray.a_sin = sin(ray.angle);
 	ray.section = i * 10;
 
-	set_ray_distance(&ray);
+	//set_ray_distance(&ray);
+	ray.distance = ray_dist(ray.angle, 5000, ft_data()->player->pos.x,
+			ft_data()->player->pos.y);
 
 
 
 	ray.x = ft_data()->player->pos.x + ray.distance * ray.a_cos;
 	ray.y = ft_data()->player->pos.y + ray.distance * ray.a_sin;
-	if (i == 63 && ray.h_distance == ray.v_distance)
+	/* if (i == 63)
 	{
 		printf("------------------\n");
 		printf("ray_x: %d | ray_y: %d\n", ray.x, ray.y);
@@ -176,13 +203,15 @@ t_ray	ray_properties(int i)
 		else
 			printf("hit vertical wall\n");
 		printf("------------------\n");
-	}
+	} */
 
-	if (ray.x == ray.y)
+	/* if (ray.x == ray.y)
 	{
-		solve_conflict(&ray);
-	}
+		//solve_conflict(&ray);
+		ray = ray_properties2(i - 1);
+	} */
 	ray.distance = normalize_angle(ray);
+	ray.wall_orientation = calculate_wall_orientation(ray, ray.x, ray.y);
 	ray.texture = get_texture(ray.wall_orientation);
 	if (ray.wall_orientation == 'N' || ray.wall_orientation == 'S')
 		ray.texture_x_offset = (ray.x % TILE_SIZE)
