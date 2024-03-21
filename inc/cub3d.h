@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/21 17:14:05 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:48:13 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,8 @@ typedef struct s_tiles
 typedef struct s_ray
 {
 	int				distance;
-	int				v_distance;
-	int				h_distance;
+	float			v_distance;
+	float			h_distance;
 	float			angle;
 	int				i;
 	int				x;
@@ -263,12 +263,12 @@ int			get_texture_color(t_tiles_img *texture,
 
 //dda_algo_hor
 
-int			horizontal_dist(t_ray ray, int x, int y);
+float		horizontal_dist(t_ray ray, int x, int y);
 float		calc_h(int p_x, int p_y, int r_x, int r_y);
 
 //dda_algo_ver
 
-int			vertical_dist(t_ray ray, int x, int y);
+float		vertical_dist(t_ray ray, int x, int y);
 
 //dda_algo_utils
 

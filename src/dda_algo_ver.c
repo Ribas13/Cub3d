@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 21:41:31 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/21 16:10:24 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:48:20 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	set_ray_x_offset(t_ray *ray)
 	}
 }
 
-int	vertical_dist(t_ray ray, int x, int y)
+float	vertical_dist(t_ray ray, int x, int y)
 {
 	ray.angle = set_angle(ray.angle);
 	//ray.found_v_wall = false;

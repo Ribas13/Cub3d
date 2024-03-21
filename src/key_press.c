@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/21 16:01:03 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:38:31 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ void	hooks_2(void)
 {
 	if (ft_data()->keys->a == true)
 	{
-		ft_data()->player->dir -= PI / 128;
+		ft_data()->player->dir -= PI / 64;
 		if (ft_data()->player->dir < 0)
 			ft_data()->player->dir += 2 * PI;
 	}
 	if (ft_data()->keys->d == true)
 	{
-		ft_data()->player->dir += PI / 128;
+		ft_data()->player->dir += PI / 64;
 		if (ft_data()->player->dir > 2 * PI)
 			ft_data()->player->dir -= 2 * PI;
 	}

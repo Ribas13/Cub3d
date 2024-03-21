@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 21:40:03 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/20 23:02:13 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:48:31 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	set_ray_y_offset(t_ray *ray)
 Now we need to save both of the intersection coordinates and compare them to
 save the offset*/
 //still need to correctly set the cols and rows of the map
-int	horizontal_dist(t_ray ray, int x, int y)
+float	horizontal_dist(t_ray ray, int x, int y)
 {
 	ray.angle = set_angle(ray.angle);
 	//ray.found_h_wall = false;
