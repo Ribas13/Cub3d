@@ -39,7 +39,7 @@ void	save_map(char *map)
 	if (check_map(ft_data()) == false)
 		errors("Invalid map aa  😭");
 	get_player_pos(ft_data());
-	printf("Printing map in validate_input3.c\n");
+	//printf("Printing map in validate_input3.c\n");
 	j = 0;
 	for (i = 0; i < 10; i++)
 	{
@@ -52,12 +52,12 @@ void	save_map(char *map)
 				//rows++;
 				break ;
 			}
-			printf("%c", ft_data()->map->map[i][j]);
+			//printf("%c", ft_data()->map->map[i][j]);
 		}
-		printf("\n");
+		//printf("\n");
 	}
 	ft_data()->map->cols = j;
 	ft_data()->map->rows = i;
-	printf("Rows: %ld\n", ft_data()->map->rows);
-	printf("Cols: %ld\n", ft_data()->map->cols);
+	//printf("Rows: %ld\n", ft_data()->map->rows);
+	//printf("Cols: %ld\n", ft_data()->map->cols);
 }

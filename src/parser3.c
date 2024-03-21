@@ -70,7 +70,7 @@ void	get_columns_lines(t_data *data, char **tmp)
 	count = 0;
 	while (tmp[j])
 	{
-		if (ft_strlen(tmp[j]) > count)
+		if ((int)ft_strlen(tmp[j]) > count)
 			count = ft_strlen(tmp[j]);
 		j++;
 	}
@@ -98,7 +98,7 @@ int	get_real_map(t_data *data, int i)
 	i = 0;
 	while (data->map->map[i])
 	{
-		printf("%s\n", data->map->map[i]);
+		//printf("%s\n", data->map->map[i]);
 		i++;
 	}
 	return (EXIT_SUCCESS);

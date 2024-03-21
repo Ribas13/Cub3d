@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 21:41:31 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/20 23:19:25 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:10:24 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ bool	first_intersection_v(t_ray *ray, int x, int y, int og_tile_x, int i)
 		ray->new_x = x + i * ray->a_cos;
 		ray->new_y = y + i * ray->a_sin;
 		if (ray->new_y < 0
-			|| ray->new_y > (int)ft_data()->map->rows * TILE_SIZE)
+			|| ray->new_y >= (int)ft_data()->map->rows * TILE_SIZE)
 			return (true);
-		else if (ray->new_x < 0
+		else if (ray->new_x <= 0
 			|| ray->new_x > (int)ft_data()->map->cols * TILE_SIZE)
 			return (true);
 		if ((int)ray->new_x / TILE_SIZE != og_tile_x)

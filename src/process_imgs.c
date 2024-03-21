@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/20 22:48:45 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:16:00 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	render_tiles(void)
 {
 	size_t	i;
 	size_t	j;
-	t_ray	ray;
+	//t_ray	ray;
 
 	open_xpm2(ft_data());
 	i = -1;
@@ -135,12 +135,12 @@ int	render_tiles(void)
 					ft_data()->tiles->space, TILE_SIZE * j, TILE_SIZE * i);
 		}
 	}
-	ray.angle = ft_data()->player->dir;
+	/* ray.angle = ft_data()->player->dir;
 	ray.a_cos = cos(ray.angle);
 	ray.a_sin = sin(ray.angle);
 	ray.h_distance = horizontal_dist(ray, ft_data()->player->pos.x, ft_data()->player->pos.y);
 	printf("Horizontal distance: %d\n", ray.h_distance);
 	ray.v_distance = vertical_dist(ray, ft_data()->player->pos.x, ft_data()->player->pos.y);
-	printf("Vertical distance: %d\n", ray.v_distance);
+	printf("Vertical distance: %d\n", ray.v_distance); */
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/20 16:13:57 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:14:56 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	launch_game(int width, int height)
 	if (!data->win_ptr)
 		errors("Error starting mlx window");
 	open_xpm(ft_data());
-	render_tiles();
+	//render_tiles();
 	return (0);
 }
 
