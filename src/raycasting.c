@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/21 16:47:41 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:28:30 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,12 @@ t_tiles_img	*get_texture(char wall_orientation)
 /* 1. check for straight angle */
 void	set_ray_distance(t_ray *ray)
 {
+
 	ray->h_distance = horizontal_dist(*ray, ft_data()->player->pos.x,
 			ft_data()->player->pos.y);
 	ray->v_distance = vertical_dist(*ray, ft_data()->player->pos.x,
 			ft_data()->player->pos.y);
-	if (ray->h_distance < ray->v_distance)
+	if (ray->h_distance <= ray->v_distance) //checck if they are equal
 	{
 		if (ray->angle >= 0 && ray->angle <= PI)
 			ray->wall_orientation = 'N';
@@ -106,36 +107,108 @@ void	set_ray_distance(t_ray *ray)
 	}
 }
 
-t_ray	ray_properties(int i)
+t_ray	ray_properties2(int i)
 {
 	t_ray	ray;
 
+	ray.i = i;
 	ray.angle = ft_data()->player->dir - HALF_FOV + (i * HALF_DEGREE);
 	ray.angle = set_angle(ray.angle);
 	ray.a_cos = cos(ray.angle);
 	ray.a_sin = sin(ray.angle);
 	ray.section = i * 10;
-	//ray.distance = ray_dist(ray.angle, 5000, ft_data()->player->pos.x,
-			//ft_data()->player->pos.y);
-	//ray.angle = set_angle(ray.angle);
-	//set the ray distance----------------
 
-//check for straight angles (EWSN)
-	/* if (i == 32)
-	{
-		ray.angle = set_angle(ray.angle);
-		set_ray_distance(&ray);
-	} */
-	//printf("ray distance: %i\n", ray.distance);
+	printf("before set_ray_distance\n");
 	set_ray_distance(&ray);
+	printf("after set_ray_distance\n");
 
 
 
-	ray.x = ft_data()->player->pos.x + ray.distance * cos(ray.angle);
-	ray.y = ft_data()->player->pos.y + ray.distance * sin(ray.angle);
-	
+	ray.x = ft_data()->player->pos.x + ray.distance * ray.a_cos;
+	ray.y = ft_data()->player->pos.y + ray.distance * ray.a_sin;
 
-	ray.distance = normalize_angle(ray);
+	/* if (i == 63)
+	{
+		printf("------------------\n");
+		printf("ray_x: %d | ray_y: %d\n", ray.x, ray.y);
+		printf("ray_angle: %f\n", ray.angle);
+		printf("h_distance: %d\n", ray.h_distance);
+		printf("v_distance: %d\n", ray.v_distance);
+		if (ray.h_distance < ray.v_distance)
+			printf("hit horizontal wall\n");
+		else
+			printf("hit vertical wall\n");
+		printf("------------------\n");
+	} */
+
+	//ray.distance = normalize_angle(ray);
+	//ray.texture = get_texture(ray.wall_orientation);
+	/* if (ray.wall_orientation == 'N' || ray.wall_orientation == 'S')
+		ray.texture_x_offset = (ray.x % TILE_SIZE)
+			* (double)ray.texture->width / TILE_SIZE;
+	else
+		ray.texture_x_offset = (ray.y % TILE_SIZE)
+			* (double)ray.texture->width / TILE_SIZE; */
+	return (ray);
+}
+
+void	solve_conflict(t_ray *ray)
+{
+	t_ray	next_ray;
+	t_ray	prev_ray;
+
+	next_ray = ray_properties2(ray->i + 1);
+	prev_ray = ray_properties2(ray->i - 1);
+	printf("solving the conflict\n");
+	if (next_ray.wall_orientation == prev_ray.wall_orientation)
+		ray->wall_orientation = next_ray.wall_orientation;
+	ray->wall_orientation = next_ray.wall_orientation;
+	printf("solved\n");
+	//need to find another way to solve the conflict
+	//(void)ray;
+	return ;
+}
+
+t_ray	ray_properties(int i)
+{
+	t_ray	ray;
+
+	ray.i = i;
+	ray.angle = ft_data()->player->dir - HALF_FOV + (i * HALF_DEGREE);
+	ray.angle = set_angle(ray.angle);
+	ray.a_cos = cos(ray.angle);
+	ray.a_sin = sin(ray.angle);
+	ray.section = i * 10;
+
+	printf("before set_ray_distance\n");
+	set_ray_distance(&ray);
+	printf("after set_ray_distance\n");
+
+
+
+	ray.x = ft_data()->player->pos.x + ray.distance * ray.a_cos;
+	ray.y = ft_data()->player->pos.y + ray.distance * ray.a_sin;
+	printf("before conflict\n");
+	if (i == 63 && ray.x == ray.y)
+	{
+		printf("------------------\n");
+		printf("ray_x: %d | ray_y: %d\n", ray.x, ray.y);
+		printf("ray_angle: %f\n", ray.angle);
+		printf("h_distance: %d\n", ray.h_distance);
+		printf("v_distance: %d\n", ray.v_distance);
+		if (ray.h_distance < ray.v_distance)
+			printf("hit horizontal wall\n");
+		else
+			printf("hit vertical wall\n");
+		printf("------------------\n");
+	}
+	if (ray.x == ray.y)
+	{
+		solve_conflict(&ray);
+	}
+	printf("after conflict\n");
+
+	//ray.distance = normalize_angle(ray);
 	ray.texture = get_texture(ray.wall_orientation);
 	if (ray.wall_orientation == 'N' || ray.wall_orientation == 'S')
 		ray.texture_x_offset = (ray.x % TILE_SIZE)

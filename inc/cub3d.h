@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/20 22:48:28 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:14:05 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ typedef struct s_ray
 	int				v_distance;
 	int				h_distance;
 	float			angle;
+	int				i;
 	int				x;
 	int				y;
 	int				new_x;
