@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/21 16:17:01 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:47:41 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,91 +82,25 @@ t_tiles_img	*get_texture(char wall_orientation)
 /* 1. check for straight angle */
 void	set_ray_distance(t_ray *ray)
 {
-	/* if (ray->angle == 0 || ray->angle == 2 * PI)
-	{
-		ray->found_h_wall = false;
-		ray->wall_orientation = 'E';
-		ray->distance = horizontal_dist(*ray, ft_data()->player->pos.x,
-				ft_data()->player->pos.y);
-		return ;
-	}
-	else if (ray->angle == (float)PI)
-	{
-		ray->found_h_wall = false;
-		ray->wall_orientation = 'W';
-		ray->distance = horizontal_dist(*ray, ft_data()->player->pos.x,
-				ft_data()->player->pos.y);
-		return ;
-	}
-	else if (ray->angle == PI / 2)
-	{
-		ray->found_h_wall = true;
-		ray->wall_orientation = 'N';
-		ray->distance = horizontal_dist(*ray, ft_data()->player->pos.x,
-				ft_data()->player->pos.y);
-		return ;
-	}
-	else if (ray->angle == 3 * PI / 2)
-	{
-		ray->found_h_wall = true;
-		ray->wall_orientation = 'S';
-		ray->distance = horizontal_dist(*ray, ft_data()->player->pos.x,
-				ft_data()->player->pos.y);
-		return ;
-	}
-	else */
-	//{
-	//ray->angle = set_angle(ray->angle);
 	ray->h_distance = horizontal_dist(*ray, ft_data()->player->pos.x,
 			ft_data()->player->pos.y);
 	ray->v_distance = vertical_dist(*ray, ft_data()->player->pos.x,
 			ft_data()->player->pos.y);
 	if (ray->h_distance < ray->v_distance)
 	{
-		//ray->found_h_wall = true;
-		/* printf("h_distance: %d\n", ray->h_distance);
-		printf("v_distance: %d\n", ray->v_distance); */
-		if (ray->angle >= PI / 2 && ray->angle <= 3 * PI / 2)
-		{
-			ray->wall_orientation = 'S';
-			/* printf("--------------------\n");
-			printf("ray angle: %f\n", ray->angle);
-			printf("hit S wall\n");
-			printf("--------------------\n"); */
-		}
-		else
-		{
+		if (ray->angle >= 0 && ray->angle <= PI)
 			ray->wall_orientation = 'N';
-			/* printf("--------------------\n");
-			printf("ray angle: %f\n", ray->angle);
-			printf("hit N wall\n");
-			printf("--------------------\n"); */
-		}
+		else
+			ray->wall_orientation = 'S';
 		ray->distance = ray->h_distance;
 		return ;
 	}
 	else
 	{
-		/* printf("h_distance: %d\n", ray->h_distance);
-		printf("v_distance: %d\n", ray->v_distance); */
-		//ray->found_h_wall = false;
-		if (ray->angle > 0 && ray->angle < PI)
-		{
-			ray->wall_orientation = 'W';
-			//ray->distance = ray->v_distance;
-			/* printf("--------------------\n");
-			printf("ray angle: %f\n", ray->angle);
-			printf("hit W wall\n");
-			printf("--------------------\n"); */
-		}
-		else
-		{
+		if (ray->angle >= PI / 2 && ray->angle <= 3 * PI / 2)
 			ray->wall_orientation = 'E';
-			/* printf("--------------------\n");
-			printf("ray angle: %f\n", ray->angle);
-			printf("hit E wall\n");
-			printf("--------------------\n"); */
-		}
+		else
+			ray->wall_orientation = 'W';
 		ray->distance = ray->v_distance;
 		return ;
 	}
