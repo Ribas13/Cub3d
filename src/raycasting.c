@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/21 19:29:28 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/21 21:06:09 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	get_texture_color(t_tiles_img *texture, int texture_x_offset, int texture_y)
 }
 
 //This is almost working, but still has some bugs
-char	calculate_wall_orientation(t_ray ray, int x, int y)
+/* char	calculate_wall_orientation(t_ray ray, int x, int y)
 {
 	int	map_x;
 	int	map_y;
@@ -44,6 +44,9 @@ char	calculate_wall_orientation(t_ray ray, int x, int y)
 			return ('S');
 		else if (ft_data()->map->map[map_y - 1][map_x] == '0')
 			return ('N');
+		else if (ft_data()->map->map[map_y + 1][map_x] == '0')
+			return ('S');
+		//still need to fix this one
 		return ('W');
 	}
 	else if (y == ((map_y + 1) * TILE_SIZE) - 1)
@@ -64,7 +67,26 @@ char	calculate_wall_orientation(t_ray ray, int x, int y)
 		return ('E');
 	}
 	return ('0');
-}
+} */
+
+/* char	calculate_wall_orientation(t_ray ray, int x, int y)
+{
+	int	map_x;
+	int	map_y;
+
+	(void)ray;
+	map_x = x / TILE_SIZE;
+	map_y = y / TILE_SIZE;
+	if (y == map_y * TILE_SIZE)
+		return ('N');
+	else if (x == map_x * TILE_SIZE)
+		return ('W');
+	else if (y == ((map_y + 1) * TILE_SIZE) - 1)
+		return ('S');
+	else if (x == ((map_x + 1) * TILE_SIZE) - 1)
+		return ('E');
+	return ('0');
+} */
 
 t_tiles_img	*get_texture(char wall_orientation)
 {
@@ -147,29 +169,72 @@ t_ray	ray_properties2(int i)
     }
 } */
 
-void solve_conflict(t_ray *ray) {
-    int mapX = (int)ray->x / TILE_SIZE;
-    int mapY = (int)ray->y / TILE_SIZE;
+void	solve_conflict(t_ray *ray)
+{
+	int	cornerY;
+	int	cornerX;
+	int	mapX;
+	int	mapY;
 
-    // Check the cells in the direction of the ray
-    int nextX = mapX + (int)cos(ray->angle);
-    int nextY = mapY + (int)sin(ray->angle);
+	mapX = (int)ray->x / TILE_SIZE;
+	mapY = (int)ray->y / TILE_SIZE;
 
-    if (ft_data()->map->map[nextY][nextX] == '1') {
-        // There's a wall in the direction of the ray, so the ray hit a wall facing that direction
-        if (ray->angle > 0 && ray->angle < PI) {
-            ray->wall_orientation = 'N';
-        } else {
-            ray->wall_orientation = 'S';
-        }
-    } else {
-        // There's no wall in the direction of the ray, so the ray hit a wall facing the opposite direction
-        if (ray->angle > 0 && ray->angle < PI) {
-            ray->wall_orientation = 'S';
-        } else {
-            ray->wall_orientation = 'N';
-        }
-    }
+	//locate which corner of the cell we hit
+	cornerX = (int)ray->x % TILE_SIZE;
+	cornerY = (int)ray->y % TILE_SIZE;
+
+	if(cornerX == 0 && cornerY == 0)
+	{
+		//upper left corner
+		//can only be S or W
+		if (ft_data()->map->map[mapX - 1][mapY] == '1') //check if the cell to the left is a wall
+		{
+			ray->wall_orientation = 'W';
+		}
+		else
+		{
+			ray->wall_orientation = 'S';
+		}
+	}
+	else if (cornerX == 0 && cornerY == TILE_SIZE - 1)
+	{
+		//lower left corner
+		//can only be N or W
+		if (ft_data()->map->map[mapX - 1][mapY] == '1')//check if the cell to the left is a wall
+		{
+			ray->wall_orientation = 'W';
+		}
+		else
+		{
+			ray->wall_orientation = 'N';
+		}
+	}
+	else if (cornerX == TILE_SIZE - 1 && cornerY == 0)
+	{
+		//upper right corner
+		//can only be S or E
+		if (ft_data()->map->map[mapX + 1][mapY] == '1')//check if the cell to the right is a wall
+		{
+			ray->wall_orientation = 'E';
+		}
+		else
+		{
+			ray->wall_orientation = 'S';
+		}
+	}
+	else if (cornerX == TILE_SIZE - 1 && cornerY == TILE_SIZE - 1)
+	{
+		//lower right corner
+		//can only be N or E
+		if (ft_data()->map->map[mapX + 1][mapY] == '1')//check if the cell to the right is a wall
+		{
+			ray->wall_orientation = 'E';
+		}
+		else
+		{
+			ray->wall_orientation = 'N';
+		}
+	}
 }
 
 t_ray	ray_properties(int i)
@@ -183,9 +248,9 @@ t_ray	ray_properties(int i)
 	ray.a_sin = sin(ray.angle);
 	ray.section = i * 10;
 
-	//set_ray_distance(&ray);
-	ray.distance = ray_dist(ray.angle, 5000, ft_data()->player->pos.x,
-			ft_data()->player->pos.y);
+	set_ray_distance(&ray);
+	//ray.distance = ray_dist(ray.angle, 5000, ft_data()->player->pos.x,
+			//ft_data()->player->pos.y);
 
 
 
@@ -205,13 +270,15 @@ t_ray	ray_properties(int i)
 		printf("------------------\n");
 	} */
 
-	/* if (ray.x == ray.y)
+	//ray.wall_orientation = calculate_wall_orientation(ray, ray.x, ray.y);
+	if (ray.h_distance == ray.v_distance)
 	{
-		//solve_conflict(&ray);
-		ray = ray_properties2(i - 1);
-	} */
-	ray.distance = normalize_angle(ray);
-	ray.wall_orientation = calculate_wall_orientation(ray, ray.x, ray.y);
+		solve_conflict(&ray);
+		//ray = ray_properties2(i + 1);
+		//ray.distance = ray_dist(ray.angle, 5000, ft_data()->player->pos.x,
+			//ft_data()->player->pos.y);
+	}
+	//ray.distance = normalize_angle(ray);
 	ray.texture = get_texture(ray.wall_orientation);
 	if (ray.wall_orientation == 'N' || ray.wall_orientation == 'S')
 		ray.texture_x_offset = (ray.x % TILE_SIZE)
