@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/22 20:34:41 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:43:56 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@
 # define DOWN 65364
 # define LEFT 65361
 # define RIGHT 65363
-# define TILE_SIZE 32
+# define TILE_SIZE 64
 # define ALLOWED_CHARS "10NSWE "
 # define PLAYER_CHARS "NSWE"
 # define WALL '1'
@@ -113,6 +113,12 @@ typedef struct s_tiles_img
 	int				bpp;
 	int				size_line;
 	int				endian;
+	int				size;
+	int				index;
+	double			step;
+	double			pos;
+	int				x;
+	int				y;
 }	t_tiles_img;
 
 typedef struct s_tiles
@@ -143,7 +149,13 @@ typedef struct s_ray
 	double			deltadist_y;
 	double			sidedist_x;
 	double			sidedist_y;
+	double			wall_dist;
+	double			wall_x;
 	int				side;
+	int				start_draw;
+	int				end_draw;
+	int				line_height;
+	char			wall_orientation;
 }	t_ray;
 
 typedef struct s_map
@@ -181,9 +193,7 @@ typedef struct s_data
 	char			*path_west;
 	unsigned int	floor;
 	unsigned int	ceiling;
-	t_ray			ray;
-	t_render		*thread_array;
-	t_render		threads[8];
+	t_ray			*ray;
 }	t_data;
 
 //Prototypes
@@ -232,6 +242,7 @@ void		put_player(void);
 
 //Raycasting
 
+int			raycasting(void);
 t_data		*ft_data(void);
 int			map_texture(t_data *data);
 bool		check_map(t_data *data);
@@ -240,7 +251,9 @@ void		valid_map(int ac, char **av);
 int			get_real_map(t_data *data, int i);
 void		errors(char *error_msg);
 void		key_press1(t_data *data);
+char		set_ray_orientation(t_ray *ray);
 void		open_xpm(t_data *data);
+void		textures_updates(t_ray *ray, t_data *data, t_tiles_img *texture, int screen_slice);
 //void		draw_line(float angle, int length, int x, int y, int color);
 void		draw_player_rays(void);
 int			on_press(int key);

@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/22 18:36:13 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:20:44 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ void	hooks_2(void)
 /* @brief Handle player movement based on the keys pressed */
 void	hooks(void)
 {
-	ft_data()->player->delta_x = cos(ft_data()->player->dir) * 4;
-	ft_data()->player->delta_y = sin(ft_data()->player->dir) * 4;
 	if (ft_data()->keys->w == true)
 	{
 		if (check_wall(W))

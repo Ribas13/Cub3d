@@ -6,7 +6,7 @@
 #    By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/03/22 17:09:11 by micarrel         ###   ########.fr        #
+#    Updated: 2024/03/22 22:21:35 by micarrel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,15 +34,11 @@ SRC     = 	src/main.c			 	\
 			src/parser.c			\
 			src/parser2.c			\
 			src/parser3.c			\
+			src/parser4.c			\
 			src/raycasting.c		\
-			src/raycasting_utils.c	\
-			src/collision.c			\
 			src/exit_functions.c	\
 			src/mouse.c				\
-			src/raycaster_draw.c	\
-			src/dda_algo_hor.c		\
-			src/dda_algo_ver.c		\
-			src/dda_algo_utils.c
+			src/update_textures.c	
 
 OBJ     = $(SRC:%.c=%.o)
 

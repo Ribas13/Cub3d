@@ -3,18 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/22 20:38:31 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/22 23:14:41 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
+void	init_mambo(t_ray *ray)
+{
+	ray->texture_x_offset = 0;
+	ray->cam_x = 0;
+	ray->dir_x = 0;
+	ray->dir_y = 0;
+	ray->step_x = 0;
+	ray->step_y = 0;
+	ray->map_x = 0;
+	ray->map_y = 0;
+	ray->deltadist_x = 0;
+	ray->deltadist_y = 0;
+	ray->sidedist_x = 0;
+	ray->sidedist_y = 0;
+	ray->wall_dist = 0;
+	ray->wall_x = 0;
+	ray->side = 0;
+	ray->start_draw = 0;
+	ray->end_draw = 0;
+	ray->line_height = 0;
+	ray->wall_orientation = '\0';
+}
+
 void	ray_properties(t_ray *ray, t_player *player, int screen_slice)
 {
 	//init value to 0
+	init_mambo(ray);
 	ray->cam_x = 2 * screen_slice / (double)SCREEN_WIDTH - 1;
 	ray->dir_x = player->dir_x + player->plane_x * ray->cam_x;
 	ray->dir_y = player->dir_y + player->plane_y * ray->cam_x;
@@ -22,6 +46,26 @@ void	ray_properties(t_ray *ray, t_player *player, int screen_slice)
 	ray->map_y = (int)player->pos.y;
 	ray->deltadist_x = fabs(1 / ray->dir_x);
 	ray->deltadist_y = fabs(1 / ray->dir_y);
+}
+
+void	get_line_height(t_ray *ray, t_player *player)
+{
+	if (ray->side == 0)
+		ray->wall_dist = (ray->sidedist_x - ray->deltadist_x);
+	else
+		ray->wall_dist = (ray->sidedist_y - ray->deltadist_y);
+	ray->line_height = (int)(SCREEN_HEIGHT / ray->wall_dist);
+	ray->start_draw = -ray->line_height / 2 + SCREEN_HEIGHT / 2;
+	if (ray->start_draw < 0)
+		ray->start_draw = 0;
+	ray->end_draw = ray->line_height / 2 + SCREEN_HEIGHT / 2;
+	if (ray->end_draw >= SCREEN_HEIGHT)
+		ray->end_draw = SCREEN_HEIGHT - 1;
+	if (ray->side == 0)
+		ray->wall_x = player->pos.y + ray->wall_dist * ray->dir_y;
+	else
+		ray->wall_x = player->pos.x + ray->wall_dist * ray->dir_x;
+	ray->wall_x -= floor(ray->wall_x);
 }
 
 void	setup_algo(t_ray *ray, t_player *player)
@@ -81,13 +125,26 @@ void	init_player_north(t_player *player)
 {
 	player->dir_x = 0;
 	player->dir_y = -1;
-	player->plane_x = 0.66;
+	player->plane_x = 0.90;
 	player->plane_y = 0;
+}
+
+t_tiles_img	*get_texture(char wall_orientation)
+{
+	if (wall_orientation == 'N')
+		return (ft_data()->tiles->north);
+	else if (wall_orientation == 'E')
+		return (ft_data()->tiles->east);
+	else if (wall_orientation == 'S')
+		return (ft_data()->tiles->south);
+	else if (wall_orientation == 'W')
+		return (ft_data()->tiles->west);
+	return (ft_data()->tiles->north);
 }
 
 int	raycasting(void)
 {
-	t_ray		ray;
+	t_ray		*ray;
 	int			screen_slice;
 
 	screen_slice = 0;
@@ -97,13 +154,17 @@ int	raycasting(void)
 	{
 		//initialize ray
 			//ray_properties
-		ray_properties(&ray, ft_data()->player, screen_slice);
+		ray_properties(ray, ft_data()->player, screen_slice);
 		//setup algo
 			//perform algo
-		setup_algo(&ray, ft_data()->player);
-		dda_algo(&ray, ft_data()->map);
+		setup_algo(ray, ft_data()->player);
+		dda_algo(ray, ft_data()->map);
 		//get_distance
 			//setup textures
+		get_line_height(ray, ft_data()->player);
+		ray->wall_orientation = set_ray_orientation(ray);
+		textures_updates(ray, ft_data(), ft_data()->tiles->north, screen_slice);
+		screen_slice++;
 	}
 	return (0);
 }

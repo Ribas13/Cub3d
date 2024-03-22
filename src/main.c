@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/22 17:17:19 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/22 23:07:24 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	init_data(t_data *data)
 	data->tiles = ft_calloc(1, sizeof(t_tiles));
 	data->player = ft_calloc(1, sizeof(t_player));
 	data->keys = ft_calloc(1, sizeof(t_keys));
+	data->ray = ft_calloc(1, sizeof(t_ray));
 	data->keys->a = false;
 	data->keys->d = false;
 	data->keys->s = false;
@@ -34,10 +35,6 @@ void	init_data(t_data *data)
 	data->keys->down = false;
 	data->keys->left = false;
 	data->keys->right = false;
-	data->player->f_x = 0;
-	data->player->f_y = 0;
-	data->player->pos.x1 = 0;
-	data->player->pos.y1 = 0;
 	if (!data->map)
 		errors("Error allocating data");
 	if (!data->tiles)
@@ -47,7 +44,7 @@ void	init_data(t_data *data)
 int	test1(void)
 {
 	hooks();
-	
+	raycasting();
 	return (0);
 }
 
