@@ -3,308 +3,107 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/22 16:35:14 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/22 20:38:31 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	get_texture_color(t_tiles_img *texture, int texture_x_offset, int texture_y)
+void	ray_properties(t_ray *ray, t_player *player, int screen_slice)
 {
-	int	color;
-	int	*arr;
-
-	arr = (int *)texture->addr;
-	color = arr[texture_y * texture->width + texture_x_offset];
-	return (color);
+	//init value to 0
+	ray->cam_x = 2 * screen_slice / (double)SCREEN_WIDTH - 1;
+	ray->dir_x = player->dir_x + player->plane_x * ray->cam_x;
+	ray->dir_y = player->dir_y + player->plane_y * ray->cam_x;
+	ray->map_x = (int)player->pos.x;
+	ray->map_y = (int)player->pos.y;
+	ray->deltadist_x = fabs(1 / ray->dir_x);
+	ray->deltadist_y = fabs(1 / ray->dir_y);
 }
 
-//This is almost working, but still has some bugs
-/* char	calculate_wall_orientation(t_ray ray, int x, int y)
+void	setup_algo(t_ray *ray, t_player *player)
 {
-	int	map_x;
-	int	map_y;
-
-	map_x = x / TILE_SIZE;
-	map_y = y / TILE_SIZE;
-	if (y == map_y * TILE_SIZE)
+	if (ray->dir_x < 0)
 	{
-		if (ft_data()->map->map[map_y - 1][map_x] == '1' && (ray.angle > PI / 2 && ray.angle < 3 * PI / 2))
-			return ('E');
-		else if (ft_data()->map->map[map_y][map_x - 1] == '0' && (ray.angle < PI / 2 || ray.angle > 3 * PI / 2))
-			return ('W');
-		return ('N');
-	}
-	else if (x == map_x * TILE_SIZE)
-	{
-		if (ft_data()->map->map[map_y][map_x - 1] == '1')
-			return ('S');
-		else if (ft_data()->map->map[map_y - 1][map_x] == '0')
-			return ('N');
-		else if (ft_data()->map->map[map_y + 1][map_x] == '0')
-			return ('S');
-		//still need to fix this one
-		return ('W');
-	}
-	else if (y == ((map_y + 1) * TILE_SIZE) - 1)
-	{
-		if (ft_data()->map->map[map_y + 1][map_x] == '1' && (ray.angle > PI / 2 && ray.angle < 3 * PI / 2))
-			return ('E');
-		else if (ft_data()->map->map[map_y][map_x - 1] == '0')
-		{
-			//printf("THIS\n");
-			return ('S');
-		}
-		return ('S');
-	}
-	else if (x == ((map_x + 1) * TILE_SIZE) - 1)
-	{
-		if (ft_data()->map->map[map_y][map_x - 1] == '1')
-			return ('W');
-		return ('E');
-	}
-	return ('0');
-} */
-
-/* char	calculate_wall_orientation(t_ray ray, int x, int y)
-{
-	int	map_x;
-	int	map_y;
-
-	(void)ray;
-	map_x = x / TILE_SIZE;
-	map_y = y / TILE_SIZE;
-	if (y == map_y * TILE_SIZE)
-		return ('N');
-	else if (x == map_x * TILE_SIZE)
-		return ('W');
-	else if (y == ((map_y + 1) * TILE_SIZE) - 1)
-		return ('S');
-	else if (x == ((map_x + 1) * TILE_SIZE) - 1)
-		return ('E');
-	return ('0');
-} */
-
-t_tiles_img	*get_texture(char wall_orientation)
-{
-	if (wall_orientation == 'N')
-		return (ft_data()->tiles->north);
-	else if (wall_orientation == 'E')
-		return (ft_data()->tiles->east);
-	else if (wall_orientation == 'S')
-		return (ft_data()->tiles->south);
-	else if (wall_orientation == 'W')
-		return (ft_data()->tiles->west);
-	return (NULL);
-}
-
-/* 1. check for straight angle */
-void	set_ray_distance(t_ray *ray)
-{
-
-	ray->h_distance = horizontal_dist(*ray, ft_data()->player->pos.x,
-			ft_data()->player->pos.y);
-	ray->v_distance = vertical_dist(*ray, ft_data()->player->pos.x,
-			ft_data()->player->pos.y);
-	if (ray->h_distance <= ray->v_distance) //checck if they are equal
-	{
-		if (ray->angle >= 0 && ray->angle <= PI)
-			ray->wall_orientation = 'N';
-		else
-			ray->wall_orientation = 'S';
-		ray->distance = ray->h_distance;
-		return ;
+		ray->step_x = -1;
+		ray->sidedist_x = (player->pos.x - ray->map_x) * ray->deltadist_x;
 	}
 	else
 	{
-		if (ray->angle >= PI / 2 && ray->angle <= 3 * PI / 2)
-			ray->wall_orientation = 'E';
-		else
-			ray->wall_orientation = 'W';
-		ray->distance = ray->v_distance;
-		return ;
+		ray->step_x = 1;
+		ray->sidedist_x = (ray->map_x + 1.0 - player->pos.x) * ray->deltadist_x;
 	}
-}
-
-t_ray	ray_properties2(int i)
-{
-	t_ray	ray;
-
-	ray.i = i;
-	ray.angle = ft_data()->player->dir - HALF_FOV + (i * HALF_DEGREE);
-	ray.angle = set_angle(ray.angle);
-	ray.a_cos = cos(ray.angle);
-	ray.a_sin = sin(ray.angle);
-	ray.section = i * 10;
-
-	set_ray_distance(&ray);
-
-
-
-	ray.x = ft_data()->player->pos.x + ray.distance * ray.a_cos;
-	ray.y = ft_data()->player->pos.y + ray.distance * ray.a_sin;
-
-	return (ray);
-}
-
-/* void solve_conflict(t_ray *ray) {
-    int mapX = (int)ray->x / TILE_SIZE;
-    int mapY = (int)ray->y / TILE_SIZE;
-
-    if (ray->wall_orientation == 'N' || ray->wall_orientation == 'S') {
-        if (ft_data()->map->map[mapY][mapX + 1] == '1') {
-            ray->wall_orientation = 'E';
-        } else if (ft_data()->map->map[mapY][mapX - 1] == '1') {
-            ray->wall_orientation = 'W';
-        }
-    } else { // ray->wall_orientation == 'E' || ray->wall_orientation == 'W'
-        if (ft_data()->map->map[mapY + 1][mapX] == '1') {
-            ray->wall_orientation = 'S';
-        } else if (ft_data()->map->map[mapY - 1][mapX] == '1') {
-            ray->wall_orientation = 'N';
-        }
-    }
-} */
-
-void	solve_conflict(t_ray *ray)
-{
-	int	cornerY;
-	int	cornerX;
-	int	mapX;
-	int	mapY;
-
-	mapX = (int)ray->x / TILE_SIZE;
-	mapY = (int)ray->y / TILE_SIZE;
-
-	//locate which corner of the cell we hit
-	cornerX = (int)ray->x % TILE_SIZE;
-	cornerY = (int)ray->y % TILE_SIZE;
-
-	if(cornerX == 0 && cornerY == 0)
+	if (ray->dir_y < 0)
 	{
-		//upper left corner
-		//can only be S or W
-		if (ft_data()->map->map[mapX - 1][mapY] == '1') //check if the cell to the left is a wall
-		{
-			ray->wall_orientation = 'W';
-		}
-		else
-		{
-			ray->wall_orientation = 'S';
-		}
+		ray->step_y = -1;
+		ray->sidedist_y = (player->pos.y - ray->map_y) * ray->deltadist_y;
 	}
-	else if (cornerX == 0 && cornerY == TILE_SIZE - 1)
-	{
-		//lower left corner
-		//can only be N or W
-		if (ft_data()->map->map[mapX - 1][mapY] == '1')//check if the cell to the left is a wall
-		{
-			ray->wall_orientation = 'W';
-		}
-		else
-		{
-			ray->wall_orientation = 'N';
-		}
-	}
-	else if (cornerX == TILE_SIZE - 1 && cornerY == 0)
-	{
-		//upper right corner
-		//can only be S or E
-		if (ft_data()->map->map[mapX + 1][mapY] == '1')//check if the cell to the right is a wall
-		{
-			ray->wall_orientation = 'E';
-		}
-		else
-		{
-			ray->wall_orientation = 'S';
-		}
-	}
-	else if (cornerX == TILE_SIZE - 1 && cornerY == TILE_SIZE - 1)
-	{
-		//lower right corner
-		//can only be N or E
-		if (ft_data()->map->map[mapX + 1][mapY] == '1')//check if the cell to the right is a wall
-		{
-			ray->wall_orientation = 'E';
-		}
-		else
-		{
-			ray->wall_orientation = 'N';
-		}
-	}
-}
-
-t_ray	ray_properties(int i)
-{
-	t_ray	ray;
-
-	ray.i = i;
-	ray.angle = ft_data()->player->dir - HALF_FOV + (i * HALF_DEGREE);
-	ray.angle = set_angle(ray.angle);
-	ray.a_cos = cos(ray.angle);
-	ray.a_sin = sin(ray.angle);
-	ray.section = i * 10;
-
-	set_ray_distance(&ray);
-	//ray.distance = ray_dist(ray.angle, 5000, ft_data()->player->pos.x,
-			//ft_data()->player->pos.y);
-
-
-
-	ray.x = ft_data()->player->pos.x + ray.distance * ray.a_cos;
-	ray.y = ft_data()->player->pos.y + ray.distance * ray.a_sin;
-	/* if (i == 63)
-	{
-		printf("------------------\n");
-		printf("ray_x: %d | ray_y: %d\n", ray.x, ray.y);
-		printf("ray_angle: %f\n", ray.angle);
-		printf("h_distance: %f\n", ray.h_distance);
-		printf("v_distance: %f\n", ray.v_distance);
-		if (ray.h_distance < ray.v_distance)
-			printf("hit horizontal wall\n");
-		else
-			printf("hit vertical wall\n");
-		printf("------------------\n");
-	} */
-
-	//ray.wall_orientation = calculate_wall_orientation(ray, ray.x, ray.y);
-	if (ray.h_distance == ray.v_distance)
-	{
-		solve_conflict(&ray);
-		//ray = ray_properties2(i + 1);
-		//ray.distance = ray_dist(ray.angle, 5000, ft_data()->player->pos.x,
-			//ft_data()->player->pos.y);
-	}
-	//ray.distance = normalize_angle(ray);
-	ray.texture = get_texture(ray.wall_orientation);
-	if (ray.wall_orientation == 'N' || ray.wall_orientation == 'S')
-		ray.texture_x_offset = (ray.x % TILE_SIZE)
-			* (double)ray.texture->width / TILE_SIZE;
 	else
-		ray.texture_x_offset = (ray.y % TILE_SIZE)
-			* (double)ray.texture->width / TILE_SIZE;
-	return (ray);
+	{
+		ray->step_y = 1;
+		ray->sidedist_y = (ray->map_y + 1.0 - player->pos.y) * ray->deltadist_y;
+	}
 }
 
-int	cast_rays(void)
+void	dda_algo(t_ray *ray, t_map *map)
 {
-	int		ray;
-	int		sections;
-	float	angle;
-	t_ray	rays;
+	bool	hit;
 
-	hooks();
-	ray = -1;
-	angle = ft_data()->player->dir - HALF_FOV;
-	sections = (FOV * (180 / PI)) * 2;
-	while (++ray <= sections)
+	hit = false;
+	while (hit == false)
 	{
-		rays = ray_properties(ray);
-		draw_ray(rays);
-		angle += ONE_DEGREE / DEGREE_MULTIPLIER;
+		if (ray->sidedist_x < ray->sidedist_y)
+		{
+			ray->sidedist_x += ray->deltadist_x;
+			ray->map_x += ray->step_x;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->sidedist_y += ray->deltadist_y;
+			ray->map_y += ray->step_y;
+			ray->side = 1;
+		}
+		if (ray->map_y < 0.25
+			|| ray->map_x < 0.25
+			|| ray->map_y > map->rows - 0.25
+			|| ray->map_x > map->cols - 1.25)
+			break ;
+		else if (map->map[ray->map_y][ray->map_x] > '0')
+			hit = true;
+	}
+}
+
+void	init_player_north(t_player *player)
+{
+	player->dir_x = 0;
+	player->dir_y = -1;
+	player->plane_x = 0.66;
+	player->plane_y = 0;
+}
+
+int	raycasting(void)
+{
+	t_ray		ray;
+	int			screen_slice;
+
+	screen_slice = 0;
+	init_player_north(ft_data()->player);
+	ray = ft_data()->ray;
+	while (screen_slice < SCREEN_WIDTH)
+	{
+		//initialize ray
+			//ray_properties
+		ray_properties(&ray, ft_data()->player, screen_slice);
+		//setup algo
+			//perform algo
+		setup_algo(&ray, ft_data()->player);
+		dda_algo(&ray, ft_data()->map);
+		//get_distance
+			//setup textures
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/22 18:58:14 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/22 20:34:41 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@
 
 //For logic
 # define MOTION_NOTIFY_EVENT 6
-# define SCREEN_WIDTH 1280
-# define SCREEN_HEIGHT 720
+# define SCREEN_WIDTH 960
+# define SCREEN_HEIGHT 600
 # define DEGREE_MULTIPLIER 4
 # define MIN_DISTANCE 0.1
 # define FOV 1.11701 // 64 degrees
@@ -100,8 +100,6 @@ typedef struct s_keys
 
 typedef struct s_point
 {
-	double				x1;
-	double				y1;
 	double				x;
 	double				y;
 }	t_point;
@@ -132,30 +130,20 @@ typedef struct s_tiles
 
 typedef struct s_ray
 {
-	int				distance;
-	float			v_distance;
-	float			h_distance;
-	float			angle;
-	int				i;
-	int				x;
-	int				y;
-	int				new_x;
-	int				new_y;
-	int				x_hit1;
-	int				y_hit1;
-	int				x_hit2;
-	int				y_hit2;
-	float			a_cos;
-	float			a_sin;
-	int				og_tile_y;
-	bool			found_h_wall;
-	bool			found_v_wall;
-	int				x_offset;
-	int				y_offset;
-	char			wall_orientation;
-	int				section;
 	t_tiles_img		*texture;
 	double			texture_x_offset;
+	double			cam_x;
+	double			dir_x;
+	double			dir_y;
+	int				step_x;
+	int				step_y;
+	int				map_x;
+	int				map_y;
+	double			deltadist_x;
+	double			deltadist_y;
+	double			sidedist_x;
+	double			sidedist_y;
+	int				side;
 }	t_ray;
 
 typedef struct s_map
@@ -169,12 +157,12 @@ typedef struct s_map
 typedef struct s_player
 {
 	t_point			pos;
-	double			f_x;
-	double			f_y;
-	float			delta_x;
-	float			delta_y;
-	float			dir;
-	float			distance;
+	char			dir;
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
+	double			screen_slice;
 	double			x_max;
 	double			y_max;
 }	t_player;
@@ -193,6 +181,7 @@ typedef struct s_data
 	char			*path_west;
 	unsigned int	floor;
 	unsigned int	ceiling;
+	t_ray			ray;
 	t_render		*thread_array;
 	t_render		threads[8];
 }	t_data;
@@ -256,7 +245,7 @@ void		open_xpm(t_data *data);
 void		draw_player_rays(void);
 int			on_press(int key);
 int			cast_rays(void);
-t_ray		ray_properties(int i);
+void		ray_properties(t_ray *ray, t_player *player, int screen_slice);
 char		calculate_wall_orientation(t_ray ray, int x, int y);
 void		draw_ray(t_ray ray);
 void		draw_wall_pixel(int x, int y, char wall_orientation);
