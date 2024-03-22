@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
+#    By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/03/20 22:31:15 by diosanto         ###   ########.fr        #
+#    Updated: 2024/03/22 17:09:11 by micarrel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

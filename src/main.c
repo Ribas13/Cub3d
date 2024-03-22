@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/21 15:14:56 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:17:19 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,19 @@ void	init_data(t_data *data)
 	data->keys->right = false;
 	data->player->f_x = 0;
 	data->player->f_y = 0;
+	data->player->pos.x1 = 0;
+	data->player->pos.y1 = 0;
 	if (!data->map)
 		errors("Error allocating data");
 	if (!data->tiles)
 		errors("Error allocating data");
+}
+
+int	test1(void)
+{
+	hooks();
+	
+	return (0);
 }
 
 int	launch_game(int width, int height)
@@ -54,7 +63,7 @@ int	launch_game(int width, int height)
 	if (!data->win_ptr)
 		errors("Error starting mlx window");
 	open_xpm(ft_data());
-	//render_tiles();
+	test1();
 	return (0);
 }
 

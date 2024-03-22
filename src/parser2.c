@@ -96,6 +96,26 @@ int	get_sidepath(char *str, char *path, t_data *data)
 	return (0);
 }
 
+void	get_max_player_pos(t_data *data)
+{
+	double	x_max;
+	double	y_max;
+
+	x_max = 0;
+	y_max = 0;
+	while (data->map->map[(int)y_max])
+	{
+		if (x_max < ft_strlen(data->map->map[(int)y_max]))
+			x_max = ft_strlen(data->map->map[(int)y_max]);
+		
+		y_max++;
+	}
+	data->player->x_max = x_max;
+	data->player->y_max = y_max;
+	printf("x_max: %f\n", data->player->x_max);
+	printf("y_max: %f\n", data->player->y_max);
+}
+
 int	map_texture(t_data *data)
 {
 	int		i;
@@ -120,5 +140,6 @@ int	map_texture(t_data *data)
 	if (tmp)
 		free_array(tmp);
 	get_real_map(data, i);
+	get_max_player_pos(data);
 	return (EXIT_SUCCESS);
 }

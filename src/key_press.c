@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/21 18:38:31 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:36:13 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,17 @@ void	hooks_2(void)
 {
 	if (ft_data()->keys->a == true)
 	{
-		ft_data()->player->dir -= PI / 64;
-		if (ft_data()->player->dir < 0)
-			ft_data()->player->dir += 2 * PI;
+		// ft_data()->player->dir -= PI / 64;
+		// if (ft_data()->player->dir < 0)
+		// 	ft_data()->player->dir += 2 * PI;
+		move_left();
 	}
 	if (ft_data()->keys->d == true)
 	{
-		ft_data()->player->dir += PI / 64;
-		if (ft_data()->player->dir > 2 * PI)
-			ft_data()->player->dir -= 2 * PI;
+		// ft_data()->player->dir += PI / 64;
+		// if (ft_data()->player->dir > 2 * PI)
+		// 	ft_data()->player->dir -= 2 * PI;
+		move_right();
 	}
 }
 
@@ -84,12 +86,12 @@ void	hooks(void)
 	@param *data Game data pointer */
 void	key_press1(t_data *data)
 {
-	ft_data()->player->f_x = ft_data()->player->pos.x;
-	ft_data()->player->f_y = ft_data()->player->pos.y;
+	// ft_data()->player->f_x = ft_data()->player->pos.x;
+	// ft_data()->player->f_y = ft_data()->player->pos.y;
 	mlx_mouse_hide(data->mlx_ptr, data->win_ptr);
 	mlx_mouse_move(ft_data()->mlx_ptr, ft_data()->win_ptr,
 		SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-	mlx_loop_hook(data->mlx_ptr, cast_rays, NULL);
+	mlx_loop_hook(data->mlx_ptr, test1, NULL);
 	//mlx_loop_hook(data->mlx_ptr, render_tiles, NULL);
 	mlx_hook(data->win_ptr, KEYPRESS_EVENT, (1L << 0), on_press, NULL);
 	mlx_hook(data->win_ptr, KEYRELEASE_EVENT, (1L << 1), on_release, NULL);

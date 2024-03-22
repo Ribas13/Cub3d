@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:22:42 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/21 16:35:52 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:41:48 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void	get_player_pos(t_data *data)
 			{
 				data->player->pos.x = j * TILE_SIZE;
 				data->player->pos.y = i * TILE_SIZE;
+				data->player->pos.x1 = j;
+				data->player->pos.y1 = i;
 				data->player->dir = get_player_dir(data->map->map[i][j]);
 				data->map->map[i][j] = '0';
 				return ;

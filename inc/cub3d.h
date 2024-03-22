@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/21 18:48:13 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:58:14 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,10 @@ typedef struct s_keys
 
 typedef struct s_point
 {
-	int				x;
-	int				y;
+	double				x1;
+	double				y1;
+	double				x;
+	double				y;
 }	t_point;
 
 typedef struct s_tiles_img
@@ -167,12 +169,14 @@ typedef struct s_map
 typedef struct s_player
 {
 	t_point			pos;
-	float			f_x;
-	float			f_y;
+	double			f_x;
+	double			f_y;
 	float			delta_x;
 	float			delta_y;
 	float			dir;
 	float			distance;
+	double			x_max;
+	double			y_max;
 }	t_player;
 
 typedef struct s_data
@@ -231,7 +235,8 @@ int			mouse_position(void);
 
 void		move_back(void);
 void		move_forward(void);
-
+void		move_left(void);
+void		move_right(void);
 int			render_tiles(void);
 void		update_player_pos(bool horizontal, int dir);
 void		put_player(void);
@@ -241,6 +246,7 @@ void		put_player(void);
 t_data		*ft_data(void);
 int			map_texture(t_data *data);
 bool		check_map(t_data *data);
+int			test1(void);
 void		valid_map(int ac, char **av);
 int			get_real_map(t_data *data, int i);
 void		errors(char *error_msg);
@@ -260,7 +266,6 @@ float		ray_dist(float dir, int length, int x, int y);
 float		normalize_angle(t_ray ray);
 int			get_texture_color(t_tiles_img *texture,
 				int texture_x_offset, int texture_y);
-
 //dda_algo_hor
 
 float		horizontal_dist(t_ray ray, int x, int y);

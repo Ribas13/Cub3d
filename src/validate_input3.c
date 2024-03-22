@@ -22,7 +22,7 @@ void	valid_map(int ac, char **av)
 		errors("Invalid number of arguments 😭");
 	else if (!valid_extension(av[1]))
 		errors("File must be '.cub' 😭");
-	map_check(av[1]);
+	save_map(av[1]);
 	printf("Map is valid! 🎉\n");
 }
 
