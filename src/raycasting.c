@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/22 23:14:41 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/22 23:19:05 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ t_tiles_img	*get_texture(char wall_orientation)
 		return (ft_data()->tiles->south);
 	else if (wall_orientation == 'W')
 		return (ft_data()->tiles->west);
-	return (ft_data()->tiles->north);
+	return (NULL);
 }
 
 int	raycasting(void)
@@ -163,7 +163,7 @@ int	raycasting(void)
 			//setup textures
 		get_line_height(ray, ft_data()->player);
 		ray->wall_orientation = set_ray_orientation(ray);
-		textures_updates(ray, ft_data(), ft_data()->tiles->north, screen_slice);
+		textures_updates(ray, ft_data(), get_texture(ray->wall_orientation), screen_slice);
 		screen_slice++;
 	}
 	return (0);
