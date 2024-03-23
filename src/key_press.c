@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/23 15:34:07 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/23 16:02:01 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ int	on_press(int key)
 		ft_data()->keys->s = true;
 	else if (key == D)
 		ft_data()->keys->d = true;
+	else if (key == LEFT)
+		ft_data()->keys->left = true;
+	else if (key == RIGHT)
+		ft_data()->keys->right = true;
 	return (0);
 }
 
@@ -42,6 +46,10 @@ int	on_release(int key)
 		ft_data()->keys->s = false;
 	else if (key == D)
 		ft_data()->keys->d = false;
+	else if (key == LEFT)
+		ft_data()->keys->left = false;
+	else if (key == RIGHT)
+		ft_data()->keys->right = false;
 	return (0);
 }
 int check_wall(int key)
@@ -68,9 +76,9 @@ int check_wall(int key)
 /* @brief Handle player movement based on the keys pressed(aux function) */
 void	hooks_2(void)
 {
-	if (ft_data()->keys->a == true)
+	if (ft_data()->keys->left == true)
 		rotate(-1);
-	if (ft_data()->keys->d == true)
+	if (ft_data()->keys->right == true)
 		rotate(1);
 }
 
@@ -86,6 +94,22 @@ void	hooks(void)
 	{
 		if (check_wall(S))
 			move_back();
+	}
+	if (ft_data()->keys->a == true)
+	{
+		if (ft_data()->map->map[(int)(ft_data()->player->pos.y
+				+ ft_data()->player->dir_x * 0.1)]
+				[(int)(ft_data()->player->pos.x
+				- ft_data()->player->dir_y * 0.1)] == '0')
+			move_left();
+	}
+	if (ft_data()->keys->d == true)
+	{
+		if (ft_data()->map->map[(int)(ft_data()->player->pos.y
+				- ft_data()->player->dir_x * 0.1)]
+				[(int)(ft_data()->player->pos.x
+				+ ft_data()->player->dir_y * 0.1)] == '0')
+			move_right();
 	}
 	hooks_2();
 }

@@ -6,11 +6,11 @@
 #    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/03/23 15:35:34 by diosanto         ###   ########.fr        #
+#    Updated: 2024/03/23 16:04:55 by diosanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME    = cub3d
+NAME    = cub3D
 
 INC     = -I include
 
