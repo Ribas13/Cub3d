@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/23 15:46:44 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/23 16:03:18 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	init_mambo(t_ray *ray)
+void	init_ray(t_ray *ray)
 {
 	ray->texture_x_offset = 0;
 	ray->cam_x = 0;
@@ -38,7 +38,7 @@ void	init_mambo(t_ray *ray)
 void	ray_properties(t_ray *ray, t_player *player, int screen_slice)
 {
 	//init value to 0
-	init_mambo(ray);
+	init_ray(ray);
 	ray->cam_x = 2 * screen_slice / (double)SCREEN_WIDTH - 1;
 	ray->dir_x = player->dir_x + player->plane_x * ray->cam_x;
 	ray->dir_y = player->dir_y + player->plane_y * ray->cam_x;
