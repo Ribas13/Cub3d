@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 16:06:09 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/15 20:06:41 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:13:57 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ int	mouse_position(void)
 int	mouse_move(void)
 {
 	ft_data()->keys->mouse = mouse_position();
-	if (ft_data()->keys->mouse == -1)
-		ft_data()->player->dir -= PI / 64;
-	else if (ft_data()->keys->mouse == 1)
-		ft_data()->player->dir += PI / 64;
+	if (ft_data()->keys->mouse != 0)
+		rotate(ft_data()->keys->mouse);
 	return (0);
 }

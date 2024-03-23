@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/23 11:58:25 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/23 12:28:07 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@
 
 //For logic
 # define MOTION_NOTIFY_EVENT 6
-# define SCREEN_WIDTH 960
-# define SCREEN_HEIGHT 600
+# define SCREEN_WIDTH 1280
+# define SCREEN_HEIGHT 720
 # define DEGREE_MULTIPLIER 4
 # define MIN_DISTANCE 0.1
 # define FOV 1.11701 // 64 degrees
