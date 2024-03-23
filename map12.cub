@@ -1,7 +1,7 @@
-NO ./assets/north.xpm
-SO ./assets/floor.xpm
-WE ./assets/wall.xpm
-EA ./assets/void.xpm
+NO ./assets/Metal_Floor_64x64.xpm
+SO ./assets/Magma_Floor_64x64.xpm
+WE ./assets/Glowing_Square_Tile_64x64.xpm
+EA ./assets/Wooden_Floor_Vertical_64x64.xpm
 F 220,100,0
 C 225,30,0
 

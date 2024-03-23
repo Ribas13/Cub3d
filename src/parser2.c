@@ -87,9 +87,9 @@ int	get_sidepath(char *str, char *path, t_data *data)
 			data->path_west = ft_strdup(path);
 		else if (ft_strncmp(str, "EA", 2) == 0)
 			data->path_east = ft_strdup(path);
-		else if (ft_strncmp(str, "F ", 2) == 0)
+		else if (ft_strncmp(str, "F", 2) == 0)
 			data->floor = rgb_to_hex(path);
-		else if (ft_strncmp(str, "C ", 2) == 0)
+		else if (ft_strncmp(str, "C", 2) == 0)
 			data->ceiling = rgb_to_hex(path);
 		return (1);
 	}
@@ -107,7 +107,6 @@ void	get_max_player_pos(t_data *data)
 	{
 		if (x_max < ft_strlen(data->map->map[(int)y_max]))
 			x_max = ft_strlen(data->map->map[(int)y_max]);
-		
 		y_max++;
 	}
 	data->player->x_max = x_max;

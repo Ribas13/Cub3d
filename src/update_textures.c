@@ -60,9 +60,11 @@ void	textures_updates(t_ray *ray, t_data *data, t_tiles_img *texture, int screen
 	y = 0;
 	while (y < SCREEN_HEIGHT)
 	{
+		/* printf("ceiling color: %d\n", ft_data()->ceiling);
+		printf("floor color: %d\n", ft_data()->floor); */
 		while (y < ray->start_draw)
 		{
-			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_slice, y, BLACK);
+			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_slice, y, ft_data()->ceiling);
 			y++;
 		}
 		while (y < ray->end_draw)
@@ -75,7 +77,7 @@ void	textures_updates(t_ray *ray, t_data *data, t_tiles_img *texture, int screen
 		}
 		while (y < SCREEN_HEIGHT)
 		{
-			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_slice, y, BLACK);
+			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_slice, y, ft_data()->floor);
 			y++;
 		}
 		y++;
