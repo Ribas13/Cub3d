@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/23 00:48:56 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/23 11:49:33 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	init_player_north(t_player *player)
 {
 	player->dir_x = 0;
 	player->dir_y = -1;
-	player->plane_x = 0.90;
+	player->plane_x = 0.66;
 	player->plane_y = 0;
 }
 

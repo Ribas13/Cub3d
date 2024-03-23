@@ -111,8 +111,6 @@ void	get_max_player_pos(t_data *data)
 	}
 	data->player->x_max = x_max;
 	data->player->y_max = y_max;
-	printf("x_max: %f\n", data->player->x_max);
-	printf("y_max: %f\n", data->player->y_max);
 }
 
 int	map_texture(t_data *data)

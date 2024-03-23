@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/23 00:48:21 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/23 12:08:16 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,20 @@ int	on_release(int key)
 	else if (key == D)
 		ft_data()->keys->d = false;
 	return (0);
+}
+int check_wall(int key)
+{
+	if (key == W)
+	{
+		if (ft_data()->map->map[(int)(ft_data()->player->pos.y + ft_data()->player->dir_y * 0.1)][(int)(ft_data()->player->pos.x + ft_data()->player->dir_x * 0.1)] == '1')
+			return (0);
+	}
+	if (key == S)
+	{
+		if (ft_data()->map->map[(int)(ft_data()->player->pos.y - ft_data()->player->dir_y * 0.1)][(int)(ft_data()->player->pos.x - ft_data()->player->dir_x * 0.1)] == '1')
+			return (0);
+	}
+	return (1);
 }
 
 /* @brief Handle player movement based on the keys pressed(aux function) */

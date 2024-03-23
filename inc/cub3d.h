@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/23 00:46:02 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/23 11:58:25 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,6 @@ void		clean_all(t_data *data);
 
 //collision
 
-int			check_wall(int key);
 void		save_map(char *map);
 bool		map_check(char *map);
 int			validate_map(void);

@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 16:05:36 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/22 22:22:06 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/23 11:56:35 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,3 @@ int	ifnot_map(char str)
 		return (1);
 	return (0);
 }
-
-int	check_wall(int key)
-{
-	(void) key;
-	return (1);
-}
-
-
