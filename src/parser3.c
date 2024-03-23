@@ -78,6 +78,32 @@ void	get_columns_lines(t_data *data, char **tmp)
 	data->map->rows = j;
 }
 
+int	map_verify(t_data *data)
+{
+	int	i;
+	int	j;
+	int	count;
+
+	i = 0;
+	count = 0;
+	if (validate_map() == 1)
+		return (1);
+	get_columns_lines(data, data->map->map);
+	if (data->map->cols < 3 || data->map->rows < 3)
+		return (1);
+	while (data->map->map[i])
+	{
+		j = 0;
+		while (data->map->map[i][j])
+			if (strchr("NSWE", data->map->map[i][j++]))
+				count++;
+		i++;
+	}
+	if (count != 1)
+		return (1);
+	return (0);
+}
+
 int	get_real_map(t_data *data, int i)
 {
 	int		j;
@@ -93,13 +119,8 @@ int	get_real_map(t_data *data, int i)
 	count = find_last_valid_row(tmp, count);
 	copy_tmp_to_map(data, tmp, count);
 	free_array(tmp);
-	
-
+	if (map_verify(data) == 1)
+		errors("Invalid map");
 	i = 0;
-	while (data->map->map[i])
-	{
-		//printf("%s\n", data->map->map[i]);
-		i++;
-	}
 	return (EXIT_SUCCESS);
 }

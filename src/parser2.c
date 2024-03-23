@@ -58,14 +58,24 @@ int	validate_map(void)
 	return (0);
 }
 
-unsigned int	rgb_to_hex(char *str)
+unsigned int	rgb_to_hex(char *str, char **tmp)
 {
 	int				r;
 	int				g;
 	int				b;
+	int				i;
 	unsigned int	hex;
-	char			**tmp;
 
+	i = 0;
+	while (str[i]) 
+	{
+		if (!ft_isdigit(str[i]) && str[i] != ',') 
+		{
+			free_array(tmp);
+			errors("Invalid characters in the string");
+		}
+		i++;
+	}
 	tmp = ft_split(str, ',');
 	r = ft_atoi(tmp[0]);
 	g = ft_atoi(tmp[1]);
@@ -75,8 +85,13 @@ unsigned int	rgb_to_hex(char *str)
 	return (hex);
 }
 
-int	get_sidepath(char *str, char *path, t_data *data)
+int	get_sidepath(char **tmp, char *str, char *path, t_data *data)
 {
+	if (!str || !path)
+	{
+		free_array(tmp);
+		errors("Something is missing in the map");
+	}
 	if (str[0] && path[0])
 	{
 		if (ft_strncmp(str, "NO", 2) == 0)
@@ -88,9 +103,9 @@ int	get_sidepath(char *str, char *path, t_data *data)
 		else if (ft_strncmp(str, "EA", 2) == 0)
 			data->path_east = ft_strdup(path);
 		else if (ft_strncmp(str, "F", 2) == 0)
-			data->floor = rgb_to_hex(path);
+			data->floor = rgb_to_hex(path, tmp);
 		else if (ft_strncmp(str, "C", 2) == 0)
-			data->ceiling = rgb_to_hex(path);
+			data->ceiling = rgb_to_hex(path, tmp);
 		return (1);
 	}
 	return (0);
@@ -125,7 +140,7 @@ int	map_texture(t_data *data)
 	while (data->map->map[i])
 	{
 		tmp = ft_split(data->map->map[i], ' ');
-		if (tmp[0] && get_sidepath(tmp[0], tmp[1], data) == 1)
+		if (tmp[0] && get_sidepath(tmp, tmp[0], tmp[1], data) == 1)
 			flag++;
 		else if (flag >= 6)
 			break ;
