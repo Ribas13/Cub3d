@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/22 23:19:05 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/23 00:48:56 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,22 +148,16 @@ int	raycasting(void)
 	int			screen_slice;
 
 	screen_slice = 0;
-	init_player_north(ft_data()->player);
 	ray = ft_data()->ray;
 	while (screen_slice < SCREEN_WIDTH)
 	{
-		//initialize ray
-			//ray_properties
 		ray_properties(ray, ft_data()->player, screen_slice);
-		//setup algo
-			//perform algo
 		setup_algo(ray, ft_data()->player);
 		dda_algo(ray, ft_data()->map);
-		//get_distance
-			//setup textures
 		get_line_height(ray, ft_data()->player);
 		ray->wall_orientation = set_ray_orientation(ray);
-		textures_updates(ray, ft_data(), get_texture(ray->wall_orientation), screen_slice);
+		textures_updates(ray, ft_data(),
+			get_texture(ray->wall_orientation), screen_slice);
 		screen_slice++;
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/22 23:07:24 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/23 00:32:18 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,14 @@ int	launch_game(int width, int height)
 
 //need to calculate how many moves to change move player position no next tile
 
+void	init_player_north(t_player *player);
+
 int	main(int ac, char **av)
 {
 	//segfault when map has no player (map12.cub)
 	init_data(ft_data());
 	valid_map(ac, av);
+	init_player_north(ft_data()->player);
 	launch_game(SCREEN_WIDTH, SCREEN_HEIGHT);
 	key_press1(ft_data());
 	clean_all(ft_data());

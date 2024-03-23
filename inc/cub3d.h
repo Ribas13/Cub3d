@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/22 23:55:32 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/23 00:46:02 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,7 @@ void		move_right(void);
 int			render_tiles(void);
 void		update_player_pos(bool horizontal, int dir);
 void		put_player(void);
+void		rotate(double rotspd);
 
 //Raycasting
 
