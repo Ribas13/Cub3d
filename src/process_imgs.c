@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   process_imgs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/22 23:08:27 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:30:04 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
+/* 
 void	draw_line(float angle, int length, int x, int y, int color)
 {
 	int	i;
@@ -55,7 +55,7 @@ void	draw_player_rays(void)
 		angle2 += ONE_DEGREE / 2;
 		i++;
 	}
-}
+} */
 
 static void	check_errors_xpm(void)
 {

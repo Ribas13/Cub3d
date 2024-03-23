@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/23 12:28:33 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:46:44 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,17 +116,9 @@ void	dda_algo(t_ray *ray, t_map *map)
 			|| ray->map_y > map->rows - 0.25
 			|| ray->map_x > map->cols - 1.25)
 			break ;
-		else if (map->map[ray->map_y][ray->map_x] > '0')
+		else if (map->map[ray->map_y][ray->map_x] == '1')
 			hit = true;
 	}
-}
-
-void	init_player_north(t_player *player)
-{
-	player->dir_x = 0;
-	player->dir_y = -1;
-	player->plane_x = 0.66;
-	player->plane_y = 0;
 }
 
 t_tiles_img	*get_texture(char wall_orientation)

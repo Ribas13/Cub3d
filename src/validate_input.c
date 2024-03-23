@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:22:42 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/22 19:44:15 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:35:55 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,16 @@ void	get_lines(char *map, t_data *data)
 
 float	get_player_dir(char c)
 {
-	float	angle;
-
 	if (c == 'N')
-		angle = 4.712389;
+		init_player_north(ft_data()->player);
 	else if (c == 'E')
-		angle = 0.029204;
+		init_player_east(ft_data()->player);
 	else if (c == 'S')
-		angle = 1.5708;
+		init_player_south(ft_data()->player);
 	else if (c == 'W')
-		angle = 3.129204;
+		init_player_west(ft_data()->player);
 	else
 		errors("Player direction assignation error");
-	return (angle);
 	return (0);
 }
 
@@ -101,7 +98,8 @@ void	get_player_pos(t_data *data)
 				data->map->map[i][j] = '0'; */
 				data->player->pos.x = j;
 				data->player->pos.y = i;
-				data->player->dir = 'N';
+				data->player->dir = get_player_dir(data->map->map[i][j]);
+				data->map->map[i][j] = '0';
 				return ;
 			}
 			j++;

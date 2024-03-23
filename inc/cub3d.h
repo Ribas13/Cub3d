@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/23 12:28:07 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:35:11 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,5 +282,12 @@ float		vertical_dist(t_ray ray, int x, int y);
 
 float		set_angle(float angle);
 float		calc_h(int p_x, int p_y, int r_x, int r_y);
+
+//init_player_dir.c
+
+void		init_player_north(t_player *player);
+void		init_player_east(t_player *player);
+void		init_player_south(t_player *player);
+void		init_player_west(t_player *player);
 
 #endif

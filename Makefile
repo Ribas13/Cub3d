@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+         #
+#    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/03/22 22:21:35 by micarrel         ###   ########.fr        #
+#    Updated: 2024/03/23 15:35:34 by diosanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ SRC     = 	src/main.c			 	\
 			src/raycasting.c		\
 			src/exit_functions.c	\
 			src/mouse.c				\
-			src/update_textures.c	
+			src/update_textures.c	\
+			src/init_player_dir.c
 
 OBJ     = $(SRC:%.c=%.o)
 
