@@ -2,7 +2,7 @@ NO ./assets/test2.xpm
 SO ./assets/floor.xpm
 WE ./assets/wall.xpm
 EA ./assets/void.xpm
-F 225,30,0
+F 220,100,0
 C 225,30,0
 
      11111111111111111
