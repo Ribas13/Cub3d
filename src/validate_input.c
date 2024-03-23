@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:22:42 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/23 15:35:55 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/23 16:04:06 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,6 @@ void	get_player_pos(t_data *data)
 		{
 			if (ft_strchr(PLAYER_CHARS, data->map->map[i][j]))
 			{
-				/* data->player->pos.x = j;
-				data->player->pos.y = i;
-				data->player->dir = get_player_dir(data->map->map[i][j]);
-				data->map->map[i][j] = '0'; */
 				data->player->pos.x = j;
 				data->player->pos.y = i;
 				data->player->dir = get_player_dir(data->map->map[i][j]);
