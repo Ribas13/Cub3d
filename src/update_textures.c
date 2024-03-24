@@ -44,12 +44,38 @@ int	get_texture_color(t_tiles_img *texture, int texture_x_offset, int texture_y)
 	return (color);
 }
 
-void	textures_updates(t_ray *ray, t_data *data, t_tiles_img *texture, int screen_slice)
-{	
-	int	y;
+void	draw_update(t_ray *ray, int screen_slice, t_tiles_img *texture, int y)
+{
 	int	color;
 
-	(void) data;
+	while (y < ray->start_draw && y < SCREEN_HEIGHT)
+	{
+		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
+			screen_slice, y, ft_data()->ceiling);
+		y++;
+	}
+	while (y <= ray->end_draw && y < SCREEN_HEIGHT)
+	{
+		texture->y = (int)texture->pos & (TILE_SIZE - 1);
+		texture->pos += texture->step;
+		color = get_texture_color(texture, texture->x, texture->y);
+		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr,
+			screen_slice, y, color);
+		y++;
+	}
+	while (y < SCREEN_HEIGHT)
+	{
+		mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_slice,
+			y, ft_data()->floor);
+		y++;
+	}
+}
+
+void	textures_updates(t_ray *ray, t_tiles_img *texture, int screen_slice)
+{
+	int	y;
+
+	y = 0;
 	texture->x = (int)(ray->wall_x * TILE_SIZE);
 	if ((ray->side == 0 && ray->dir_x > 0)
 		|| (ray->side == 1 && ray->dir_y < 0))
@@ -57,27 +83,5 @@ void	textures_updates(t_ray *ray, t_data *data, t_tiles_img *texture, int screen
 	texture->step = 1.0 * TILE_SIZE / ray->line_height;
 	texture->pos = (ray->start_draw - SCREEN_HEIGHT / 2
 			+ ray->line_height / 2) * texture->step;
-	y = 0;
-	while (y < SCREEN_HEIGHT)
-	{
-		while (y < ray->start_draw)
-		{
-			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_slice, y, ft_data()->ceiling);
-			y++;
-		}
-		while (y <= ray->end_draw)
-		{
-			texture->y = (int)texture->pos & (TILE_SIZE - 1);
-			texture->pos += texture->step;
-			color = get_texture_color(texture, texture->x, texture->y);
-			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_slice, y, color);
-			y++;
-		}
-		while (y < SCREEN_HEIGHT)
-		{
-			mlx_pixel_put(ft_data()->mlx_ptr, ft_data()->win_ptr, screen_slice, y, ft_data()->floor);
-			y++;
-		}
-		y++;
-	}
+	draw_update(ray, screen_slice, texture, y);
 }

@@ -22,13 +22,6 @@ int	count_valid_rows(char **tmp)
 	return (j);
 }
 
-int	adjust_count(char **tmp, int count)
-{
-	if (tmp[count] && ft_strchr(tmp[count], '1') == NULL)
-		count--;
-	return (count);
-}
-
 int	find_last_valid_row(char **tmp, int count)
 {
 	int	j;
@@ -76,32 +69,6 @@ void	get_columns_lines(t_data *data, char **tmp)
 	}
 	data->map->cols = count;
 	data->map->rows = j;
-}
-
-int	map_verify(t_data *data)
-{
-	int	i;
-	int	j;
-	int	count;
-
-	i = 0;
-	count = 0;
-	if (validate_map() == 1)
-		return (1);
-	get_columns_lines(data, data->map->map);
-	if (data->map->cols < 3 || data->map->rows < 3)
-		return (1);
-	while (data->map->map[i])
-	{
-		j = 0;
-		while (data->map->map[i][j])
-			if (strchr("NSWE", data->map->map[i][j++]))
-				count++;
-		i++;
-	}
-	if (count != 1)
-		return (1);
-	return (0);
 }
 
 int	get_real_map(t_data *data, int i)

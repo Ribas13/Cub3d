@@ -12,6 +12,12 @@
 
 #include "../inc/cub3d.h"
 
+int	adjust_count(char **tmp, int count)
+{
+	if (tmp[count] && ft_strchr(tmp[count], '1') == NULL)
+		count--;
+	return (count);
+}
 
 bool	valid_extension(char *file)
 {
@@ -21,4 +27,50 @@ bool	valid_extension(char *file)
 	if (ft_strncmp(".cub", &file[i], 4) == 0)
 		return (true);
 	return (false);
+}
+
+int	validate_map(void)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (ft_data()->map->map[i])
+	{
+		j = 0;
+		while (ft_data()->map->map[i][j])
+		{
+			if (is_closed(i, j) == 1)
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	map_verify(t_data *data)
+{
+	int	i;
+	int	j;
+	int	count;
+
+	i = 0;
+	count = 0;
+	if (validate_map() == 1)
+		return (1);
+	get_columns_lines(data, data->map->map);
+	if (data->map->cols < 3 || data->map->rows < 3)
+		return (1);
+	while (data->map->map[i])
+	{
+		j = 0;
+		while (data->map->map[i][j])
+			if (strchr("NSWE", data->map->map[i][j++]))
+				count++;
+		i++;
+	}
+	if (count != 1)
+		return (1);
+	return (0);
 }

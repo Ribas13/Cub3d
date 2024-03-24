@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:01:29 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/23 15:52:19 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/24 14:03:18 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,8 @@ int	launch_game(int width, int height)
 
 int	main(int ac, char **av)
 {
-	//segfault when map has no player (map12.cub)
 	init_data(ft_data());
 	valid_map(ac, av);
-	//init_player_north(ft_data()->player);
-	//print map
-	/* for (long unsigned int i = 0; i < ft_data()->map->rows; i++)
-	{
-		printf("%s\n", ft_data()->map->map[i]);
-	} */
 	launch_game(SCREEN_WIDTH, SCREEN_HEIGHT);
 	key_press1(ft_data());
 	clean_all(ft_data());
