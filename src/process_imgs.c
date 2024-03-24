@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_imgs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:24:20 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/23 16:03:04 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/24 22:20:13 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	check_errors_xpm(void)
 {
+	printf("Here\n");
 	if (!ft_data()->tiles->north->img || !ft_data()->tiles->south->img
 		|| !ft_data()->tiles->west->img || !ft_data()->tiles->east->img)
 		errors("XPM file not found");
