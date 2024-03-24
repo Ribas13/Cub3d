@@ -1,4 +1,4 @@
-NO ./assets/test2.xpm
+NO ./assets/test1.xpm
 SO ./assets/floor.xpm
 WE ./assets/wall.xpm
 EA ./assets/void.xpm

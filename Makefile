@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
+#    By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
 #    Updated: 2024/03/24 15:07:48 by diosanto         ###   ########.fr        #
@@ -36,6 +36,7 @@ SRC     = 	src/main.c			 	\
 			src/parser3.c			\
 			src/parser4.c			\
 			src/raycasting.c		\
+			src/raycasting_utils.c	\
 			src/exit_functions.c	\
 			src/mouse.c				\
 			src/update_textures.c	\

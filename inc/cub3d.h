@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
 /*   Updated: 2024/03/24 15:07:29 by diosanto         ###   ########.fr       */
@@ -71,9 +71,9 @@
 # define TILE_SIZE 64
 # define ALLOWED_CHARS "10NSWE "
 # define PLAYER_CHARS "NSWE"
-# define WALL '1'
-# define FLOOR '0'
-# define SPACE ' '
+# define WALL "1"
+# define FLOOR "0"
+# define SPACE " "
 # define ROTSPD 0.05
 
 //Structs
@@ -199,13 +199,15 @@ typedef struct s_data
 
 //Prototypes
 
-
 //parser
 char		**allocate_tmp(t_data *data);
 int			ifnot_map(char str);
 int			if_map(char str);
 void		copy_non_empty_strings(t_data *data, char **tmp, int *i, int *j);
-
+int			is_closed(int i, int j);
+void		get_columns_lines(t_data *data, char **tmp);
+int			adjust_count(char **tmp, int count);
+int			map_verify(t_data *data);
 //exits
 
 int			quit_game(void);
@@ -254,8 +256,9 @@ void		errors(char *error_msg);
 void		key_press1(t_data *data);
 char		set_ray_orientation(t_ray *ray);
 void		open_xpm(t_data *data);
-void		textures_updates(t_ray *ray, t_data *data, t_tiles_img *texture, int screen_slice);
-//void		draw_line(float angle, int length, int x, int y, int color);
+void		textures_updates(t_ray *ray, t_tiles_img *texture,
+				int screen_slice);
+t_tiles_img	*get_texture(char wall_orientation);
 void		draw_player_rays(void);
 int			on_press(int key);
 int			cast_rays(void);

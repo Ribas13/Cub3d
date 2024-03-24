@@ -38,26 +38,6 @@ int	is_closed(int i, int j)
 	return (0);
 }
 
-int	validate_map(void)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (ft_data()->map->map[i])
-	{
-		j = 0;
-		while (ft_data()->map->map[i][j])
-		{
-			if (is_closed(i, j) == 1)
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
 unsigned int	rgb_to_hex(char *str, char **tmp)
 {
 	int				r;

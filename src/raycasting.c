@@ -3,50 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 14:59:30 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/23 15:46:44 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/24 14:01:32 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-void	init_mambo(t_ray *ray)
-{
-	ray->texture_x_offset = 0;
-	ray->cam_x = 0;
-	ray->dir_x = 0;
-	ray->dir_y = 0;
-	ray->step_x = 0;
-	ray->step_y = 0;
-	ray->map_x = 0;
-	ray->map_y = 0;
-	ray->deltadist_x = 0;
-	ray->deltadist_y = 0;
-	ray->sidedist_x = 0;
-	ray->sidedist_y = 0;
-	ray->wall_dist = 0;
-	ray->wall_x = 0;
-	ray->side = 0;
-	ray->start_draw = 0;
-	ray->end_draw = 0;
-	ray->line_height = 0;
-	ray->wall_orientation = '\0';
-}
-
-void	ray_properties(t_ray *ray, t_player *player, int screen_slice)
-{
-	//init value to 0
-	init_mambo(ray);
-	ray->cam_x = 2 * screen_slice / (double)SCREEN_WIDTH - 1;
-	ray->dir_x = player->dir_x + player->plane_x * ray->cam_x;
-	ray->dir_y = player->dir_y + player->plane_y * ray->cam_x;
-	ray->map_x = (int)player->pos.x;
-	ray->map_y = (int)player->pos.y;
-	ray->deltadist_x = fabs(1 / ray->dir_x);
-	ray->deltadist_y = fabs(1 / ray->dir_y);
-}
 
 void	get_line_height(t_ray *ray, t_player *player)
 {
@@ -121,19 +85,6 @@ void	dda_algo(t_ray *ray, t_map *map)
 	}
 }
 
-t_tiles_img	*get_texture(char wall_orientation)
-{
-	if (wall_orientation == 'N')
-		return (ft_data()->tiles->north);
-	else if (wall_orientation == 'E')
-		return (ft_data()->tiles->east);
-	else if (wall_orientation == 'S')
-		return (ft_data()->tiles->south);
-	else if (wall_orientation == 'W')
-		return (ft_data()->tiles->west);
-	return (NULL);
-}
-
 int	raycasting(void)
 {
 	t_ray		*ray;
@@ -148,8 +99,7 @@ int	raycasting(void)
 		dda_algo(ray, ft_data()->map);
 		get_line_height(ray, ft_data()->player);
 		ray->wall_orientation = set_ray_orientation(ray);
-		textures_updates(ray, ft_data(),
-			get_texture(ray->wall_orientation), screen_slice);
+		textures_updates(ray, get_texture(ray->wall_orientation), screen_slice);
 		screen_slice++;
 	}
 	return (0);
