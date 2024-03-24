@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:39:12 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/23 16:02:01 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/24 15:07:12 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,26 +52,6 @@ int	on_release(int key)
 		ft_data()->keys->right = false;
 	return (0);
 }
-int check_wall(int key)
-{
-	if (key == W)
-	{
-		if (ft_data()->map->map[(int)(ft_data()->player->pos.y
-				+ ft_data()->player->dir_y * 0.1)]
-				[(int)(ft_data()->player->pos.x
-				+ ft_data()->player->dir_x * 0.1)] == '1')
-			return (0);
-	}
-	if (key == S)
-	{
-		if (ft_data()->map->map[(int)(ft_data()->player->pos.y
-				- ft_data()->player->dir_y * 0.1)]
-				[(int)(ft_data()->player->pos.x
-				- ft_data()->player->dir_x * 0.1)] == '1')
-			return (0);
-	}
-	return (1);
-}
 
 /* @brief Handle player movement based on the keys pressed(aux function) */
 void	hooks_2(void)
@@ -86,31 +66,13 @@ void	hooks_2(void)
 void	hooks(void)
 {
 	if (ft_data()->keys->w == true)
-	{
-		if (check_wall(W))
-			move_forward();
-	}
+		move_forward();
 	if (ft_data()->keys->s == true)
-	{
-		if (check_wall(S))
-			move_back();
-	}
+		move_back();
 	if (ft_data()->keys->a == true)
-	{
-		if (ft_data()->map->map[(int)(ft_data()->player->pos.y
-				+ ft_data()->player->dir_x * 0.1)]
-				[(int)(ft_data()->player->pos.x
-				- ft_data()->player->dir_y * 0.1)] == '0')
-			move_left();
-	}
+		move_left();
 	if (ft_data()->keys->d == true)
-	{
-		if (ft_data()->map->map[(int)(ft_data()->player->pos.y
-				- ft_data()->player->dir_x * 0.1)]
-				[(int)(ft_data()->player->pos.x
-				+ ft_data()->player->dir_y * 0.1)] == '0')
-			move_right();
-	}
+		move_right();
 	hooks_2();
 }
 

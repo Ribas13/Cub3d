@@ -6,7 +6,7 @@
 #    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/03/23 16:04:55 by diosanto         ###   ########.fr        #
+#    Updated: 2024/03/24 15:07:48 by diosanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ SRC     = 	src/main.c			 	\
 			src/exit_functions.c	\
 			src/mouse.c				\
 			src/update_textures.c	\
-			src/init_player_dir.c
+			src/init_player_dir.c	\
+			src/collisions.c
 
 OBJ     = $(SRC:%.c=%.o)
 
