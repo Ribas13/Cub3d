@@ -6,7 +6,7 @@
 /*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/24 14:13:49 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/24 15:07:29 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,5 +292,10 @@ void		init_player_north(t_player *player);
 void		init_player_east(t_player *player);
 void		init_player_south(t_player *player);
 void		init_player_west(t_player *player);
+
+//validate_move
+
+void		valid_move(t_data *data, double n_x, double n_y);
+bool		is_valid_pos(t_data *data, double x, double y);
 
 #endif
