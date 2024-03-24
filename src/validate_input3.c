@@ -27,11 +27,10 @@ Check for invalid extension */
 void	valid_map(int ac, char **av)
 {
 	if (ac != 2)
-		errors("Invalid number of arguments 😭");
+		errors("Invalid number of arguments");
 	else if (!valid_extension(av[1]))
-		errors("File must be '.cub' 😭");
+		errors("File must be '.cub'");
 	save_map(av[1]);
-	printf("Map is valid! 🎉\n");
 }
 
 void	save_map(char *map)
