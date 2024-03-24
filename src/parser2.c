@@ -47,9 +47,9 @@ unsigned int	rgb_to_hex(char *str, char **tmp)
 	unsigned int	hex;
 
 	i = 0;
-	while (str[i]) 
+	while (str[i])
 	{
-		if (!ft_isdigit(str[i]) && str[i] != ',') 
+		if (!ft_isdigit(str[i]) && str[i] != ',')
 		{
 			free_array(tmp);
 			errors("Invalid characters in the string");
@@ -57,6 +57,8 @@ unsigned int	rgb_to_hex(char *str, char **tmp)
 		i++;
 	}
 	tmp = ft_split(str, ',');
+	if (!tmp[0] || !tmp[1] || !tmp[2])
+		errors2("RGB values must have 3 components", tmp);
 	r = ft_atoi(tmp[0]);
 	g = ft_atoi(tmp[1]);
 	b = ft_atoi(tmp[2]);
@@ -67,28 +69,29 @@ unsigned int	rgb_to_hex(char *str, char **tmp)
 
 int	get_sidepath(char **tmp, char *str, char *path, t_data *data)
 {
+	bool	has_error;
+
+	has_error = true;
 	if (!str || !path)
-	{
-		free_array(tmp);
-		errors("Something is missing in the map");
-	}
+		errors2("Something is missing in the map", tmp);
 	if (str[0] && path[0])
 	{
-		if (ft_strncmp(str, "NO", 2) == 0)
+		if (ft_strcmp(str, "NO") == 0)
+		{
+			has_error = false;
 			data->path_north = ft_strdup(path);
-		else if (ft_strncmp(str, "SO", 2) == 0)
+		}
+		else if (ft_strcmp(str, "SO") == 0)
+		{
+			has_error = false;
 			data->path_south = ft_strdup(path);
-		else if (ft_strncmp(str, "WE", 2) == 0)
-			data->path_west = ft_strdup(path);
-		else if (ft_strncmp(str, "EA", 2) == 0)
-			data->path_east = ft_strdup(path);
-		else if (ft_strncmp(str, "F", 2) == 0)
-			data->floor = rgb_to_hex(path, tmp);
-		else if (ft_strncmp(str, "C", 2) == 0)
-			data->ceiling = rgb_to_hex(path, tmp);
-		return (1);
+		}
+		if (has_error == true)
+			has_error = get_sidepath2(tmp, str, path, data);
 	}
-	return (0);
+	if (has_error)
+		errors2("Wrong syntax in the texture path", tmp);
+	return (1);
 }
 
 void	get_max_player_pos(t_data *data)

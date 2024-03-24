@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:12:38 by diosanto          #+#    #+#             */
-/*   Updated: 2022/10/26 12:20:25 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/24 19:46:54 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include <stdio.h>
 #include <string.h>
 
+/* @brief Sets a given string to '\0'
+	@param s The string to be set to '\0'
+	@param n The size of the string
+ */
 void	ft_bzero(void *s, size_t n)
 {
 	unsigned char	*b;

@@ -6,7 +6,7 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:44:25 by diosanto          #+#    #+#             */
-/*   Updated: 2022/10/31 14:45:04 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/24 19:54:54 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ int	ft_sign(int n)
 	return (sign);
 }
 
+/* @brief Converts a integer to a string
+	@param n The integer to be converted
+	@result The string representation of the integer
+ */
 char	*ft_itoa(int n)
 {
 	long	nbr;
