@@ -14,6 +14,14 @@
 
 //add flood_fill to check if empty spaces are isolated by walls
 
+void	errors2(char *error_msg, char **tmp)
+{
+	free_array(tmp);
+	printf("%s\n", error_msg);
+	clean_all(ft_data());
+	exit(1);
+}
+
 /* Check for invalid number of args
 Check for invalid extension */
 void	valid_map(int ac, char **av)

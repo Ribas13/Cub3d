@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/24 15:07:29 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/24 20:29:17 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,102 +200,80 @@ typedef struct s_data
 //Prototypes
 
 //parser
-char		**allocate_tmp(t_data *data);
-int			ifnot_map(char str);
-int			if_map(char str);
-void		copy_non_empty_strings(t_data *data, char **tmp, int *i, int *j);
-int			is_closed(int i, int j);
-void		get_columns_lines(t_data *data, char **tmp);
-int			adjust_count(char **tmp, int count);
-int			map_verify(t_data *data);
+char			**allocate_tmp(t_data *data);
+int				ifnot_map(char str);
+int				if_map(char str);
+void			copy_non_empty_strings(t_data *data,
+					char **tmp, int *i, int *j);
+int				is_closed(int i, int j);
+void			get_columns_lines(t_data *data, char **tmp);
+int				adjust_count(char **tmp, int count);
+int				map_verify(t_data *data);
+void			errors2(char *error_msg, char **tmp);
+unsigned int	rgb_to_hex(char *str, char **tmp);
+bool			get_sidepath2(char **tmp, char *str, char *path, t_data *data);
 //exits
 
-int			quit_game(void);
-void		free_array(char **array);
-void		clean_all(t_data *data);
+int				quit_game(void);
+void			free_array(char **array);
+void			clean_all(t_data *data);
 
 //collision
 
-void		save_map(char *map);
-bool		map_check(char *map);
-int			validate_map(void);
-bool		valid_extension(char *file);
-void		get_lines(char *map, t_data *data);
-void		get_nbr_rows(char *map, t_data *data);
-void		get_player_pos(t_data *data);
-t_tiles_img	*init_tiles_img(void *mlx_ptr, char *path);
-int			launch_game(int width, int height);
-void		hooks(void);
+void			save_map(char *map);
+int				validate_map(void);
+bool			valid_extension(char *file);
+void			get_lines(char *map, t_data *data);
+void			get_nbr_rows(char *map, t_data *data);
+void			get_player_pos(t_data *data);
+t_tiles_img		*init_tiles_img(void *mlx_ptr, char *path);
+int				launch_game(int width, int height);
+void			hooks(void);
 
 //mouse
 
-int			mouse_move(void);
-int			mouse_position(void);
+int				mouse_move(void);
+int				mouse_position(void);
 
 //player_move
 
-void		move_back(void);
-void		move_forward(void);
-void		move_left(void);
-void		move_right(void);
-int			render_tiles(void);
-void		update_player_pos(bool horizontal, int dir);
-void		put_player(void);
-void		rotate(double rotspd);
+void			move_back(void);
+void			move_forward(void);
+void			move_left(void);
+void			move_right(void);
+void			rotate(double rotspd);
 
 //Raycasting
 
-int			raycasting(void);
-t_data		*ft_data(void);
-int			map_texture(t_data *data);
-bool		check_map(t_data *data);
-int			test1(void);
-void		valid_map(int ac, char **av);
-int			get_real_map(t_data *data, int i);
-void		errors(char *error_msg);
-void		key_press1(t_data *data);
-char		set_ray_orientation(t_ray *ray);
-void		open_xpm(t_data *data);
-void		textures_updates(t_ray *ray, t_tiles_img *texture,
-				int screen_slice);
-t_tiles_img	*get_texture(char wall_orientation);
-void		draw_player_rays(void);
-int			on_press(int key);
-int			cast_rays(void);
-void		ray_properties(t_ray *ray, t_player *player, int screen_slice);
-char		calculate_wall_orientation(t_ray ray, int x, int y);
-void		draw_ray(t_ray ray);
-void		draw_wall_pixel(int x, int y, char wall_orientation);
-int			calculate_start(float distance);
-int			calculate_end(float distance);
-float		ray_dist(float dir, int length, int x, int y);
-float		normalize_angle(t_ray ray);
-int			get_texture_color(t_tiles_img *texture,
-				int texture_x_offset, int texture_y);
-//dda_algo_hor
-
-float		horizontal_dist(t_ray ray, int x, int y);
-float		calc_h(int p_x, int p_y, int r_x, int r_y);
-
-//dda_algo_ver
-
-float		vertical_dist(t_ray ray, int x, int y);
-
-//dda_algo_utils
-
-float		set_angle(float angle);
-float		calc_h(int p_x, int p_y, int r_x, int r_y);
+int				raycasting(void);
+t_data			*ft_data(void);
+int				map_texture(t_data *data);
+bool			check_map(t_data *data);
+int				test1(void);
+void			valid_map(int ac, char **av);
+int				get_real_map(t_data *data, int i);
+void			errors(char *error_msg);
+void			key_press1(t_data *data);
+char			set_ray_orientation(t_ray *ray);
+void			open_xpm(t_data *data);
+void			textures_updates(t_ray *ray, t_tiles_img *texture,
+					int screen_slice);
+t_tiles_img		*get_texture(char wall_orientation);
+int				on_press(int key);
+void			ray_properties(t_ray *ray, t_player *player, int screen_slice);
+int				get_texture_color(t_tiles_img *texture,
+					int texture_x_offset, int texture_y);
 
 //init_player_dir.c
 
-void		init_player_north(t_player *player);
-void		init_player_east(t_player *player);
-void		init_player_south(t_player *player);
-void		init_player_west(t_player *player);
+void			init_player_north(t_player *player);
+void			init_player_east(t_player *player);
+void			init_player_south(t_player *player);
+void			init_player_west(t_player *player);
 
 //validate_move
 
-void		valid_move(t_data *data, double n_x, double n_y);
-bool		is_valid_pos(t_data *data, double x, double y);
+void			valid_move(t_data *data, double n_x, double n_y);
+bool			is_valid_pos(t_data *data, double x, double y);
 
 #endif

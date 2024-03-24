@@ -2,8 +2,8 @@ NO ./assets/Metal_Floor_64x64.xpm
 SO ./assets/Magma_Floor_64x64.xpm
 WE ./assets/Glowing_Square_Tile_64x64.xpm
 EA ./assets/Wooden_Floor_Vertical_64x64.xpm
-F 220,100,0
-C 225,30,0
+F 197,174,150
+C 198,226,255
 
 
 
