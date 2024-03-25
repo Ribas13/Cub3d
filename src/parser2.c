@@ -38,32 +38,53 @@ int	is_closed(int i, int j)
 	return (0);
 }
 
+int	rgb_verify(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ',')
+		{
+			if (str[i + 1] == ',')
+				return (1);
+			if (str[i + 1] == '\0')
+				return (1);
+		}
+		if (!ft_isdigit(str[i]) && str[i] != ',')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 unsigned int	rgb_to_hex(char *str, char **tmp)
 {
 	int				r;
 	int				g;
 	int				b;
-	int				i;
 	unsigned int	hex;
+	char			**tmp2;
 
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]) && str[i] != ',')
-		{
-			free_array(tmp);
-			errors("Invalid characters in the string");
-		}
-		i++;
-	}
-	tmp = ft_split(str, ',');
-	if (!tmp[0] || !tmp[1] || !tmp[2])
+	if (rgb_verify(str) == 1)
+		errors2("Invalid characters in the string", tmp);
+	tmp2 = ft_split(str, ',');
+	if (!tmp2[0] || !tmp2[1] || !tmp2[2])
+	{	
+		free_array(tmp2);
 		errors2("RGB values must have 3 components", tmp);
-	r = ft_atoi(tmp[0]);
-	g = ft_atoi(tmp[1]);
-	b = ft_atoi(tmp[2]);
+	}
+	r = ft_atoi(tmp2[0]);
+	g = ft_atoi(tmp2[1]);
+	b = ft_atoi(tmp2[2]);
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+	{
+		free_array(tmp2);
+		errors2("RGB values must be between 0 and 255", tmp);
+	}
 	hex = ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
-	free_array(tmp);
+	free_array(tmp2);
 	return (hex);
 }
 
