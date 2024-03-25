@@ -1,12 +1,12 @@
-F 0,120,0
-C 0,0,120
+NO assets/bluestone.xpm
+SO assets/eagle.xpm
+WE assets/greystone.xpm
+EA assets/redbrick.xpm
+F 220,100,0
+C 225,30,0
 
-NO ./assets/test1.xpm
 
-SO ./assets/test1.xpm
-WE ./assets/test1.xpm
 
-EA ./assets/test1.xpm
 
 1111111111111111111111111111111111111
 1011000000000000000000000000000000001

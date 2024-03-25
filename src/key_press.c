@@ -80,7 +80,6 @@ void	hooks(void)
 	@param *data Game data pointer */
 void	key_press1(t_data *data)
 {
-	mlx_mouse_hide(data->mlx_ptr, data->win_ptr);
 	mlx_mouse_move(ft_data()->mlx_ptr, ft_data()->win_ptr,
 		SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	mlx_loop_hook(data->mlx_ptr, test1, NULL);

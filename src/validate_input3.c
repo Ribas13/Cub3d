@@ -17,6 +17,7 @@
 void	errors2(char *error_msg, char **tmp)
 {
 	free_array(tmp);
+	printf("Error\n");
 	printf("%s\n", error_msg);
 	clean_all(ft_data());
 	exit(1);
@@ -42,6 +43,6 @@ void	save_map(char *map)
 	get_lines(map, ft_data());
 	map_texture(ft_data());
 	if (check_map(ft_data()) == false)
-		errors("Invalid map aa  😭");
+		errors("Invalid map");
 	get_player_pos(ft_data());
 }

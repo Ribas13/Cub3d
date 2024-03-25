@@ -49,7 +49,8 @@ char	**allocate_tmp(t_data *data)
 int	if_map(char str)
 {
 	if (str == '1' || str == '0'
-		|| str == 'N' || str == 'S' || str == 'W' || str == 'E')
+		|| str == 'N' || str == 'S' || str == 'W' || str == 'E'
+		|| str == ' ' || str == '\n')
 		return (1);
 	return (0);
 }

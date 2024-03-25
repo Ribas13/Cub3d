@@ -48,6 +48,7 @@ OBJ     = $(SRC:%.c=%.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	make -C $(LIBMLXDIR)
 	make -C $(LIBFTDIR)
 	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFTDIR) -L$(LIBMLXDIR) -lft -Linc/minilibx-linux -lmlx -lXext -lX11 -lm -o $(NAME)
 
@@ -62,6 +63,7 @@ clean:
 	rm -f $(OBJ)
 
 fclean: clean
+	$(MAKE) clean -C $(LIBMLXDIR)
 	$(MAKE) fclean -C inc/libft
 	rm -f $(NAME)
 

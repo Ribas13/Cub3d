@@ -14,6 +14,7 @@
 
 void	errors(char *error_msg)
 {
+	printf("Error\n");
 	printf("%s\n", error_msg);
 	clean_all(ft_data());
 	exit(1);
@@ -92,8 +93,8 @@ void	get_player_pos(t_data *data)
 		{
 			if (ft_strchr(PLAYER_CHARS, data->map->map[i][j]))
 			{
-				data->player->pos.x = j;
-				data->player->pos.y = i;
+				data->player->pos.x = j + 0.5;
+				data->player->pos.y = i + 0.5;
 				data->player->dir = get_player_dir(data->map->map[i][j]);
 				data->map->map[i][j] = '0';
 				return ;

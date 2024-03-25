@@ -14,7 +14,6 @@
 
 static void	check_errors_xpm(void)
 {
-	printf("Here\n");
 	if (!ft_data()->tiles->north->img || !ft_data()->tiles->south->img
 		|| !ft_data()->tiles->west->img || !ft_data()->tiles->east->img)
 		errors("XPM file not found");

@@ -213,6 +213,8 @@ void			errors2(char *error_msg, char **tmp);
 unsigned int	rgb_to_hex(char *str, char **tmp);
 bool			get_sidepath2(char **tmp, char *str, char *path, t_data *data);
 int				rgb_verify(char *str);
+int				empty_line(char *str);
+int				ft_emptystr(char *str);
 //exits
 
 int				quit_game(void);

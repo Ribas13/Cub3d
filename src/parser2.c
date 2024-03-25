@@ -38,6 +38,18 @@ int	is_closed(int i, int j)
 	return (0);
 }
 
+int	array_size(char **array)
+{
+	int	i;
+
+	i = 0;
+	if (!array)
+		return (0);
+	while (array[i])
+		i++;
+	return (i);
+}
+
 unsigned int	rgb_to_hex(char *str, char **tmp)
 {
 	int				r;
@@ -49,10 +61,10 @@ unsigned int	rgb_to_hex(char *str, char **tmp)
 	if (rgb_verify(str) == 1)
 		errors2("Invalid characters in the string", tmp);
 	tmp2 = ft_split(str, ',');
-	if (!tmp2[0] || !tmp2[1] || !tmp2[2])
+	if (!tmp2[0] || !tmp2[1] || !tmp2[2] || array_size(tmp2) > 3)
 	{
 		free_array(tmp2);
-		errors2("RGB values must have 3 components", tmp);
+		errors2("RGB values must hget_real_mapave 3 components", tmp);
 	}
 	r = ft_atoi(tmp2[0]);
 	g = ft_atoi(tmp2[1]);
@@ -72,8 +84,8 @@ int	get_sidepath(char **tmp, char *str, char *path, t_data *data)
 	bool	has_error;
 
 	has_error = true;
-	if (!str || !path)
-		errors2("Something is missing in the map", tmp);
+	if (!str || !path || array_size(tmp) > 2)
+		errors2("Invalid texture syntax", tmp);
 	if (str[0] && path[0])
 	{
 		if (ft_strcmp(str, "NO") == 0)
@@ -130,6 +142,8 @@ int	map_texture(t_data *data)
 		free_array(tmp);
 		i++;
 	}
+	if ((int)data->map->rows == i)
+		errors("Missing map");
 	if (flag < 6)
 		errors("Something is missing in the map");
 	if (tmp)

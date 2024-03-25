@@ -29,9 +29,11 @@ int	ft_emptystr(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	if (ft_strlen(str) == 0)
+		return (0);
+	while (str && str[i])
 	{
-		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n' )
+		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
 			return (1);
 		i++;
 	}
@@ -45,7 +47,12 @@ int	empty_line(char *str)
 
 	i = 0;
 	flag = 0;
-	while (str[i])
+	printf("line %zu\n", ft_strlen(str));
+	if (ft_strlen(str) == 0)
+		return (1);
+	if (str[i] == '\0' || str[i] == '\n')
+		return (1);
+	while (str && str[i])
 	{
 		if (str[i] == '1' || str[i] == '0'
 			|| str[i] == 'N' || str[i] == 'S' || str[i] == 'W' || str[i] == 'E')
@@ -74,6 +81,8 @@ bool	check_map(t_data *data)
 		{
 			if (if_map(data->map->map[i][j]) && flag == 1)
 				errors("Empty line in map");
+			else if(!if_map(data->map->map[i][j]))
+				errors("Invalid character in map");
 			if (data->map->map[i][j] != '1' && data->map->map[i][j] != ' ')
 				if (ifnot_map(data->map->map[i][j]))
 					errors("Invalid character in map");
@@ -86,21 +95,34 @@ bool	check_map(t_data *data)
 	return (true);
 }
 
+
+
 void	copy_non_empty_strings(t_data *data, char **tmp, int *i, int *j)
 {
 	while (data->map->map[*i])
 	{
 		if (ft_emptystr(data->map->map[*i]) == 1)
-		{
-			while (data->map->map[*i])
-			{
-				tmp[*j] = ft_strdup(data->map->map[*i]);
-				(*j)++;
-				(*i)++;
-			}
-			tmp[*j] = NULL;
 			break ;
+		(*i)++;
+	}
+	while (data->map->map[*i])
+	{
+		if (ft_emptystr(data->map->map[*i]) == 1)
+		{
+			tmp[*j] = ft_strdup(data->map->map[*i]);
+			(*j)++;
 		}
+		else
+			break ;
+		(*i)++;
+	}
+	tmp[*j] = NULL;
+	while (data->map->map[*i])
+	{	
+		if (*i == (int)data->map->rows - 1 && data->map->map[*i][0] == '\n')
+			break ;
+		if (ft_strlen(data->map->map[*i]) != 0)
+			errors2("Empty line", tmp);
 		(*i)++;
 	}
 	return ;
