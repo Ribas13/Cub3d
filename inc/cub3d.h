@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/24 20:29:17 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/25 00:17:45 by micarrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,7 @@ int				map_verify(t_data *data);
 void			errors2(char *error_msg, char **tmp);
 unsigned int	rgb_to_hex(char *str, char **tmp);
 bool			get_sidepath2(char **tmp, char *str, char *path, t_data *data);
+int				rgb_verify(char *str);
 //exits
 
 int				quit_game(void);

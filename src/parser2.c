@@ -38,27 +38,6 @@ int	is_closed(int i, int j)
 	return (0);
 }
 
-int	rgb_verify(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ',')
-		{
-			if (str[i + 1] == ',')
-				return (1);
-			if (str[i + 1] == '\0')
-				return (1);
-		}
-		if (!ft_isdigit(str[i]) && str[i] != ',')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 unsigned int	rgb_to_hex(char *str, char **tmp)
 {
 	int				r;
@@ -71,7 +50,7 @@ unsigned int	rgb_to_hex(char *str, char **tmp)
 		errors2("Invalid characters in the string", tmp);
 	tmp2 = ft_split(str, ',');
 	if (!tmp2[0] || !tmp2[1] || !tmp2[2])
-	{	
+	{
 		free_array(tmp2);
 		errors2("RGB values must have 3 components", tmp);
 	}
