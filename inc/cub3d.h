@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:00:35 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/25 00:17:45 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:02:13 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,10 @@ bool			get_sidepath2(char **tmp, char *str, char *path, t_data *data);
 int				rgb_verify(char *str);
 int				empty_line(char *str);
 int				ft_emptystr(char *str);
+void			check_after(t_data *data, int *i, char **tmp);
+void			map_texture_error_check(t_data *data, int i,
+					int flag, char **tmp);
+
 //exits
 
 int				quit_game(void);
@@ -251,7 +255,7 @@ void			rotate(double rotspd);
 int				raycasting(void);
 t_data			*ft_data(void);
 int				map_texture(t_data *data);
-bool			check_map(t_data *data);
+bool			check_map(t_data *data, int i);
 int				test1(void);
 void			valid_map(int ac, char **av);
 int				get_real_map(t_data *data, int i);

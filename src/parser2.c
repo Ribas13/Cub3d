@@ -12,32 +12,6 @@
 
 #include "../inc/cub3d.h"
 
-int	is_closed(int i, int j)
-{
-	if (ft_data()->map->map[i][j] == '0' \
-		|| (ft_data()->map->map[i][j] != '1'
-		&& ft_data()->map->map[i][j] != ' '
-		&& ft_data()->map->map[i][j] != '\n'))
-	{
-		if (i == 0 || !ft_data()->map->map[i + 1]
-			|| j == 0 || !ft_data()->map->map[i][j + 1])
-			return (1);
-		if (ft_data()->map->map[i - 1] && ft_data()->map->map[i - 1][j]
-			&& ft_data()->map->map[i - 1][j] == ' ')
-			return (1);
-		if (ft_data()->map->map[i + 1] && ft_data()->map->map[i + 1][j]
-			&& ft_data()->map->map[i + 1][j] == ' ')
-			return (1);
-		if (ft_data()->map->map[i] && ft_data()->map->map[i][j - 1]
-			&& ft_data()->map->map[i][j - 1] == ' ')
-			return (1);
-		if (ft_data()->map->map[i] && ft_data()->map->map[i][j + 1]
-			&& ft_data()->map->map[i][j + 1] == ' ')
-			return (1);
-	}
-	return (0);
-}
-
 int	array_size(char **array)
 {
 	int	i;
@@ -59,12 +33,12 @@ unsigned int	rgb_to_hex(char *str, char **tmp)
 	char			**tmp2;
 
 	if (rgb_verify(str) == 1)
-		errors2("Invalid characters in the string", tmp);
+		errors2("Invalid RGB syntax", tmp);
 	tmp2 = ft_split(str, ',');
 	if (!tmp2[0] || !tmp2[1] || !tmp2[2] || array_size(tmp2) > 3)
 	{
 		free_array(tmp2);
-		errors2("RGB values must hget_real_mapave 3 components", tmp);
+		errors2("RGB values must have 3 components", tmp);
 	}
 	r = ft_atoi(tmp2[0]);
 	g = ft_atoi(tmp2[1]);
@@ -85,7 +59,7 @@ int	get_sidepath(char **tmp, char *str, char *path, t_data *data)
 
 	has_error = true;
 	if (!str || !path || array_size(tmp) > 2)
-		errors2("Invalid texture syntax", tmp);
+		errors2("Invalid texture/color syntax", tmp);
 	if (str[0] && path[0])
 	{
 		if (ft_strcmp(str, "NO") == 0)
@@ -102,7 +76,7 @@ int	get_sidepath(char **tmp, char *str, char *path, t_data *data)
 			has_error = get_sidepath2(tmp, str, path, data);
 	}
 	if (has_error)
-		errors2("Wrong syntax in the texture path", tmp);
+		errors2("Invalid texture syntax", tmp);
 	return (1);
 }
 
@@ -142,12 +116,7 @@ int	map_texture(t_data *data)
 		free_array(tmp);
 		i++;
 	}
-	if ((int)data->map->rows == i)
-		errors("Missing map");
-	if (flag < 6)
-		errors("Something is missing in the map");
-	if (tmp)
-		free_array(tmp);
+	map_texture_error_check(data, i, flag, tmp);
 	get_real_map(data, i);
 	get_max_player_pos(data);
 	return (EXIT_SUCCESS);

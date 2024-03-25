@@ -6,11 +6,23 @@
 /*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 16:05:36 by diosanto          #+#    #+#             */
-/*   Updated: 2024/03/24 20:29:15 by diosanto         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:57:42 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+void	check_after(t_data *data, int *i, char **tmp)
+{
+	while (data->map->map[*i])
+	{
+		if (*i == (int)data->map->rows - 1 && data->map->map[*i][0] == '\n')
+			break ;
+		if (ft_strlen(data->map->map[*i]) != 0)
+			errors2("Invalid map", tmp);
+		(*i)++;
+	}
+}
 
 bool	get_sidepath2(char **tmp, char *str, char *path, t_data *data)
 {

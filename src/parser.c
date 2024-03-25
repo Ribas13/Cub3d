@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 03:36:02 by micarrel          #+#    #+#             */
-/*   Updated: 2024/03/18 16:42:48 by micarrel         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:57:35 by diosanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,11 @@ int	empty_line(char *str)
 	return (1);
 }
 
-bool	check_map(t_data *data)
+bool	check_map(t_data *data, int i)
 {
-	size_t	i;
 	size_t	j;
 	int		flag;
 
-	i = 0;
 	flag = 0;
 	while (data->map->map[i])
 	{
@@ -80,12 +78,12 @@ bool	check_map(t_data *data)
 		while (data->map->map[i][j])
 		{
 			if (if_map(data->map->map[i][j]) && flag == 1)
-				errors("Empty line in map");
-			else if(!if_map(data->map->map[i][j]))
-				errors("Invalid character in map");
+				errors("Invalid map");
+			else if (!if_map(data->map->map[i][j]))
+				errors("Invalid map");
 			if (data->map->map[i][j] != '1' && data->map->map[i][j] != ' ')
 				if (ifnot_map(data->map->map[i][j]))
-					errors("Invalid character in map");
+					errors("Invalid map");
 			j++;
 		}
 		i++;
@@ -94,8 +92,6 @@ bool	check_map(t_data *data)
 		errors("Map not closed");
 	return (true);
 }
-
-
 
 void	copy_non_empty_strings(t_data *data, char **tmp, int *i, int *j)
 {
@@ -117,13 +113,6 @@ void	copy_non_empty_strings(t_data *data, char **tmp, int *i, int *j)
 		(*i)++;
 	}
 	tmp[*j] = NULL;
-	while (data->map->map[*i])
-	{	
-		if (*i == (int)data->map->rows - 1 && data->map->map[*i][0] == '\n')
-			break ;
-		if (ft_strlen(data->map->map[*i]) != 0)
-			errors2("Empty line", tmp);
-		(*i)++;
-	}
+	check_after(data, i, tmp);
 	return ;
 }

@@ -42,7 +42,7 @@ void	save_map(char *map)
 		errors("Error allocating map");
 	get_lines(map, ft_data());
 	map_texture(ft_data());
-	if (check_map(ft_data()) == false)
+	if (check_map(ft_data(), 0) == false)
 		errors("Invalid map");
 	get_player_pos(ft_data());
 }

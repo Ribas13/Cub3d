@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: micarrel <micarrel@student.42.fr>          +#+  +:+       +#+         #
+#    By: diosanto <diosanto@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 19:35:23 by diosanto          #+#    #+#              #
-#    Updated: 2024/03/25 00:15:44 by micarrel         ###   ########.fr        #
+#    Updated: 2024/03/25 18:02:26 by diosanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC     = 	src/main.c			 	\
 			src/parser2.c			\
 			src/parser3.c			\
 			src/parser4.c			\
+			src/parser5.c			\
 			src/raycasting.c		\
 			src/raycasting_utils.c	\
 			src/exit_functions.c	\
