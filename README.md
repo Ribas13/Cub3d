@@ -1,11 +1,14 @@
+<!-- ![image](https://github.com/Ribas13/Cub3d/assets/108695074/0ae7f3ba-1f34-40dd-adca-9d7d1ae24c5c)<br> -->
 # CUB3D - a raycasting game in C 🕹️
 
  This project is a barebones clone of the famous game from the 90's, **Wolfenstein 3D**
-
-- (wolfenstein 3d pics)
- 
+ <p align="center">
+  <img width="520" height="300" src="https://github.com/Ribas13/Cub3d/assets/108695074/0ae7f3ba-1f34-40dd-adca-9d7d1ae24c5c">
+</p> 
 ##
  The goal with this project was to not only create the engine that runs the game and renders each frame, but also how to optimize the calculations for each frame in a way that allows the CPU to run the game smoothly on almost every machine. (Even from the 90's 😛)
+
+ ![wolfenstein3d](https://github.com/Ribas13/Cub3d/assets/108695074/cc355da3-7bae-409f-8e2f-da52ca83ead0)
 
  ## Key Concepts
 
@@ -63,9 +66,10 @@ until we hit the next horizontal and vertical lines and keep adding that differe
 
 This meant that at the best cases, we would hit a wall in just a couple of iterations, and at the worst the iterations would be not much more than the size of the map (meaning not much more than 25 iterations on a 25x25 map, for example).
 
-Besides the performance improvements that this offered, there was also the fact that I no longer had to correct the fisheye effect, meaning even more processing savings
+Besides the performance improvements that this offered, there was also the fact that I no longer had to correct the fisheye effect, meaning even more processing savings.
+With all these performance improvements, I decided to remove the multithreading in order to see the potential of the algorithm. I was amazed, I could easily get more than 60 frames per second without multithreading, we now had a lot of performance headroom to add whatever we wanted, meaning the base game engine was done for now!
 
-## 🥳 When we put all that together, we get a nice base game, that we can add whatever we want to. 🎉
+## 🥳 The base game is finished for now, so we can add whatever we want to it. 🎉
 ### (Add gif of base engine gameplay) 
 You can add:
 - Enemies
