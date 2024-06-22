@@ -5,8 +5,8 @@
  <p align="center">
   <img width="520" height="300" src="https://github.com/Ribas13/Cub3d/assets/108695074/0ae7f3ba-1f34-40dd-adca-9d7d1ae24c5c">
 </p> 
-##
- The goal with this project was to not only create the engine that runs the game and renders each frame, but also how to optimize the calculations for each frame in a way that allows the CPU to run the game smoothly on almost every machine. (Even from the 90's 😛)
+
+### The goal with this project was to not only create the engine that runs the game and renders each frame, but also how to optimize the calculations for each frame in a way that allows the CPU to run the game smoothly on almost every machine. (Even from the 90's 😛)
 
  ![wolfenstein3d](https://github.com/Ribas13/Cub3d/assets/108695074/cc355da3-7bae-409f-8e2f-da52ca83ead0)
 
